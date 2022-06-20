@@ -1,13 +1,40 @@
 package com.flipkart.bean;
 
+import com.flipkart.constant.Role;
+
 public class Student extends User{
     private int studentID;
-    private String studentName;
     private String branch;
     private int batch;
+    private boolean isApproved;
 
-    public Student(String userID, String name, String password, String address, String country) {
-        super(userID, name, password, address, country);
+    private String address;
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+
+    public Student(String userID, String name, String password, Role role,int studentId,String branch,int batch,
+                   boolean isApproved,String address) {
+        super(userID, name, password,role);
+        this.branch = branch;
+        this.studentID = studentId;
+        this.batch = batch;
+        this.isApproved = isApproved;
+        this.address = address;
     }
 
     public int getStudentID() {
@@ -18,13 +45,6 @@ public class Student extends User{
         this.studentID = studentID;
     }
 
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
 
     public String getBranch() {
         return branch;
@@ -41,6 +61,7 @@ public class Student extends User{
     public void setBatch(int batch) {
         this.batch = batch;
     }
+
 
 
 }

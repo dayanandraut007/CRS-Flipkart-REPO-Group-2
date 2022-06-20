@@ -2,7 +2,7 @@ package com.flipkart.bean;
 
 public class Course {
 
-    private String CourseCode;
+    private String courseCode;
     private String name;
     private boolean isOffered;
     private String instructor;
@@ -16,8 +16,7 @@ public class Course {
 
 
     public Course(String courseCode, String name, boolean isOffered, String instructor, String prerequisites, int seats) {
-        super();
-        CourseCode = courseCode;
+        this.courseCode = courseCode;
         this.name = name;
         this.isOffered = isOffered;
         this.instructor = instructor;
@@ -26,11 +25,11 @@ public class Course {
     }
 
     public String getCourseCode() {
-        return CourseCode;
+        return courseCode;
     }
 
     public void setCourseCode(String courseCode) {
-        CourseCode = courseCode;
+        this.courseCode = courseCode;
     }
 
     public String getName() {
