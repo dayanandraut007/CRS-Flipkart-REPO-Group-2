@@ -1,10 +1,15 @@
 package com.flipkart.bean;
 
-public class Student {
+public class Student extends User{
     private int studentID;
     private String studentName;
     private String branch;
     private int batch;
+
+    public Student(String userID, String name, String password, String address, String country) {
+        super(userID, name, password, address, country);
+    }
+
     public int getStudentID() {
         return studentID;
     }
