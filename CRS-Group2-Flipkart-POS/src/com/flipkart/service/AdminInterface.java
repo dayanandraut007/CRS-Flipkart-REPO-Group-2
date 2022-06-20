@@ -10,7 +10,7 @@ public interface AdminInterface {
     public void deleteCourse(String courseCode, List<Course> courseList);
     public void addCourse(Course course, List<Course> courseList);
     public List<Student> viewPendingAdmissions();
-    public void approveStudent(int studentId, List<Student> studentList);
+    public void approveStudent(int studentId);
     public void addProfessor(Professor professor);
     public void assignCourse(String courseCode, String professorId);
     public List<Course> viewCourses(int catalogId);

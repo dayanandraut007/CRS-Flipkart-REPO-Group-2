@@ -1,11 +1,13 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.User;
+
 public interface UserInterface {
 
-    boolean changePassword(String userID, String newPassword);
+    public boolean changePassword(String userID, String newPassword);
 
-    public boolean updateDetails(String userID, String name, String address );
+    public boolean updateDetails(User user);
 
-    public boolean verifyCredentials(String userID,String password);
+    public boolean login(String userID,String password);
 
 }
