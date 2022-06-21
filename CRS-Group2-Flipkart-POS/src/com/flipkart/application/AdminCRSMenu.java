@@ -26,15 +26,15 @@ public class AdminCRSMenu {
     public void addCourse(){
         List<Student> st = new ArrayList<>();
 
-        System.out.print("Course Code:");
+        System.out.print("COURSE CODE: ");
         String courseCode = sc.next();
-        System.out.print("Course Name:");
+        System.out.print("COURSE NAME: ");
         String name = sc.nextLine();
-        System.out.print("Course Instructor:");
+        System.out.print("COURSE INSTRUCTOR: ");
         String instructor = sc.nextLine();
-        System.out.print("Course prerequisites:");
+        System.out.print("COURSE PREREQUISITES: ");
         String prerequisites = sc.nextLine();
-        System.out.print("Number of seats:");
+        System.out.print("NUMBER OF SEATS: ");
         int seats = sc.nextInt();
         Course newCourse= new Course(courseCode,name,true,instructor,prerequisites,seats,st);
         adminInterface.addCourse(newCourse);
@@ -42,7 +42,7 @@ public class AdminCRSMenu {
     }
 
     public void deleteCourse(){
-        System.out.print("Course Code to be Deleted:");
+        System.out.print("Please enter the course code to be deleted: ");
         String courseCodeDelete = sc.next();
         adminInterface.deleteCourse(courseCodeDelete);
 
@@ -83,23 +83,23 @@ public class AdminCRSMenu {
     }
 
     public void addProfessor(){
-        System.out.print("UserId:");
+        System.out.print("USER ID: ");
         String userId = sc.next();
 
-        System.out.print("Name:");
+        System.out.print("NAME: ");
         String name = sc.next();
 
-        System.out.println("Password:");
+        System.out.println("PASSWORD: ");
         String password = sc.next();
-        System.out.print("ProfessorId:");
+        System.out.print("PROFESSOR ID: ");
         int professorId = sc.nextInt();
-        System.out.print("Department:");
+        System.out.print("DEPARTMENT: ");
         String department = sc.next();
-        System.out.println("Designation:");
+        System.out.println("DESIGNATION: ");
         String designation= sc.next();
-        System.out.print("Address:");
+        System.out.print("ADDRESS: ");
         String address = sc.next();
-        System.out.print("Gender:");
+        System.out.print("GENDER: ");
         String gender = sc.next();
 
         Professor newProfessor = new Professor(userId,name,password,Role.PROFESSOR,professorId,department,Gender.valueOf(gender.toUpperCase()),designation,new Date(),address);
@@ -113,20 +113,17 @@ public class AdminCRSMenu {
     }
 
     public void createMenu() {
-        System.out.println("------------Admin CRS Menu---------------");
-        System.out.println("------------------------------");
+        System.out.println("============================================");
+        System.out.println("----------------ADMIN CRS MENU-------------");
+        System.out.println("============================================");
         System.out.println("1. View All Courses");
         System.out.println("2. View All Professors");
-
         System.out.println("3. Add new Course to Course Catalog");
         System.out.println("4. Delete a Course from Course Catalog");
         System.out.println("5. Add Professor to CRS");
         System.out.println("6. Approve Registration of Students");
         System.out.println("7. Generate Grade Card for Students");
         System.out.println("8. Logout");
-
-
-
         while (true) {
             System.out.print("Enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -137,14 +134,12 @@ public class AdminCRSMenu {
                     List<Course> course = adminInterface.viewCourses();
                     for(Course cs: course){
                         System.out.println(cs.getCourseCode());
-
                     }
                     break;
                 case 2:
                     List<Professor> professor = adminInterface.viewProfessors();
                     for(Professor ps: professor){
-                        System.out.println("ProfessorId : "+ps.getProfessorId()+",  ProfessorName : "+ps.getName());
-
+                        System.out.println("PROFESSOR ID: "+ps.getProfessorId()+",  PROFESSOR NAME: "+ps.getName());
                     }
                     break;
                 case 3:
@@ -166,15 +161,12 @@ public class AdminCRSMenu {
                 case 7:
                     GenerateScoreCard();
                     break;
-
-
-
                 case 8:
                     crsApplication.createMenu();
                     break;
 
                 default:
-                    System.out.println("Select the menu properly");
+                    System.out.println("Wrong Selection! Please enter your choice again.");
 
             }
         }
