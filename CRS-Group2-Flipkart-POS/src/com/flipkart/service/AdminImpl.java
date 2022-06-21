@@ -88,7 +88,7 @@ public class AdminImpl implements AdminInterface {
 
     @Override
     public List<Professor> viewProfessors() {
-        return null;
+        return data.professors;
     }
 
     @Override
