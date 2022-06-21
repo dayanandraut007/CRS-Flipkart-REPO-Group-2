@@ -15,15 +15,15 @@ public class CRSApplication {
     Scanner sc = new Scanner(System.in);
     StudentInterface studentInterface = new StudentImpl();
     public void userLogin(){
-        System.out.print("Userid: ");
+        System.out.print("USER ID: ");
         String userid = sc.next();
-        System.out.print("Password: ");
+        System.out.print("PASSWORD: ");
         String password = sc.next();
 
         UserInterface userInterface = new UserImpl();
         User usr = userInterface.login(userid,password);
         if(usr!=null){
-            System.out.println("Login successful");
+            System.out.println("LOGIN SUCCESSFUL!");
             System.out.println(usr.getRole().name());
             //call menu for role based
             if(usr.getRole().name() == "STUDENT"){
@@ -40,62 +40,59 @@ public class CRSApplication {
 
             }
         }else{
-            System.out.println("Login failed");
+            System.out.println("LOGIN FAILED! PLEASE TRY AGAIN.");
         }
 
     }
 
     public void studentRegistration(){
 
-        System.out.print("UserId:");
+        System.out.print("USER ID: ");
         String userId = sc.next();
 
-        System.out.print("Name:");
+        System.out.print("NAME: ");
         String name = sc.next();
 
-        System.out.println("Password:");
+        System.out.println("PASSWORD: ");
         String password = sc.next();
-        System.out.print("Branch:");
+        System.out.print("BRANCH: ");
         String branch = sc.next();
-        System.out.println("Batch:");
+        System.out.println("BATCH: ");
         int batch= sc.nextInt();
-        System.out.print("Address:");
+        System.out.print("ADDRESS: ");
         String address = sc.next();
         studentInterface.register(name,userId,password,"",batch,branch,address);
 
     }
 
     public void createMenu(){
-        System.out.println("Welcome to CRS Application");
-        System.out.println("------------------------------");
+        System.out.println("============================================");
+        System.out.println("---------------CRS APPLICATION-------------");
+        System.out.println("============================================");
         System.out.println("1. Login");
-        System.out.println("2. Registration  of Student");
+        System.out.println("2. Student Registration");
         System.out.println("3. Update Password");
         System.out.println("4. Exit");
         while (true) {
-            System.out.print("Enter your choice: ");
+            System.out.print("Please enter your choice: ");
             Scanner sc = new Scanner(System.in);
             int choice = sc.nextInt();
 
             switch (choice) {
                 case 1:
-
                     userLogin();
                     break;
                 case 2:
                     studentRegistration();
                     break;
-
                 case 3:
                     System.out.println("Write logic for update password");
                     break;
-
                 case 4:
-                    System.out.println("Exit");
-                    break;
+                    System.exit(0);
 
                 default:
-                    System.out.println("Select the menu properly");
+                    System.out.println("Wrong Selection! Please enter your choice again.");
 
             }
         }
