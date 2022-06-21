@@ -44,6 +44,11 @@ public class StudentImpl implements StudentInterface {
 
     @Override
     public boolean isApproved(int studentId) {
+        for(Student student: data.students){
+            if(student.getStudentID() == studentId){
+                return student.isApproved();
+            }
+        }
         return false;
     }
 
