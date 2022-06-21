@@ -10,7 +10,7 @@ public class StudentCRSMenu {
 
     CRSApplication crsApplication = new CRSApplication();
 
-    public void createMenu(){
+    public void createMenu(String userId){
 
         StudentImpl student=new StudentImpl();
         System.out.println("------------Student CRS Menu---------------");
@@ -35,19 +35,23 @@ public class StudentCRSMenu {
                 case 2:
                     System.out.print("Enter course ID: ");
                     String course_code = sc.nextLine();
-                    student.addCourse(9, course_code);
-                    System.out.println("Write logic for add course");
+                    student.addCourse(userId, course_code);
+//                    System.out.println("Write logic for add course");
                     break;
 
                 case 3:
                     System.out.print("Enter course ID: ");
                     course_code = sc.nextLine();
-                    student.dropCourse(9, course_code);
-                    System.out.println("Write logic for drop course");
+                    student.dropCourse(userId, course_code);
+//                    System.out.println("Write logic for drop course");
                     break;
 
                 case 4:
-                    System.out.println("Write logic for view registered courses");
+//                    System.out.println("Write logic for view registered courses");
+                    List<String> regCourses = student.viewRegisteredCourses(userId);
+                    for (String course : regCourses){
+                        System.out.println(course);
+                    }
                     break;
 
                 case 5:
