@@ -43,8 +43,8 @@ public class ProfessorImpl implements ProfessorInterface {
     }
 
     @Override
-    public boolean addGrade(int studentId, Grade grade, String courseCode) {
-        System.out.println("BATCH DETAILS:\n");
+    public void addGrade() {
+        System.out.println("BATCH DETAILS:");
         viewAssignedStudents(007);
         System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
         Scanner sc=new Scanner(System.in);
@@ -55,10 +55,12 @@ public class ProfessorImpl implements ProfessorInterface {
         System.out.println("ENTER GRADE: ");
         String gr = sc.next();
         StudentGrade studentGrades = new StudentGrade(course,Grade.valueOf(gr.toUpperCase()),sid);
+        data.grade.add(studentGrades);
+        System.out.println("GRADE ADDED SUCCESSFULLY!");
+//        for(StudentGrade sg: data.grade){
+//            System.out.println(sg.getCourseCode()+"\t"+sg.getStudentID()+"\t"+sg.getGrade()+"\n");
+//        }
 
-
-
-        return false;
     }
 
     @Override

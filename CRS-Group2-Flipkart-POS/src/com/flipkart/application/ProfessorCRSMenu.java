@@ -38,7 +38,7 @@ public class ProfessorCRSMenu {
                     professor.viewAssignedStudents(007);
                     break;
                 case 3:
-                    System.out.println("Write logic for adding grade");
+                    professor.addGrade();
                     break;
                 case 4:
                     System.out.println("logout");
