@@ -21,11 +21,18 @@ public class CRSApplication {
             System.out.println("Login successful");
             System.out.println(role.name());
             //call menu for role based
+            if(role.name() == "STUDENT"){
+                StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
+                studentCRSMenu.createMenu();
+            }
         }else{
             System.out.println("Login failed");
         }
 
     }
+
+
+
     public static void main(String[] args) {
 
         CRSApplication crsApplication = new CRSApplication();
