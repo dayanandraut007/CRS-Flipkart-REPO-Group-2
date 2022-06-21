@@ -1,5 +1,5 @@
 package com.flipkart.constant;
 
 public enum Gender {
-    Male,Female
+    MALE,FEMALE;
 }

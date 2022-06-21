@@ -48,6 +48,10 @@ public class AdminImpl implements AdminInterface {
 
     @Override
     public void addProfessor(Professor professor) {
+        data.professors.add(professor);
+        for(Professor prof: data.professors){
+            System.out.println(prof.getUserID());
+        }
 
     }
 

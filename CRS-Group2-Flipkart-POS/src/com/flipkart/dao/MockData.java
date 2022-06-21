@@ -52,7 +52,7 @@ public class MockData {
         Student student1 = new Student("009", "deepak", "pass", Role.STUDENT, 9, "CSE", 10, false, "india");
         students.add(student1);
 
-        Professor professor1 = new Professor("007","daya", "pass", Role.PROFESSOR, 7, "CSE", Gender.Male, "Professor", new Date(),"Nepal");
+        Professor professor1 = new Professor("007","daya", "pass", Role.PROFESSOR, 7, "CSE", Gender.MALE, "Professor", new Date(),"Nepal");
         professors.add(professor1);
     }
 

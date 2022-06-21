@@ -1,18 +1,22 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
 import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class AdminCRSMenu {
 
     AdminInterface adminInterface = new AdminImpl();
+    Scanner sc = new Scanner(System.in);
 
     public void addCourse(){
-        Scanner sc = new Scanner(System.in);
         System.out.print("Course Code:");
         String courseCode = sc.next();
         System.out.print("Course Name:");
@@ -29,10 +33,35 @@ public class AdminCRSMenu {
     }
 
     public void deleteCourse(){
-        Scanner sc = new Scanner(System.in);
         System.out.print("Course Code to be Deleted:");
         String courseCodeDelete = sc.next();
         adminInterface.deleteCourse(courseCodeDelete);
+
+    }
+
+    public void addProfessor(){
+        System.out.print("UserId:");
+        String userId = sc.next();
+
+        System.out.print("Name:");
+        String name = sc.next();
+
+        System.out.println("Password:");
+        String password = sc.next();
+        System.out.print("ProfessorId:");
+        int professorId = sc.nextInt();
+        System.out.print("Department:");
+        String department = sc.next();
+        System.out.println("Designation:");
+        String designation= sc.next();
+        System.out.print("Address:");
+        String address = sc.next();
+        System.out.print("Gender:");
+        String gender = sc.next();
+
+        Professor newProfessor = new Professor(userId,name,password,Role.PROFESSOR,professorId,department,Gender.valueOf(gender.toUpperCase()),designation,new Date(),address);
+        adminInterface.addProfessor(newProfessor);
+
 
     }
 
@@ -44,7 +73,7 @@ public class AdminCRSMenu {
         System.out.println("3. Delete a Course from Course Catalog");
         System.out.println("4. Add Professor to CRS");
         System.out.println("5. Approve Registration of Students");
-        System.out.println("6. Assign Courses to Professor");
+
         System.out.println("7. Generate Grade Card for Students");
         System.out.println("8. Logout");
         while (true) {
@@ -69,7 +98,7 @@ public class AdminCRSMenu {
                     break;
 
                 case 4:
-                    System.out.println("Write logic for add professor");
+                    addProfessor();
                     break;
 
                 case 5:
