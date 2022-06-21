@@ -23,10 +23,10 @@ public class UserImpl implements UserInterface{
     }
 
     @Override
-    public Role login(String userID, String password){
+    public User login(String userID, String password){
 
         for(User usr:data.users){
-            if(usr.getUserID().equals(userID) && usr.getPassword().equals(password)) return usr.getRole();
+            if(usr.getUserID().equals(userID) && usr.getPassword().equals(password)) return usr;
         }
         return null;
     }
