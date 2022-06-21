@@ -25,6 +25,10 @@ public class CRSApplication {
                 StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
                 studentCRSMenu.createMenu();
             }
+            else if(role.name() == "ADMIN"){
+                AdminCRSMenu adminCRSMenu = new AdminCRSMenu();
+                adminCRSMenu.createMenu();
+            }
         }else{
             System.out.println("Login failed");
         }
