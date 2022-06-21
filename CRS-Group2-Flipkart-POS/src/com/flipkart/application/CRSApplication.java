@@ -1,6 +1,7 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
@@ -20,20 +21,20 @@ public class CRSApplication {
         String password = sc.next();
 
         UserInterface userInterface = new UserImpl();
-        Role role = userInterface.login(userid,password);
-        if(role!=null){
+        User usr = userInterface.login(userid,password);
+        if(usr!=null){
             System.out.println("Login successful");
-            System.out.println(role.name());
+            System.out.println(usr.getRole().name());
             //call menu for role based
-            if(role.name() == "STUDENT"){
+            if(usr.getRole().name() == "STUDENT"){
                 StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
                 studentCRSMenu.createMenu();
             }
-            else if(role.name() == "ADMIN"){
+            else if(usr.getRole().name() == "ADMIN"){
                 AdminCRSMenu adminCRSMenu = new AdminCRSMenu();
                 adminCRSMenu.createMenu();
             }
-            else if(role.name() == "PROFESSOR"){
+            else if(usr.getRole().name() == "PROFESSOR"){
                 ProfessorCRSMenu professorCRSMenu  = new ProfessorCRSMenu();
                 professorCRSMenu.createMenu();
 
@@ -64,11 +65,7 @@ public class CRSApplication {
 
     }
 
-
-
-    public static void main(String[] args) {
-
-        CRSApplication crsApplication = new CRSApplication();
+    public void createMenu(){
         System.out.println("Welcome to CRS Application");
         System.out.println("------------------------------");
         System.out.println("1. Login");
@@ -83,11 +80,10 @@ public class CRSApplication {
             switch (choice) {
                 case 1:
 
-                    crsApplication.userLogin();
+                    userLogin();
                     break;
                 case 2:
-                    crsApplication.studentRegistration();
-                    System.out.println("Write logic for Registration");
+                    studentRegistration();
                     break;
 
                 case 3:
@@ -103,5 +99,13 @@ public class CRSApplication {
 
             }
         }
+    }
+
+
+
+    public static void main(String[] args) {
+
+        CRSApplication crsApplication = new CRSApplication();
+        crsApplication.createMenu();
     }
 }

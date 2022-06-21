@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class StudentCRSMenu {
 
+    CRSApplication crsApplication = new CRSApplication();
+
     public void createMenu(){
 
         StudentImpl student=new StudentImpl();
@@ -66,7 +68,7 @@ public class StudentCRSMenu {
                     break;
 
                 case 8:
-                    System.out.println("Write logic for logout");
+                    crsApplication.createMenu();
                     break;
 
                 default:

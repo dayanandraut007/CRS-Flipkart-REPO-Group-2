@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class AdminCRSMenu {
 
     AdminInterface adminInterface = new AdminImpl();
+    CRSApplication crsApplication = new CRSApplication();
     Scanner sc = new Scanner(System.in);
 
     public void addCourse(){
@@ -69,6 +70,10 @@ public class AdminCRSMenu {
 
     }
 
+    public void approveStudents(){
+        adminInterface.approveStudent();
+    }
+
     public void createMenu() {
         System.out.println("------------Admin CRS Menu---------------");
         System.out.println("------------------------------");
@@ -78,8 +83,8 @@ public class AdminCRSMenu {
         System.out.println("4. Add Professor to CRS");
         System.out.println("5. Approve Registration of Students");
 
-        System.out.println("7. Generate Grade Card for Students");
-        System.out.println("8. Logout");
+        System.out.println("6. Generate Grade Card for Students");
+        System.out.println("7. Logout");
         while (true) {
             System.out.print("Enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -106,19 +111,16 @@ public class AdminCRSMenu {
                     break;
 
                 case 5:
-                    System.out.println("Write logic for approve registration");
+                    approveStudents();
                     break;
+
 
                 case 6:
-                    System.out.println("Write logic for assign courses to professor");
-                    break;
-
-                case 7:
                     System.out.println("Write logic for generate grade card");
                     break;
 
-                case 8:
-                    System.out.println("Write logic for logout");
+                case 7:
+                    crsApplication.createMenu();
                     break;
 
                 default:

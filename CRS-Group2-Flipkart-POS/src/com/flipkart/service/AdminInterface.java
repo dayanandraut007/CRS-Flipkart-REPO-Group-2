@@ -11,7 +11,7 @@ public interface AdminInterface {
 
     public boolean addCourse(Course course);
     public List<Student> viewPendingAdmissions();
-    public void approveStudent(int studentId);
+    public void approveStudent();
     public void addProfessor(Professor professor);
     public void assignCourse(String courseCode, String professorId);
     public List<Course> viewCourses();
