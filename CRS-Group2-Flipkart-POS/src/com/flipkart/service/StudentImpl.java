@@ -1,15 +1,11 @@
 package com.flipkart.service;
 
-import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.MockData;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class StudentImpl implements StudentInterface {
 
@@ -56,9 +52,9 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public boolean addCourse(int studentId, String courseCode) {
+    public boolean addCourse(String userId ,String courseCode) {
         for(Student student: data.students){
-            if(student.getStudentID() == studentId){
+            if(student.getUserID().equals(userId)){
                 List<String> courses = student.getCourses();
                 courses.add(courseCode);
                 System.out.println(courses);
@@ -69,10 +65,10 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public boolean dropCourse(int studentId, String courseCode) {
+    public boolean dropCourse(String userId, String courseCode) {
 
         for(Student student: data.students){
-            if(student.getStudentID() == studentId){
+            if(student.getUserID().equals(userId)){
                 List<String> courses = student.getCourses();
                 if(courses.contains(courseCode)){
                     courses.remove(courseCode);
@@ -85,8 +81,15 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public List<Course> viewRegisteredCourses(int studentId) {
-        return null;
+    public List<String> viewRegisteredCourses(String userId) {
+        List<Student> listOfStudent = data.students;
+        List<String> regCourses = null;
+        for(Student st: listOfStudent) {
+            if(st.getUserID().equals(userId)) {
+                regCourses = st.getCourses();
+            }
+        }
+        return  regCourses;
     }
 
     @Override

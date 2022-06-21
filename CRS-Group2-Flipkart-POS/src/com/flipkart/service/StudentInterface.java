@@ -13,10 +13,11 @@ public interface StudentInterface {
 
     public boolean isApproved(int studentId);
 
-    public boolean addCourse(int studentId, String courseCode);
-    public boolean dropCourse(int studentId, String courseCode);
+    public boolean addCourse(String userId, String courseCode);
+    public boolean dropCourse(String userId, String courseCode);
 
-    public List<Course> viewRegisteredCourses(int studentId);
+
+    List<String> viewRegisteredCourses(String userId);
 
     public List<Course> viewAllCourses();
     public float calculateFees(int studentId);

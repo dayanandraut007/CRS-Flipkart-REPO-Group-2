@@ -28,7 +28,7 @@ public class CRSApplication {
             //call menu for role based
             if(usr.getRole().name() == "STUDENT"){
                 StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
-                studentCRSMenu.createMenu();
+                studentCRSMenu.createMenu(usr.getUserID());
             }
             else if(usr.getRole().name() == "ADMIN"){
                 AdminCRSMenu adminCRSMenu = new AdminCRSMenu();
