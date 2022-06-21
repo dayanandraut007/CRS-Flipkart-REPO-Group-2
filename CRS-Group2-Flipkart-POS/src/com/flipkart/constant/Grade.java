@@ -1,4 +1,5 @@
 package com.flipkart.constant;
 
-public class Grade {
+public enum Grade {
+    A,B,C,D,NA;
 }

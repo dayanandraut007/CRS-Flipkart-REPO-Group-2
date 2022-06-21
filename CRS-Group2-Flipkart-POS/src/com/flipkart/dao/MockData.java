@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.*;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.constant.Grade;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,8 @@ public class MockData {
 
     public List<Student> enrolledStudent2;
 
+    public List<StudentGrade> grade;
+
     // singleton object
     private static MockData mockData = null;
 
@@ -30,6 +33,7 @@ public class MockData {
         admins = new ArrayList<>();
         students = new ArrayList<>();
         courses = new ArrayList<>();
+        grade = new ArrayList<>();
 
         User user1 = new User("007", "daya", "pass", Role.PROFESSOR);
         User user2 = new User("008", "kashish", "pass", Role.ADMIN);
@@ -55,6 +59,12 @@ public class MockData {
         enrolledStudent2 = new ArrayList<>();
         enrolledStudent2.add(student2);
         enrolledStudent2.add(student3);
+
+        //student grade
+        StudentGrade sg1 =new StudentGrade("C001",Grade.NA,9);
+        StudentGrade sg2 =new StudentGrade("C002",Grade.NA,10);
+        grade.add(sg1);
+        grade.add(sg2);
 
 
         Course course1 = new Course("C001","Operating System",true,"daya","NA",10,enrolledStudent);
