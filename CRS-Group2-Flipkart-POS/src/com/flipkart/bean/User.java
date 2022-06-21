@@ -1,18 +1,27 @@
 package com.flipkart.bean;
 
+import com.flipkart.constant.Role;
+
 public class User {
     private String userID;
     private String name;
     private String password;
-    private String address;
-    private String country;
 
-    public User(String userID, String name, String password, String address, String country) {
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    private Role role;
+
+    public User(String userID, String name, String password, Role role) {
         this.userID = userID;
         this.name = name;
         this.password = password;
-        this.address = address;
-        this.country = country;
+        this.role = role;
     }
 
     public String getUserID() {
@@ -39,19 +48,5 @@ public class User {
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
-    }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }

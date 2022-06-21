@@ -1,14 +1,45 @@
 package com.flipkart.bean;
 
+import com.flipkart.constant.Gender;
+import com.flipkart.constant.Role;
+
 import java.util.Date;
 
 public class Professor extends User{
+
+
+    private int professorId;
     private String department;
     private String designation;
     private Date dateOfJoining;
+    private Gender gender;
 
-    public Professor(String userID, String name, String password, String address, String country) {
-        super(userID, name, password, address, country);
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    private String address;
+
+    public Professor(String userID, String name, String password, Role role,int professorId,String department,Gender gender,String designation,Date dateOfJoining,String address) {
+        super(userID, name, password, role);
+        this.professorId = professorId;
+        this.department = department;
+        this.designation = designation;
+        this.dateOfJoining = dateOfJoining;
+        this.gender = gender;
+        this.address = address;
     }
 
     public String getDepartment() {
@@ -33,6 +64,14 @@ public class Professor extends User{
 
     public void setDateOfJoining(Date dateOfJoining) {
         this.dateOfJoining = dateOfJoining;
+    }
+
+    public int getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
     }
 
 
