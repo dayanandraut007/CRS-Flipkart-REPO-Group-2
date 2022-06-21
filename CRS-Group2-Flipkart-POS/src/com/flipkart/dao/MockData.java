@@ -34,8 +34,8 @@ public class MockData {
         users.add(user2);
         users.add(user3);
 
-        Course course1 = new Course("C001","Operating System",true,"ABC","NA",10);
-        Course course2 = new Course("C002","System Design",true,"ABC","NA",9);
+        Course course1 = new Course("C001","Operating System",true,"daya","NA",10);
+        Course course2 = new Course("C002","System Design",true,"daya","NA",9);
         Course course3 = new Course("C003","DSA",true,"XYZ","NA",8);
         Course course4 = new Course("C004","OOP",false,"XYZ","NA",8);
         Course course5 = new Course("C005","JAVA",false,"ABC","NA",7);

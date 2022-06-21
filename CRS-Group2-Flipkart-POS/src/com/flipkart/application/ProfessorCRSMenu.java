@@ -1,9 +1,18 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.service.ProfessorImpl;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class ProfessorCRSMenu {
-    public static void main(String[] args) {
+
+    public void createMenu() {
+
+        ProfessorImpl professor = new ProfessorImpl();
+
         System.out.println("------------Professor CRS Menu---------------");
         System.out.println("------------------------------");
         System.out.println("1. View Assigned Courses");
@@ -18,7 +27,12 @@ public class ProfessorCRSMenu {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Write logic for view assigned courses");
+                    List<Course> course = professor.viewTeachingCourses(007);
+                    for(Course cs: course){
+                        System.out.println(cs.getCourseCode());
+                        System.out.println(cs.getName());
+
+                    }
                     break;
                 case 2:
                     System.out.println("Write logic for view enrolled students");
@@ -42,4 +56,7 @@ public class ProfessorCRSMenu {
             }
         }
     }
+
+
+
 }
