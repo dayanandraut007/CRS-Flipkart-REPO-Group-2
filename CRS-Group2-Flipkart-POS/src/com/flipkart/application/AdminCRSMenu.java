@@ -1,9 +1,42 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Course;
+import com.flipkart.service.AdminImpl;
+import com.flipkart.service.AdminInterface;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminCRSMenu {
-    public static void main(String[] args) {
+
+    AdminInterface adminInterface = new AdminImpl();
+
+    public void addCourse(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Course Code:");
+        String courseCode = sc.next();
+        System.out.print("Course Name:");
+        String name = sc.nextLine();
+        System.out.print("Course Instructor:");
+        String instructor = sc.nextLine();
+        System.out.print("Course prerequisites:");
+        String prerequisites = sc.nextLine();
+        System.out.print("Number of seats:");
+        int seats = sc.nextInt();
+        Course newCourse= new Course(courseCode,name,true,instructor,prerequisites,seats);
+        adminInterface.addCourse(newCourse);
+
+    }
+
+    public void deleteCourse(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Course Code to be Deleted:");
+        String courseCodeDelete = sc.next();
+        adminInterface.deleteCourse(courseCodeDelete);
+
+    }
+
+    public void createMenu() {
         System.out.println("------------Admin CRS Menu---------------");
         System.out.println("------------------------------");
         System.out.println("1. View All Courses");
@@ -21,14 +54,18 @@ public class AdminCRSMenu {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Write logic for view all courses");
+                    List<Course> course = adminInterface.viewCourses();
+                    for(Course cs: course){
+                        System.out.println(cs.getCourseCode());
+
+                    }
                     break;
                 case 2:
-                    System.out.println("Write logic for add new course");
+                    addCourse();
                     break;
 
                 case 3:
-                    System.out.println("Write logic for delete course");
+                    deleteCourse();
                     break;
 
                 case 4:
