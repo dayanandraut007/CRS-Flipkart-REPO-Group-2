@@ -2,12 +2,16 @@ package com.flipkart.bean;
 
 import com.flipkart.constant.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student extends User{
     private int studentID;
     private String branch;
     private int batch;
     private boolean isApproved;
 
+    private List<String> courses;
     private String address;
 
     public boolean isApproved() {
@@ -35,6 +39,7 @@ public class Student extends User{
         this.batch = batch;
         this.isApproved = isApproved;
         this.address = address;
+        this.courses = new ArrayList<>();
     }
 
     public int getStudentID() {
@@ -48,6 +53,14 @@ public class Student extends User{
 
     public String getBranch() {
         return branch;
+    }
+
+    public List<String> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<String> courses) {
+        this.courses = courses;
     }
 
     public void setBranch(String branch) {

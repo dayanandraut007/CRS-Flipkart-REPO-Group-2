@@ -1,5 +1,6 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
@@ -8,17 +9,20 @@ import com.flipkart.dao.MockData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class StudentImpl implements StudentInterface {
 
 
     CourseInterface courseInterface;
+    AdminInterface adminInterface;
     //-------------------HARD CODED------------------------------------
     MockData data = MockData.getInstance();
 
     //-----------------------------------------------------------------
     public StudentImpl(){
         courseInterface = new CourseImpl();
+        adminInterface = new AdminImpl();
     }
 
 
@@ -54,11 +58,30 @@ public class StudentImpl implements StudentInterface {
 
     @Override
     public boolean addCourse(int studentId, String courseCode) {
+        for(Student student: data.students){
+            if(student.getStudentID() == studentId){
+                List<String> courses = student.getCourses();
+                courses.add(courseCode);
+                System.out.println(courses);
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean dropCourse(int studentId, String courseCode) {
+
+        for(Student student: data.students){
+            if(student.getStudentID() == studentId){
+                List<String> courses = student.getCourses();
+                if(courses.contains(courseCode)){
+                    courses.remove(courseCode);
+                    System.out.println(courses);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

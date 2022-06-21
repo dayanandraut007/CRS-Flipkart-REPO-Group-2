@@ -25,16 +25,22 @@ public class StudentCRSMenu {
             System.out.print("Enter your choice: ");
             Scanner sc = new Scanner(System.in);
             int choice = sc.nextInt();
-
+            sc.nextLine();
             switch (choice) {
                 case 1:
                     System.out.println("Write logic for course registration");
                     break;
                 case 2:
+                    System.out.print("Enter course ID: ");
+                    String course_code = sc.nextLine();
+                    student.addCourse(9, course_code);
                     System.out.println("Write logic for add course");
                     break;
 
                 case 3:
+                    System.out.print("Enter course ID: ");
+                    course_code = sc.nextLine();
+                    student.dropCourse(9, course_code);
                     System.out.println("Write logic for drop course");
                     break;
 
