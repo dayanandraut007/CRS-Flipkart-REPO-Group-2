@@ -35,6 +35,8 @@ public class MockData {
         courses = new ArrayList<>();
         grade = new ArrayList<>();
 
+
+
         User user1 = new User("007", "daya", "pass", Role.PROFESSOR);
         User user2 = new User("008", "kashish", "pass", Role.ADMIN);
         User user3 = new User("009", "deepak", "pass", Role.STUDENT);
@@ -48,6 +50,12 @@ public class MockData {
         students.add(student2);
         Student student3 = new Student("011", "kashish", "pass", Role.STUDENT, 11, "CSE", 10, false, "india");
         students.add(student3);
+
+        StudentGrade studentGrade = new StudentGrade("C001",Grade.A,9);
+        StudentGrade studentGrade2 = new StudentGrade("C002",Grade.B,10);
+        grade.add(studentGrade);
+        grade.add(studentGrade2);
+
 
         Professor professor1 = new Professor("007","daya", "pass", Role.PROFESSOR, 7, "CSE", Gender.MALE, "Professor", new Date(),"Nepal");
         professors.add(professor1);
@@ -84,7 +92,7 @@ public class MockData {
 
     public static MockData getInstance(){
         if(mockData==null){
-            return new MockData();
+            mockData =  new MockData();
         }
         return  mockData;
     }

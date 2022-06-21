@@ -3,8 +3,10 @@ package com.flipkart.application;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.MockData;
 import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 
@@ -18,6 +20,8 @@ public class AdminCRSMenu {
     AdminInterface adminInterface = new AdminImpl();
     CRSApplication crsApplication = new CRSApplication();
     Scanner sc = new Scanner(System.in);
+
+    MockData data = MockData.getInstance();
 
     public void addCourse(){
         List<Student> st = new ArrayList<>();
@@ -42,6 +46,40 @@ public class AdminCRSMenu {
         String courseCodeDelete = sc.next();
         adminInterface.deleteCourse(courseCodeDelete);
 
+    }
+
+    public void GenerateScoreCard()
+    {
+        Scanner scan = new Scanner(System.in);
+        int sid;
+        System.out.println("ENTER STUDENT ID: ");
+        sid=scan.nextInt();
+        String sname="";
+        for(Student st : data.students)
+        {
+            if(st.getStudentID()==sid)
+            {
+                sname = st.getName();
+                break;
+            }
+        }
+        System.out.println("STUDENT NAME: "+sname);
+        for(StudentGrade sg: data.grade)
+        {
+            if(sg.getStudentID()==sid)
+            {
+                String code = sg.getCourseCode();
+                String name = "";
+                for(Course csr : data.courses)
+                {
+                    if(csr.getCourseCode().equals(code))
+                    {
+                        name = csr.getName();
+                    }
+                }
+                System.out.println("COURSE NAME: " + name + "\tGRADE: " + sg.getGrade());
+            }
+        }
     }
 
     public void addProfessor(){
@@ -82,7 +120,6 @@ public class AdminCRSMenu {
         System.out.println("3. Delete a Course from Course Catalog");
         System.out.println("4. Add Professor to CRS");
         System.out.println("5. Approve Registration of Students");
-
         System.out.println("6. Generate Grade Card for Students");
         System.out.println("7. Logout");
         while (true) {
@@ -116,7 +153,8 @@ public class AdminCRSMenu {
 
 
                 case 6:
-                    System.out.println("Write logic for generate grade card");
+                    GenerateScoreCard();
+                    //System.out.println("Write logic for generate grade card");
                     break;
 
                 case 7:
