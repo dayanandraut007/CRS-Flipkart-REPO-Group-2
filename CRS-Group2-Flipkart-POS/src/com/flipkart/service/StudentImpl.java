@@ -32,7 +32,6 @@ public class StudentImpl implements StudentInterface {
         Student stud1=new Student(userID,name,password,Role.STUDENT,Integer.parseInt(userID),branch,batch,false,address);
 
         data.students.add(stud1);
-
         return stud1;
     }
 

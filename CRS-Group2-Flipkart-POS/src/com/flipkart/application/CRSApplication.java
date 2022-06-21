@@ -1,6 +1,9 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
+import com.flipkart.service.StudentImpl;
+import com.flipkart.service.StudentInterface;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 
@@ -9,6 +12,7 @@ import java.util.Scanner;
 public class CRSApplication {
 
     Scanner sc = new Scanner(System.in);
+    StudentInterface studentInterface = new StudentImpl();
     public void userLogin(){
         System.out.print("Userid: ");
         String userid = sc.next();
@@ -40,6 +44,26 @@ public class CRSApplication {
 
     }
 
+    public void studentRegistration(){
+
+        System.out.print("UserId:");
+        String userId = sc.next();
+
+        System.out.print("Name:");
+        String name = sc.next();
+
+        System.out.println("Password:");
+        String password = sc.next();
+        System.out.print("Branch:");
+        String branch = sc.next();
+        System.out.println("Batch:");
+        int batch= sc.nextInt();
+        System.out.print("Address:");
+        String address = sc.next();
+        studentInterface.register(name,userId,password,"",batch,branch,address);
+
+    }
+
 
 
     public static void main(String[] args) {
@@ -62,6 +86,7 @@ public class CRSApplication {
                     crsApplication.userLogin();
                     break;
                 case 2:
+                    crsApplication.studentRegistration();
                     System.out.println("Write logic for Registration");
                     break;
 
