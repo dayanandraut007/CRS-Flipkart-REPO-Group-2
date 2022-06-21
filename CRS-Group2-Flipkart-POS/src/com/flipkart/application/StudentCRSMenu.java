@@ -13,8 +13,9 @@ public class StudentCRSMenu {
     public void createMenu(){
 
         StudentImpl student=new StudentImpl();
-        System.out.println("------------Student CRS Menu---------------");
-        System.out.println("------------------------------");
+        System.out.println("============================================");
+        System.out.println("--------------STUDENT CRS MENU------------");
+        System.out.println("============================================");
         System.out.println("1. Course Registration");
         System.out.println("2. Add Course");
         System.out.println("3. Drop Course");
@@ -24,7 +25,7 @@ public class StudentCRSMenu {
         System.out.println("7. View All Courses");
         System.out.println("8. Logout");
         while (true) {
-            System.out.print("Enter your choice: ");
+            System.out.print("Please enter your choice: ");
             Scanner sc = new Scanner(System.in);
             int choice = sc.nextInt();
             sc.nextLine();
@@ -33,17 +34,15 @@ public class StudentCRSMenu {
                     System.out.println("Write logic for course registration");
                     break;
                 case 2:
-                    System.out.print("Enter course ID: ");
+                    System.out.print("ENTER COURSE ID: ");
                     String course_code = sc.nextLine();
                     student.addCourse(9, course_code);
-                    System.out.println("Write logic for add course");
                     break;
 
                 case 3:
-                    System.out.print("Enter course ID: ");
+                    System.out.print("ENTER COURSE ID: ");
                     course_code = sc.nextLine();
                     student.dropCourse(9, course_code);
-                    System.out.println("Write logic for drop course");
                     break;
 
                 case 4:
@@ -72,7 +71,7 @@ public class StudentCRSMenu {
                     break;
 
                 default:
-                    System.out.println("Select the menu properly");
+                    System.out.println("Wrong Selection! Please enter your choice again.");
 
             }
         }
