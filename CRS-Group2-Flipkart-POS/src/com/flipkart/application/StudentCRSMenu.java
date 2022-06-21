@@ -1,11 +1,16 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Course;
+import com.flipkart.service.StudentImpl;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class StudentCRSMenu {
 
     public void createMenu(){
 
+        StudentImpl student=new StudentImpl();
         System.out.println("------------Student CRS Menu---------------");
         System.out.println("------------------------------");
         System.out.println("1. Course Registration");
@@ -46,7 +51,12 @@ public class StudentCRSMenu {
                     break;
 
                 case 7:
-                    System.out.println("Write logic for view all courses");
+
+                    List<Course> course = student.viewAllCourses();
+                    for(Course cs: course){
+                        System.out.println(cs.getCourseCode());
+
+                    }
                     break;
 
                 case 8:

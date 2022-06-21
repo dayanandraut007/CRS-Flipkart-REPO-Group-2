@@ -6,8 +6,8 @@ import com.flipkart.bean.Student;
 import java.util.List;
 
 public interface StudentInterface {
-    public int register(String name,String userID,String password,String gender,int batch,
-                        String branch,String address,String country);
+    public Student register(String name,String userID,String password,String gender,int batch,
+                        String branch,String address);
 
     public Student getStudentById(int studentId);
 
@@ -18,6 +18,7 @@ public interface StudentInterface {
 
     public List<Course> viewRegisteredCourses(int studentId);
 
+    public List<Course> viewAllCourses();
     public float calculateFees(int studentId);
 
 
