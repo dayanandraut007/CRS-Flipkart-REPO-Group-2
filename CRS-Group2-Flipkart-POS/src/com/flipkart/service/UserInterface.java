@@ -1,6 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.User;
+import com.flipkart.constant.Role;
 
 public interface UserInterface {
 
@@ -8,6 +9,6 @@ public interface UserInterface {
 
     public boolean updateDetails(User user);
 
-    public boolean login(String userID,String password);
+    public Role login(String userID, String password);
 
 }

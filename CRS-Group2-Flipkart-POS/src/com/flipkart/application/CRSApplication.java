@@ -1,10 +1,34 @@
 package com.flipkart.application;
 
+import com.flipkart.constant.Role;
+import com.flipkart.service.UserImpl;
+import com.flipkart.service.UserInterface;
+
 import java.util.Scanner;
 
 public class CRSApplication {
+
+    Scanner sc = new Scanner(System.in);
+    public void userLogin(){
+        System.out.print("Userid: ");
+        String userid = sc.next();
+        System.out.print("Password: ");
+        String password = sc.next();
+
+        UserInterface userInterface = new UserImpl();
+        Role role = userInterface.login(userid,password);
+        if(role!=null){
+            System.out.println("Login successful");
+            System.out.println(role.name());
+            //call menu for role based
+        }else{
+            System.out.println("Login failed");
+        }
+
+    }
     public static void main(String[] args) {
 
+        CRSApplication crsApplication = new CRSApplication();
         System.out.println("Welcome to CRS Application");
         System.out.println("------------------------------");
         System.out.println("1. Login");
@@ -18,7 +42,8 @@ public class CRSApplication {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Write logic for login");
+
+                    crsApplication.userLogin();
                     break;
                 case 2:
                     System.out.println("Write logic for Registration");

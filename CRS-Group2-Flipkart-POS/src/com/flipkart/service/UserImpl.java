@@ -8,7 +8,7 @@ import java.util.List;
 public class UserImpl implements UserInterface{
 
     //-------------------HARD CODED------------------------------------
-    List users;
+    List<User> users;
 
     public UserImpl(){
         users = new ArrayList<User>();
@@ -35,7 +35,10 @@ public class UserImpl implements UserInterface{
     }
 
     @Override
-    public boolean login(String userID, String password) {
-        return false;
+    public Role login(String userID, String password){
+        for(User usr:users){
+            if(usr.getUserID().equals(userID) && usr.getPassword().equals(password)) return usr.getRole();
+        }
+        return null;
     }
 }
