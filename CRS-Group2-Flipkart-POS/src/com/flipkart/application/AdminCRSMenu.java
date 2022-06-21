@@ -116,23 +116,17 @@ public class AdminCRSMenu {
         System.out.println("------------Admin CRS Menu---------------");
         System.out.println("------------------------------");
         System.out.println("1. View All Courses");
-<<<<<<< HEAD
-        System.out.println("2. Add new Course to Course Catalog");
-        System.out.println("3. Delete a Course from Course Catalog");
-        System.out.println("4. Add Professor to CRS");
-        System.out.println("5. Approve Registration of Students");
-        System.out.println("6. Generate Grade Card for Students");
-        System.out.println("7. Logout");
-=======
         System.out.println("2. View All Professors");
+
         System.out.println("3. Add new Course to Course Catalog");
         System.out.println("4. Delete a Course from Course Catalog");
         System.out.println("5. Add Professor to CRS");
         System.out.println("6. Approve Registration of Students");
-
         System.out.println("7. Generate Grade Card for Students");
         System.out.println("8. Logout");
->>>>>>> 710c63e64e4fa55e0e9303eb0362d172a09dc40b
+
+
+
         while (true) {
             System.out.print("Enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -169,16 +163,11 @@ public class AdminCRSMenu {
                     approveStudents();
                     break;
 
-
-<<<<<<< HEAD
-                case 6:
-                    GenerateScoreCard();
-                    //System.out.println("Write logic for generate grade card");
-=======
                 case 7:
-                    System.out.println("Write logic for generate grade card");
->>>>>>> 710c63e64e4fa55e0e9303eb0362d172a09dc40b
+                    GenerateScoreCard();
                     break;
+
+
 
                 case 8:
                     crsApplication.createMenu();

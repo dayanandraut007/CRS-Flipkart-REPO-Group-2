@@ -14,6 +14,8 @@ public class ProfessorCRSMenu {
 
     public void createMenu() {
 
+        CRSApplication crsApplication = new CRSApplication();
+
         ProfessorImpl professor = new ProfessorImpl();
         System.out.println("============================================");
         System.out.println("--------------PROFESSOR CRS MENU------------");
@@ -41,7 +43,7 @@ public class ProfessorCRSMenu {
                     professor.addGrade();
                     break;
                 case 4:
-                    System.out.println("logout");
+                    crsApplication.createMenu();
                     break;
 
                 default:
