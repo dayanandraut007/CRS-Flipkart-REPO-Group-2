@@ -2,11 +2,13 @@ package com.flipkart.application;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +19,8 @@ public class AdminCRSMenu {
     Scanner sc = new Scanner(System.in);
 
     public void addCourse(){
+        List<Student> st = new ArrayList<>();
+
         System.out.print("Course Code:");
         String courseCode = sc.next();
         System.out.print("Course Name:");
@@ -27,7 +31,7 @@ public class AdminCRSMenu {
         String prerequisites = sc.nextLine();
         System.out.print("Number of seats:");
         int seats = sc.nextInt();
-        Course newCourse= new Course(courseCode,name,true,instructor,prerequisites,seats);
+        Course newCourse= new Course(courseCode,name,true,instructor,prerequisites,seats,st);
         adminInterface.addCourse(newCourse);
 
     }

@@ -8,4 +8,8 @@ public interface CourseInterface {
 
     public Course getCourseById(String courseCode);
     public List<Course> viewAllCourses();
+
+
+
+
 }
