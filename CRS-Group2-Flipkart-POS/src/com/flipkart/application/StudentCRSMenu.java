@@ -3,7 +3,9 @@ package com.flipkart.application;
 import java.util.Scanner;
 
 public class StudentCRSMenu {
-    public static void main(String[] args) {
+
+    public void createMenu(){
+
         System.out.println("------------Student CRS Menu---------------");
         System.out.println("------------------------------");
         System.out.println("1. Course Registration");
