@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProfessorInterface {
     public void viewAssignedStudents(int professorId);
-    public boolean addGrade(int studentId, Grade grade,String courseCode);
+    public void addGrade();
     public List<Course> viewTeachingCourses(int professorId);
 
     public Professor getProfessorById(int professorId);

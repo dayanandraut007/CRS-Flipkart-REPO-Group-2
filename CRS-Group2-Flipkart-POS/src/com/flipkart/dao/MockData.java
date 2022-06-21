@@ -60,11 +60,8 @@ public class MockData {
         enrolledStudent2.add(student2);
         enrolledStudent2.add(student3);
 
-        //student grade
-        StudentGrade sg1 =new StudentGrade("C001",Grade.NA,9);
-        StudentGrade sg2 =new StudentGrade("C002",Grade.NA,10);
-        grade.add(sg1);
-        grade.add(sg2);
+
+
 
 
         Course course1 = new Course("C001","Operating System",true,"daya","NA",10,enrolledStudent);
