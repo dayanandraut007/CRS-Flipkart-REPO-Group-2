@@ -78,13 +78,14 @@ public class AdminCRSMenu {
         System.out.println("------------Admin CRS Menu---------------");
         System.out.println("------------------------------");
         System.out.println("1. View All Courses");
-        System.out.println("2. Add new Course to Course Catalog");
-        System.out.println("3. Delete a Course from Course Catalog");
-        System.out.println("4. Add Professor to CRS");
-        System.out.println("5. Approve Registration of Students");
+        System.out.println("2. View All Professors");
+        System.out.println("3. Add new Course to Course Catalog");
+        System.out.println("4. Delete a Course from Course Catalog");
+        System.out.println("5. Add Professor to CRS");
+        System.out.println("6. Approve Registration of Students");
 
-        System.out.println("6. Generate Grade Card for Students");
-        System.out.println("7. Logout");
+        System.out.println("7. Generate Grade Card for Students");
+        System.out.println("8. Logout");
         while (true) {
             System.out.print("Enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -99,27 +100,34 @@ public class AdminCRSMenu {
                     }
                     break;
                 case 2:
+                    List<Professor> professor = adminInterface.viewProfessors();
+                    for(Professor ps: professor){
+                        System.out.println("ProfessorId : "+ps.getProfessorId()+",  ProfessorName : "+ps.getName());
+
+                    }
+                    break;
+                case 3:
                     addCourse();
                     break;
 
-                case 3:
+                case 4:
                     deleteCourse();
                     break;
 
-                case 4:
+                case 5:
                     addProfessor();
                     break;
 
-                case 5:
+                case 6:
                     approveStudents();
                     break;
 
 
-                case 6:
+                case 7:
                     System.out.println("Write logic for generate grade card");
                     break;
 
-                case 7:
+                case 8:
                     crsApplication.createMenu();
                     break;
 
