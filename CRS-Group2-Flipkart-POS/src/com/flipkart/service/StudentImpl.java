@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.MockData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,34 +12,29 @@ import java.util.List;
 public class StudentImpl implements StudentInterface {
 
 
-    List<Student> student;
-    CourseImpl course;
+    CourseInterface courseInterface;
     //-------------------HARD CODED------------------------------------
-    public StudentImpl(){
-        student = new ArrayList<Student>();
-        course = new CourseImpl();
-
-
-    }
-
-
+    MockData data = MockData.getInstance();
 
     //-----------------------------------------------------------------
-
+    public StudentImpl(){
+        courseInterface = new CourseImpl();
+    }
 
 
 
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
         Student stud1=new Student(userID,name,password,Role.STUDENT,Integer.parseInt(userID),branch,batch,false,address);
-        student.add(stud1);
+
+        data.students.add(stud1);
 
         return stud1;
     }
 
     @Override
     public Student getStudentById(int studentId) {
-        for(Student std: student){
+        for(Student std: data.students){
             if(std.getStudentID() == studentId){
                 return std;
             }
@@ -68,7 +64,7 @@ public class StudentImpl implements StudentInterface {
 
     @Override
     public List<Course> viewAllCourses() {
-        return course.viewAllCourses();
+        return courseInterface.viewAllCourses();
     }
 
     @Override
