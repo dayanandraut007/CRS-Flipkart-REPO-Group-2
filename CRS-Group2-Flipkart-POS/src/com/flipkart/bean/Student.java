@@ -11,6 +11,12 @@ public class Student extends User{
     private int batch;
     private boolean isApproved;
 
+
+    private boolean hasRegistered;
+
+
+    private boolean donePayment;
+
     private List<String> courses;
     private String address;
 
@@ -32,7 +38,7 @@ public class Student extends User{
 
 
     public Student(String userID, String name, String password, Role role,int studentId,String branch,int batch,
-                   boolean isApproved,String address) {
+                   boolean isApproved,String address,boolean hasRegistered,boolean donePayment) {
         super(userID, name, password,role);
         this.branch = branch;
         this.studentID = studentId;
@@ -40,6 +46,8 @@ public class Student extends User{
         this.isApproved = isApproved;
         this.address = address;
         this.courses = new ArrayList<>();
+        this.hasRegistered = hasRegistered;
+        this.donePayment = donePayment;
     }
 
     public int getStudentID() {
@@ -73,6 +81,22 @@ public class Student extends User{
 
     public void setBatch(int batch) {
         this.batch = batch;
+    }
+
+    public boolean isHasRegistered() {
+        return hasRegistered;
+    }
+
+    public void setHasRegistered(boolean hasRegistered) {
+        this.hasRegistered = hasRegistered;
+    }
+
+    public boolean isDonePayment() {
+        return donePayment;
+    }
+
+    public void setDonePayment(boolean donePayment) {
+        this.donePayment = donePayment;
     }
 
 

@@ -8,10 +8,12 @@ import com.flipkart.constant.Grade;
 import java.util.List;
 
 public interface ProfessorInterface {
-    public List<Student> viewAssignedStudents(int professorId);
-    public boolean addGrade(int studentId, Grade grade,String courseCode);
+    public void viewAssignedStudents(int professorId);
+    public void addGrade();
     public List<Course> viewTeachingCourses(int professorId);
 
     public Professor getProfessorById(int professorId);
+
+
 
 }
