@@ -44,11 +44,11 @@ public class MockData {
         users.add(user2);
         users.add(user3);
 
-        Student student1 = new Student("009", "deepak", "pass", Role.STUDENT, 9, "CSE", 10, false, "india");
+        Student student1 = new Student("009", "deepak", "pass", Role.STUDENT, 9, "CSE", 10, false, "india",false,false);
         students.add(student1);
-        Student student2 = new Student("010", "harshita", "pass", Role.STUDENT, 10, "CSE", 10, false, "india");
+        Student student2 = new Student("010", "harshita", "pass", Role.STUDENT, 10, "CSE", 10, false, "india",false,false);
         students.add(student2);
-        Student student3 = new Student("011", "kashish", "pass", Role.STUDENT, 11, "CSE", 10, false, "india");
+        Student student3 = new Student("011", "kashish", "pass", Role.STUDENT, 11, "CSE", 10, false, "india",false,false);
         students.add(student3);
 
         StudentGrade studentGrade = new StudentGrade("C001",Grade.A,9);
@@ -61,24 +61,20 @@ public class MockData {
         professors.add(professor1);
 
         enrolledStudent = new ArrayList<>();
-        enrolledStudent.add(student1);
-        enrolledStudent.add(student2);
 
         enrolledStudent2 = new ArrayList<>();
-        enrolledStudent2.add(student2);
-        enrolledStudent2.add(student3);
 
 
 
 
 
-        Course course1 = new Course("C001","Operating System",true,"daya","NA",10,enrolledStudent);
-        Course course2 = new Course("C002","System Design",true,"daya","NA",9,enrolledStudent2);
-        Course course3 = new Course("C003","DSA",true,"XYZ","NA",8,enrolledStudent);
-        Course course4 = new Course("C004","OOP",false,"XYZ","NA",8,enrolledStudent2);
-        Course course5 = new Course("C005","JAVA",false,"ABC","NA",7,enrolledStudent);
-        Course course6 = new Course("C006","C++",true,"MNP","NA",8,enrolledStudent2);
-        Course course7 = new Course("C007","Python",true,"MNP","NA",10,enrolledStudent);
+        Course course1 = new Course("C001","Operating System",true,"daya","NA",10,new ArrayList<>());
+        Course course2 = new Course("C002","System Design",true,"daya","NA",9,new ArrayList<>());
+        Course course3 = new Course("C003","DSA",true,"XYZ","NA",8,new ArrayList<>());
+        Course course4 = new Course("C004","OOP",false,"XYZ","NA",8,new ArrayList<>());
+        Course course5 = new Course("C005","JAVA",false,"ABC","NA",7,new ArrayList<>());
+        Course course6 = new Course("C006","C++",true,"MNP","NA",8,new ArrayList<>());
+        Course course7 = new Course("C007","Python",true,"MNP","NA",10,new ArrayList<>());
         courses.add(course1);
         courses.add(course2);
         courses.add(course3);

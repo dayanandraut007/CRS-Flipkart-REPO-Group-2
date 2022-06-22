@@ -29,11 +29,11 @@ public class AdminCRSMenu {
         System.out.print("COURSE CODE: ");
         String courseCode = sc.next();
         System.out.print("COURSE NAME: ");
-        String name = sc.nextLine();
+        String name = sc.next();
         System.out.print("COURSE INSTRUCTOR: ");
-        String instructor = sc.nextLine();
+        String instructor = sc.next();
         System.out.print("COURSE PREREQUISITES: ");
-        String prerequisites = sc.nextLine();
+        String prerequisites = sc.next();
         System.out.print("NUMBER OF SEATS: ");
         int seats = sc.nextInt();
         Course newCourse= new Course(courseCode,name,true,instructor,prerequisites,seats,st);
@@ -134,6 +134,9 @@ public class AdminCRSMenu {
                     List<Course> course = adminInterface.viewCourses();
                     for(Course cs: course){
                         System.out.println(cs.getCourseCode());
+                        for(Student std: cs.getEnrolled()){
+                            System.out.println(std.getUserID());
+                        }
                     }
                     break;
                 case 2:
