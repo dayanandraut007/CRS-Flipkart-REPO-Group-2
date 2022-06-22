@@ -9,6 +9,6 @@ public interface UserInterface {
 
     public boolean updateDetails(User user);
 
-    public Role login(String userID, String password);
+    public User login(String userID, String password);
 
 }

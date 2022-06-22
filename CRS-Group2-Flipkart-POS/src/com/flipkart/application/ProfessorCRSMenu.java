@@ -1,45 +1,58 @@
 package com.flipkart.application;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
+import com.flipkart.dao.MockData;
+import com.flipkart.service.ProfessorImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ProfessorCRSMenu {
-    public static void main(String[] args) {
-        System.out.println("------------Professor CRS Menu---------------");
-        System.out.println("------------------------------");
+
+    public void createMenu() {
+
+        CRSApplication crsApplication = new CRSApplication();
+
+        ProfessorImpl professor = new ProfessorImpl();
+        System.out.println("============================================");
+        System.out.println("--------------PROFESSOR CRS MENU------------");
+        System.out.println("============================================");
         System.out.println("1. View Assigned Courses");
         System.out.println("2. View Enrolled Students");
         System.out.println("3. Add Grade");
-        System.out.println("4. Register For Teaching a Course");
-        System.out.println("5. Logout");
+        System.out.println("4. Logout");
         while (true) {
-            System.out.print("Enter your choice: ");
+            System.out.print("\nPlease enter your choice: ");
             Scanner sc = new Scanner(System.in);
             int choice = sc.nextInt();
 
             switch (choice) {
                 case 1:
-                    System.out.println("Write logic for view assigned courses");
+                    List<Course> course = professor.viewTeachingCourses(007);
+                    for(Course cs: course){
+                        System.out.println("COURSE CODE: "+cs.getCourseCode()+"\tCOURSE NAME: "+cs.getName());
+                    }
                     break;
                 case 2:
-                    System.out.println("Write logic for view enrolled students");
+                    professor.viewAssignedStudents(007);
                     break;
-
                 case 3:
-                    System.out.println("Write logic for adding grade");
+                    professor.addGrade();
                     break;
-
                 case 4:
-                    System.out.println("Write logic for teach course registration");
-                    break;
-
-                case 5:
-                    System.out.println("logout");
+                    crsApplication.createMenu();
                     break;
 
                 default:
-                    System.out.println("Select the menu properly");
+                    System.out.println("Wrong Selection! Please enter your choice again.");
 
             }
         }
     }
+
+
+
 }
