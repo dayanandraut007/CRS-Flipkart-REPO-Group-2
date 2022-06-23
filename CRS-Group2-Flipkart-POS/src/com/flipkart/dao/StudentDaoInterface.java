@@ -14,13 +14,14 @@ public interface StudentDaoInterface {
 
     public Student getStudentById(String userId);
 
-    public boolean isApproved(int studentId);
+    public boolean isApproved(String studentId);
 
     public boolean addCourse(String userId, String courseCode);
     public boolean dropCourse(String userId, String courseCode);
 
 
-    List<String> viewRegisteredCourses(String userId);
+    public List<String> viewRegisteredCourses(String userId);
+    public List<String> viewAddedCourses(String userId);
 
     public List<Course> viewAllCourses();
     public boolean makePayment(int studentId);

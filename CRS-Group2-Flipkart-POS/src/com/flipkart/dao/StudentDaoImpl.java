@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.constant.SQLQueriesConstants2;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
@@ -132,7 +133,7 @@ public class StudentDaoImpl implements StudentDaoInterface{
     }
 
     @Override
-    public boolean isApproved(int studentId) {
+    public boolean isApproved(String studentId) {
         statement = null;
         try{
             String sql = SQLQueriesConstants.IS_APPROVED_STUDENT_QUERY;
@@ -213,7 +214,28 @@ public class StudentDaoImpl implements StudentDaoInterface{
         statement = null;
         List<String> registeredCourses =  new ArrayList<>();
         try{
-            String sql = SQLQueriesConstants.VIEW_REGISTERED_COURSES_STUDENT_QUERY;
+            String sql = SQLQueriesConstants2.VIEW_REGISTERED_COURSES_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,userId);
+            System.out.println(statement.toString());
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                registeredCourses.add(resultSet.getString(2));
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return registeredCourses;
+    }
+
+    @Override
+    public List<String> viewAddedCourses(String userId) {
+        statement = null;
+        List<String> registeredCourses =  new ArrayList<>();
+        try{
+            String sql = SQLQueriesConstants2.VIEW_ADDED_COURSES_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
             statement.setString(1,userId);
             System.out.println(statement.toString());

@@ -62,7 +62,7 @@ public class CRSApplication {
         int batch= sc.nextInt();
         System.out.print("ADDRESS: ");
         String address = sc.next();
-        studentInterface.register(name,userId,password,"",batch,branch,address);
+        studentInterface.register(name,userId,password,null,batch,branch,address);
 
     }
 

@@ -22,6 +22,13 @@ public class StudentCRSMenu {
         }
     }
 
+    public void viewAddedCourses(String userId){
+        List<String> regCourses = studentInterface.viewAddedCourses(userId);
+        for (String course : regCourses){
+            System.out.println(course);
+        }
+    }
+
     public void createMenu(String userId){
 
         System.out.println("============================================");
@@ -34,7 +41,8 @@ public class StudentCRSMenu {
         System.out.println("5. Make Payment");
         System.out.println("6. View Grade Card");
         System.out.println("7. View All Courses");
-        System.out.println("8. Logout");
+        System.out.println("8. View Added Courses");
+        System.out.println("9. Logout");
         while (true) {
             System.out.print("Please enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -91,6 +99,10 @@ public class StudentCRSMenu {
                     break;
 
                 case 8:
+                    viewAddedCourses(userId);
+                    break;
+
+                case 9:
                     crsApplication.createMenu();
                     break;
 

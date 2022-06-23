@@ -11,4 +11,10 @@ public class SQLQueriesConstants2 {
     public static final String ADD_USER_QUERY = "insert into user(user_id,password,role) values (?,?,?)";
     public static final String LOGIN= "select * from user where user_id=? and password=?";
 
+
+
+    //student
+    public static final String VIEW_ADDED_COURSES_STUDENT_QUERY = "SELECT * FROM CRSDatabase.student_enrolled_course where student_id =?";
+    public static final String VIEW_REGISTERED_COURSES_STUDENT_QUERY = "SELECT * FROM CRSDatabase.student_enrolled_course as t1 inner join CRSDatabase.student as t2 where t1.student_id=t2.student_id and t1.student_id = ? and t2.has_registered=1;";
+
 }

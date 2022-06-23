@@ -4,6 +4,8 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.MockData;
+import com.flipkart.dao.StudentDaoImpl;
+import com.flipkart.dao.StudentDaoInterface;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class StudentImpl implements StudentInterface {
     AdminInterface adminInterface;
     //-------------------HARD CODED------------------------------------
     MockData data = MockData.getInstance();
+    StudentDaoInterface studentDaoInterface = StudentDaoImpl.getInstance();
 
     //-----------------------------------------------------------------
     public StudentImpl(){
@@ -25,9 +28,7 @@ public class StudentImpl implements StudentInterface {
 
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
-        Student stud1=new Student(userID,name,password,Role.STUDENT,Integer.parseInt(userID),branch,batch,false,address,false,false);
-
-        data.students.add(stud1);
+        Student stud1 = studentDaoInterface.register(name,userID,password,null,batch,branch,address);
         return stud1;
     }
 
@@ -48,89 +49,39 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public Student getStudentById(int studentId) {
-        for(Student std: data.students){
-            if(std.getStudentID() == studentId){
-                return std;
-            }
-        }
-        return null;
+    public Student getStudentById(String studentId) {
+        return studentDaoInterface.getStudentById(studentId);
     }
 
     @Override
-    public boolean isApproved(int studentId) {
-        for(Student student: data.students){
-            if(student.getStudentID() == studentId){
-                return student.isApproved();
-            }
-        }
-        return false;
+    public boolean isApproved(String studentId) {
+        return studentDaoInterface.isApproved(studentId);
     }
 
     @Override
     public boolean addCourse(String userId ,String courseCode) {
-        for(Student student: data.students){
-            if(student.getUserID().equals(userId)) {
-                if(!student.isHasRegistered()) {
-                    for (Course crs : data.courses) {
-                        if (crs.getCourseCode().equals(courseCode)) {
-                            List<String> courses = student.getCourses();
-                            courses.add(courseCode);
-                            List<Student> std = crs.getEnrolled();
-                            std.add(student);
-                            System.out.println(courses);
-                            return true;
-                        }
-                    }
-                }else{
-                    return false;
-                }
-            }
-        }
-        return false;
+        return studentDaoInterface.addCourse(userId,courseCode);
+
     }
 
     @Override
     public boolean dropCourse(String userId, String courseCode) {
 
-        for(Student student: data.students){
-            if(student.getUserID().equals(userId)){
-                if(!student.isHasRegistered()) {
-                    for (Course crs : data.courses) {
-                        if (crs.getCourseCode().equals(courseCode)) {
-                            List<String> courses = student.getCourses();
-                            if (courses.contains(courseCode)) {
-                                courses.remove(courseCode);
-                                List<Student> std = crs.getEnrolled();
-                                std.remove(student);
-                                System.out.println(courses);
-                                return true;
-                            }
-                        }
-                    }
-                }else{
-                    return false;
-                }
-            }
-        }
-        return false;
+        return studentDaoInterface.dropCourse(userId,courseCode);
     }
 
     @Override
     public List<String> viewRegisteredCourses(String userId) {
-        List<Student> listOfStudent = data.students;
-        List<String> regCourses = null;
-        for(Student st: listOfStudent) {
-            if(st.getUserID().equals(userId)) {
-                regCourses = st.getCourses();
-            }
-        }
-        return  regCourses;
+        return studentDaoInterface.viewRegisteredCourses(userId);
+    }
+    @Override
+    public List<String> viewAddedCourses(String userId) {
+        return studentDaoInterface.viewAddedCourses(userId);
     }
 
     @Override
     public List<Course> viewAllCourses() {
-        return courseInterface.viewAllCourses();
+        return studentDaoInterface.viewAllCourses();
     }
 
     @Override
