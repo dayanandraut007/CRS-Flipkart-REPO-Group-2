@@ -142,7 +142,7 @@ public class AdminCRSMenu {
                 case 2:
                     List<Professor> professor = adminInterface.viewProfessors();
                     for(Professor ps: professor){
-                        System.out.println("PROFESSOR ID: "+ps.getProfessorId()+",  PROFESSOR NAME: "+ps.getName());
+                        System.out.println("PROFESSOR ID: "+ps.getUserID()+",  PROFESSOR NAME: "+ps.getName());
                     }
                     break;
                 case 3:
