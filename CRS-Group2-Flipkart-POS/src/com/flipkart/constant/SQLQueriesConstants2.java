@@ -17,4 +17,10 @@ public class SQLQueriesConstants2 {
     public static final String VIEW_ADDED_COURSES_STUDENT_QUERY = "SELECT * FROM CRSDatabase.student_enrolled_course where student_id =?";
     public static final String VIEW_REGISTERED_COURSES_STUDENT_QUERY = "SELECT * FROM CRSDatabase.student_enrolled_course as t1 inner join CRSDatabase.student as t2 where t1.student_id=t2.student_id and t1.student_id = ? and t2.has_registered=1;";
 
+    public static final String ADD_COURSE_STUDENT_QUERY = "INSERT INTO `CRSDatabase`.`student_enrolled_course` (`student_id`, `course_id`,`primary`) VALUES (?,?,?);";
+    public static final String UPDATE_COURSE_STUDENT_QUERY = "update course set seats=seats-1 where course_code=? ";
+    public static final String CHECK_AVAILABLE_SEATS = "SELECT seats from CRSDatabase.course where course_code = ?";
+    public static final String DROP_COURSE_STUDENT_QUERY = "DELETE FROM `CRSDatabase`.`student_enrolled_course` WHERE (`student_id` = ?) and (`course_id` = ?);";
+    public static final String UPDATE_DROP_COURSE_STUDENT_QUERY = "update course set seats=seats+1 where course_code=? ";
+
 }

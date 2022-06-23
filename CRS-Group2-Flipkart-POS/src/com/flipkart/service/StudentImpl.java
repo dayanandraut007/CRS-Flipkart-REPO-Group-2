@@ -59,8 +59,8 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public boolean addCourse(String userId ,String courseCode) {
-        return studentDaoInterface.addCourse(userId,courseCode);
+    public boolean addCourse(String userId ,String courseCode,String primary) {
+        return studentDaoInterface.addCourse(userId,courseCode,primary);
 
     }
 

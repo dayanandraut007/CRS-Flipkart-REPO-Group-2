@@ -65,6 +65,16 @@ public class StudentDaoImpl implements StudentDaoInterface{
 
     @Override
     public boolean semesterRegistration(String userId) {
+        /*
+        1. check whether there are 4 primary and 2 optional courses
+        2. Ask for payment
+        3. If successful payment
+            1. update payment and registration status;
+            2. generate and send notification
+
+
+        */
+
         statement = null;
         try{
             String sql = SQLQueriesConstants.SEMESTER_REGISTRATION_STUDENT_QUERY;
@@ -154,14 +164,34 @@ public class StudentDaoImpl implements StudentDaoInterface{
     }
 
     @Override
-    public boolean addCourse(String userId, String courseCode) {
+    public boolean addCourse(String userId, String courseCode,String primary) {
+
+        /*
+        check if there are available seats
+         */
         statement = null;
         try{
-            String sql = SQLQueriesConstants.ADD_COURSE_STUDENT_QUERY;
+            String sql0 = SQLQueriesConstants2.CHECK_AVAILABLE_SEATS;
+            statement = connection.prepareStatement(sql0);
+            statement.setString(1,courseCode);
+            ResultSet rs = statement.executeQuery();
+            int availableSeats = 0;
+            if(rs.next()) {
+                availableSeats = rs.getInt(1);
+            }
+
+            if(availableSeats <= 0){
+                System.out.println("No seats available");
+                return false;
+            }
+            String sql = SQLQueriesConstants2.ADD_COURSE_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
 
             statement.setString(1,userId);
             statement.setString(2,courseCode);
+
+            statement.setBoolean(3, primary.equals("Y"));
+
 
             System.out.println(statement.toString());
 
@@ -173,6 +203,13 @@ public class StudentDaoImpl implements StudentDaoInterface{
                 return false;
             }
             System.out.println("Course Added Successfully");
+            String sql2 = SQLQueriesConstants2.UPDATE_COURSE_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql2);
+            statement.setString(1,courseCode);
+
+            System.out.println(statement.toString());
+
+            statement.executeUpdate();
         }
         catch ( SQLException e)
         {
@@ -185,7 +222,7 @@ public class StudentDaoImpl implements StudentDaoInterface{
     public boolean dropCourse(String userId, String courseCode) {
         statement = null;
         try{
-            String sql = SQLQueriesConstants.DROP_COURSE_STUDENT_QUERY;
+            String sql = SQLQueriesConstants2.DROP_COURSE_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
 
             statement.setString(1,userId);
@@ -201,6 +238,14 @@ public class StudentDaoImpl implements StudentDaoInterface{
                 return false;
             }
             System.out.println("Dropped Successfully");
+            String sql2 = SQLQueriesConstants2.UPDATE_DROP_COURSE_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql2);
+            statement.setString(1,courseCode);
+
+            System.out.println(statement.toString());
+
+            statement.executeUpdate();
+
         }
         catch ( SQLException e)
         {

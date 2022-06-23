@@ -54,10 +54,12 @@ public class StudentCRSMenu {
                     break;
                 case 2:
                     System.out.print("ENTER COURSE ID: ");
-                    String course_code = sc.nextLine();
-                    boolean status = studentInterface.addCourse(userId, course_code);
+                    String course_code = sc.next();
+                    System.out.print("Primary(Y/N): ");
+                    String primary = sc.next();
+                    boolean status = studentInterface.addCourse(userId, course_code,primary);
                     if(!status){
-                        System.out.println("Already Registered. Can't add or drop now");
+                        System.out.println("Can't Register");
                     }
 
                     break;

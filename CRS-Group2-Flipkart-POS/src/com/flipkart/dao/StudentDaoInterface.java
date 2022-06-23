@@ -16,7 +16,7 @@ public interface StudentDaoInterface {
 
     public boolean isApproved(String studentId);
 
-    public boolean addCourse(String userId, String courseCode);
+    public boolean addCourse(String userId, String courseCode,String primary);
     public boolean dropCourse(String userId, String courseCode);
 
 
