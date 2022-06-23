@@ -18,4 +18,13 @@ public class SQLQueriesConstants {
     public static final String SEMESTER_REGISTRATION_STUDENT_QUERY = "SELECT count(*) FROM CRSDatabase.student_enrolled_course where student_id = ?;";
 
     public static final String SEMESTER_REGISTRATION_UPDATE_QUERY = "UPDATE `CRSDatabase`.`student` SET `is_approved` = '1' WHERE (`student_id` = ?);";
+
+    //PROFESSOR QUERIES
+    public static final String VIEW_TEACHING_COURSES_PROFESSOR_QUERY = "SELECT * FROM CRSDatabase.course where instructor_id = ?;";
+
+    public static final String VIEW_ENROLLED_STUDENTS="select course.course_code,course.course_name,student_enrolled_course.student_id from course inner join student_enrolled_course on course.course_code = student_enrolled_course.course_id where course.instructor_id = ? order by course.course_code";
+
+    public static final String CHECK_VALID_COURSES_QUERY_FOR_ADD_GRADE = "SELECT * FROM CRSDatabase.student_enrolled_course where course_id = ? and student_id=?;";
+
+    public static final String ADD_GRADE_QUERY="INSERT INTO `CRSDatabase`.`grade_card` (`student_id`, `course_id`,`grade`) VALUES (?,?,?);";
 }

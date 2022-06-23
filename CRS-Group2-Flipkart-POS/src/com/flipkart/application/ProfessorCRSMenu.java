@@ -5,6 +5,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.MockData;
 import com.flipkart.service.ProfessorImpl;
+import com.flipkart.service.ProfessorInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,34 @@ import java.util.Scanner;
 
 public class ProfessorCRSMenu {
 
-    public void createMenu() {
+    ProfessorInterface professorInterface = new ProfessorImpl();
+
+    public void addGrade(){
+        System.out.println("BATCH DETAILS:");
+        System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
+        Scanner sc = new Scanner(System.in);
+        String course = sc.next();
+
+        System.out.println("ENTER THE STUDENT ID: ");
+        String sid = sc.next();
+        System.out.println("ENTER GRADE: ");
+        String gr = sc.next();
+        professorInterface.addGrade(course, sid, gr);
+    }
+
+    public void viewAssignedStudent(String userId){
+        professorInterface.viewAssignedStudents(userId);
+    }
+
+    public void viewTeachingCourses(String userId) {
+
+        List<Course> course = professorInterface.viewTeachingCourses(userId);
+        for (Course cs : course) {
+            System.out.println("COURSE CODE: " + cs.getCourseCode() + "\tCOURSE NAME: " + cs.getName());
+        }
+    }
+
+    public void createMenu(String userId) {
 
         CRSApplication crsApplication = new CRSApplication();
 
@@ -31,16 +59,13 @@ public class ProfessorCRSMenu {
 
             switch (choice) {
                 case 1:
-                    List<Course> course = professor.viewTeachingCourses(007);
-                    for(Course cs: course){
-                        System.out.println("COURSE CODE: "+cs.getCourseCode()+"\tCOURSE NAME: "+cs.getName());
-                    }
+                    viewTeachingCourses(userId);
                     break;
                 case 2:
-                    professor.viewAssignedStudents(007);
+                    viewAssignedStudent(userId);
                     break;
                 case 3:
-                    professor.addGrade();
+                    addGrade();
                     break;
                 case 4:
                     crsApplication.createMenu();

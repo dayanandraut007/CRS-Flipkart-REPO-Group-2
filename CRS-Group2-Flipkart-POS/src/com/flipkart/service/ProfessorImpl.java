@@ -1,11 +1,11 @@
 package com.flipkart.service;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.*;
 import com.flipkart.constant.Grade;
 import com.flipkart.dao.MockData;
+import com.flipkart.dao.ProfessorDaoImpl;
+import com.flipkart.dao.ProfessorDaoInterface;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,73 +18,44 @@ public class ProfessorImpl implements ProfessorInterface {
 
 
     //-------------------------------------
+
+    ProfessorDaoInterface professorDaoInterface = ProfessorDaoImpl.getInstance();
     @Override
-    public void viewAssignedStudents(int professorId) {
-        String pname;
-        List<Course> crs = new ArrayList<>();
-        for(Professor prf : data.professors){
-            if(prf.getProfessorId() == professorId){
-                pname=prf.getName();
-                for(Course crs1 : data.courses) {
-                    if (crs1.getInstructor().equals(pname)) {
-                        System.out.println("COURSE ID: " + crs1.getCourseCode() + "\t COURSE NAME: " + crs1.getName() );
-                        System.out.println("ENROLLED STUDENTS: ");
-                        for (Student st1 : crs1.getEnrolled()) {
-                            System.out.print(st1.getStudentID()+"."+st1.getName() + "\t");
-                        }
-                        System.out.println();
+    public void viewAssignedStudents(String professorId) {
 
-                    }
-                }
-
-            }
-        }
-       return ;
+       professorDaoInterface.viewAssignedStudents(professorId);
     }
 
     @Override
-    public void addGrade() {
-        System.out.println("BATCH DETAILS:");
-        viewAssignedStudents(007);
-        System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
-        Scanner sc=new Scanner(System.in);
-        String course = sc.next();
-
-        System.out.println("ENTER THE STUDENT ID: ");
-        int sid = sc.nextInt();
-        System.out.println("ENTER GRADE: ");
-        String gr = sc.next();
-        StudentGrade studentGrades = new StudentGrade(course,Grade.valueOf(gr.toUpperCase()),sid);
-        data.grade.add(studentGrades);
-        System.out.println("GRADE ADDED SUCCESSFULLY!");
+    public boolean addGrade(String courseId, String studentId, String grade){
+//        System.out.println("BATCH DETAILS:");
+//        viewAssignedStudents("007");
+//        System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
+//        Scanner sc=new Scanner(System.in);
+//        String course = sc.next();
+//
+//        System.out.println("ENTER THE STUDENT ID: ");
+//        int sid = sc.nextInt();
+//        System.out.println("ENTER GRADE: ");
+//        String gr = sc.next();
+//        StudentGrade studentGrades = new StudentGrade(course,Grade.valueOf(gr.toUpperCase()),sid);
+//        data.grade.add(studentGrades);
+//        System.out.println("GRADE ADDED SUCCESSFULLY!");
 //        for(StudentGrade sg: data.grade){
 //            System.out.println(sg.getCourseCode()+"\t"+sg.getStudentID()+"\t"+sg.getGrade()+"\n");
 //        }
 
+        return professorDaoInterface.addGrade(courseId, studentId, grade);
+
     }
 
     @Override
-    public List<Course> viewTeachingCourses(int professorId) {
-        String pname;
-        List<Course> crs = new ArrayList<>();
-        for(Professor prf : data.professors){
-            if(prf.getProfessorId() == professorId){
-             pname=prf.getName();
-            for(Course crs1 : data.courses)
-                {
-                    if(crs1.getInstructor().equals(pname)){
-
-                        crs.add(crs1);
-                    }
-                }
-
-            }
-        }
-        return crs;
+    public List<Course> viewTeachingCourses(String professorId) {
+        return professorDaoInterface.viewTeachingCourses(professorId);
     }
 
     @Override
-    public Professor getProfessorById(int professorId) {
+    public Professor getProfessorById(String professorId) {
         return null;
     }
 

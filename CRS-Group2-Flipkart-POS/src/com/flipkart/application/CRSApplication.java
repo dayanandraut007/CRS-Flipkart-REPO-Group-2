@@ -37,7 +37,7 @@ public class CRSApplication {
             }
             else if(usr.getRole().name() == "PROFESSOR"){
                 ProfessorCRSMenu professorCRSMenu  = new ProfessorCRSMenu();
-                professorCRSMenu.createMenu();
+                professorCRSMenu.createMenu(usr.getUserID());
 
             }
         }else{
