@@ -6,12 +6,13 @@ import com.flipkart.bean.Student;
 import java.util.List;
 
 public interface StudentDaoInterface {
+
     public Student register(String name, String userID, String password, String gender, int batch,
                             String branch, String address);
 
     public boolean semesterRegistration(String userId);
 
-    public Student getStudentById(int studentId);
+    public Student getStudentById(String userId);
 
     public boolean isApproved(int studentId);
 

@@ -37,6 +37,9 @@ public class Student extends User{
     }
 
 
+    public Student() {
+        super();
+    }
     public Student(String userID, String name, String password, Role role,int studentId,String branch,int batch,
                    boolean isApproved,String address,boolean hasRegistered,boolean donePayment) {
         super(userID, name, password,role);
