@@ -11,18 +11,19 @@ public interface StudentInterface {
 
     public boolean semesterRegistration(String userId);
 
-    public Student getStudentById(int studentId);
+    public Student getStudentById(String studentId);
 
-    public boolean isApproved(int studentId);
+    public boolean isApproved(String studentId);
 
-    public boolean addCourse(String userId, String courseCode);
+    public boolean addCourse(String userId, String courseCode,String primary);
     public boolean dropCourse(String userId, String courseCode);
 
 
     List<String> viewRegisteredCourses(String userId);
+    List<String> viewAddedCourses(String userId);
 
     public List<Course> viewAllCourses();
-    public boolean makePayment(int studentId);
+    public boolean makePayment(String studentId,String transactionId,String modeOfPayment,float amount);
 
 
 }

@@ -5,6 +5,8 @@ import com.flipkart.bean.Student;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,15 +14,31 @@ public class StudentCRSMenu {
 
     CRSApplication crsApplication = new CRSApplication();
     StudentInterface studentInterface=new StudentImpl();
+    Scanner sc = new Scanner(System.in);
 
     public void courseRegistration(String userId){
         boolean status = studentInterface.semesterRegistration(userId);
-        if(!status){
-            System.out.println("Please add 6 courses to register");
-        }else{
-            System.out.println("Registration Successful. Kindly proceed to payment to complete enrollment");
+        if(status){
+            System.out.println("Final Registration done");
         }
     }
+
+    public void viewAddedCourses(String userId){
+        List<String> regCourses = studentInterface.viewAddedCourses(userId);
+        for (String course : regCourses){
+            System.out.println(course);
+        }
+    }
+
+    public void makePayment(String userId){
+        System.out.print("ENTER paymentMethod: ");
+        String paymentMethod = sc.next();
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
+        String transactionId = date.toString();
+        studentInterface.makePayment(userId,paymentMethod,transactionId,5000);
+    }
+
+
 
     public void createMenu(String userId){
 
@@ -34,7 +52,8 @@ public class StudentCRSMenu {
         System.out.println("5. Make Payment");
         System.out.println("6. View Grade Card");
         System.out.println("7. View All Courses");
-        System.out.println("8. Logout");
+        System.out.println("8. View Added Courses");
+        System.out.println("9. Logout");
         while (true) {
             System.out.print("Please enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -46,10 +65,12 @@ public class StudentCRSMenu {
                     break;
                 case 2:
                     System.out.print("ENTER COURSE ID: ");
-                    String course_code = sc.nextLine();
-                    boolean status = studentInterface.addCourse(userId, course_code);
+                    String course_code = sc.next();
+                    System.out.print("Primary(Y/N): ");
+                    String primary = sc.next();
+                    boolean status = studentInterface.addCourse(userId, course_code,primary);
                     if(!status){
-                        System.out.println("Already Registered. Can't add or drop now");
+                        System.out.println("Can't Register");
                     }
 
                     break;
@@ -74,7 +95,7 @@ public class StudentCRSMenu {
                     break;
 
                 case 5:
-                    System.out.println("Write logic for making payment");
+                    makePayment(userId);
                     break;
 
                 case 6:
@@ -91,6 +112,10 @@ public class StudentCRSMenu {
                     break;
 
                 case 8:
+                    viewAddedCourses(userId);
+                    break;
+
+                case 9:
                     crsApplication.createMenu();
                     break;
 

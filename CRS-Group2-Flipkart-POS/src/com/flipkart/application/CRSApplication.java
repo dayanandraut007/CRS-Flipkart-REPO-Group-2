@@ -24,7 +24,8 @@ public class CRSApplication {
         User usr = userInterface.login(userid,password);
         if(usr!=null){
             System.out.println("LOGIN SUCCESSFUL!");
-            System.out.println(usr.getRole().name());
+            System.out.println(usr.getUserID());
+            System.out.println(usr.getRole());
             //call menu for role based
             if(usr.getRole().name() == "STUDENT"){
                 StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
@@ -36,7 +37,7 @@ public class CRSApplication {
             }
             else if(usr.getRole().name() == "PROFESSOR"){
                 ProfessorCRSMenu professorCRSMenu  = new ProfessorCRSMenu();
-                professorCRSMenu.createMenu();
+                professorCRSMenu.createMenu(usr.getUserID());
 
             }
         }else{
@@ -61,7 +62,7 @@ public class CRSApplication {
         int batch= sc.nextInt();
         System.out.print("ADDRESS: ");
         String address = sc.next();
-        studentInterface.register(name,userId,password,"",batch,branch,address);
+        studentInterface.register(name,userId,password,null,batch,branch,address);
 
     }
 

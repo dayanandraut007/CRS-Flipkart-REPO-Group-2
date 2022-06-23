@@ -3,6 +3,8 @@ package com.flipkart.service;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.MockData;
+import com.flipkart.dao.UserDaoImpl;
+import com.flipkart.dao.UserDaoInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ public class UserImpl implements UserInterface{
 
     //-------------------HARD CODED------------------------------------
     MockData data = MockData.getInstance();
+    UserDaoInterface userDaoInterface = UserDaoImpl.getInstance();
 
     //-----------------------------------------------------------------
     @Override
@@ -25,9 +28,7 @@ public class UserImpl implements UserInterface{
     @Override
     public User login(String userID, String password){
 
-        for(User usr:data.users){
-            if(usr.getUserID().equals(userID) && usr.getPassword().equals(password)) return usr;
-        }
-        return null;
+        User usr = userDaoInterface.login(userID,password);
+        return usr;
     }
 }

@@ -1,20 +1,33 @@
 package com.flipkart.bean;
 
 public class Payment {
-    private int studentID;
+    private String studentID;
     private float amount;
+    private String transactionId;
+    private String paymentMethod;
 
-    public Payment(int studentID, float amount, boolean status) {
+    public Payment(String studentID, float amount, String paymentMethod, String transactionId) {
         this.studentID = studentID;
         this.amount = amount;
-        this.status = status;
+        this.paymentMethod = paymentMethod;
+        this.transactionId = transactionId;
+    }
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public int getStudentID() {
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+    public String getTransactionId() { return transactionId; }
+
+    public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
+
+    public String getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(int studentID) {
+    public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
 
@@ -26,15 +39,7 @@ public class Payment {
         this.amount = amount;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    private boolean status;
 
 
 

@@ -3,6 +3,8 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.AdminDaoImpl;
+import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.MockData;
 
 import java.util.Iterator;
@@ -13,27 +15,23 @@ public class AdminImpl implements AdminInterface {
 
     CourseInterface courseInterface;
     //-------------------HARD CODED------------------------------------
-    MockData data = MockData.getInstance();
+    AdminDaoInterface adminDaoInterface = AdminDaoImpl.getInstance();
+
 
     //-----------------------------------------------------------------
     public AdminImpl(){
         courseInterface = new CourseImpl();
     }
+    MockData data = MockData.getInstance();
     @Override
     public boolean deleteCourse(String courseCode) {
-        Iterator<Course> itr = data.courses.iterator();
-        while(itr.hasNext()){
-            if(itr.next().getCourseCode().equals(courseCode)){
-                itr.remove();
-                return true;
-            }
-        }
-        return false;
+        adminDaoInterface.deleteCourse(courseCode);
+        return true;
     }
 
     @Override
     public boolean addCourse(Course course) {
-        data.courses.add(course);
+        adminDaoInterface.addCourse(course);
         return true;
     }
 
@@ -44,35 +42,12 @@ public class AdminImpl implements AdminInterface {
 
     @Override
     public void approveStudent() {
-        Iterator<Student> itr = data.students.iterator();
-        while(itr.hasNext()){
-            Student std = itr.next();
-            if(!std.isApproved()){
-                System.out.println("The name is " + std.getName() + " and branch is " + std.getBranch() );
-                Scanner sc = new Scanner(System.in);
-                System.out.print("Type A for approve and D for disapprove");
-                String status = sc.next();
-                if(status.equals("A")){
-                    std.setApproved(true);
-                    data.users.add(std);
-                }
-                else if(status.equals("D")){
-                    itr.remove();
-                }
-                else{
-                    System.out.println("Invalid");
-                }
-
-            }
-        }
+        adminDaoInterface.approveStudent();
     }
 
     @Override
     public void addProfessor(Professor professor) {
-        data.professors.add(professor);
-        for(Professor prof: data.professors){
-            System.out.println(prof.getUserID());
-        }
+        adminDaoInterface.addProfessor(professor);
 
     }
 
@@ -83,12 +58,12 @@ public class AdminImpl implements AdminInterface {
 
     @Override
     public List<Course> viewCourses() {
-        return data.courses;
+        return adminDaoInterface.viewCourses();
     }
 
     @Override
     public List<Professor> viewProfessors() {
-        return data.professors;
+        return adminDaoInterface.viewProfessors();
     }
 
     @Override
