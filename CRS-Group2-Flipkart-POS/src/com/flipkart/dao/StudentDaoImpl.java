@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
@@ -66,10 +67,9 @@ public class StudentDaoImpl implements StudentDaoInterface{
     @Override
     public boolean semesterRegistration(String userId) {
         /*
-        1. check whether there are 4 primary and 2 optional courses
-        2. Ask for payment
-        3. If successful payment
-            1. update payment and registration status;
+        1. check whether payment complete or not
+        2. If successful payment
+            1. update registration status;
             2. generate and send notification
 
 
@@ -77,34 +77,21 @@ public class StudentDaoImpl implements StudentDaoInterface{
 
         statement = null;
         try{
-            String sql = SQLQueriesConstants.SEMESTER_REGISTRATION_STUDENT_QUERY;
-            statement = connection.prepareStatement(sql);
-            statement.setString(1,userId);
-            System.out.println(statement.toString());
-            ResultSet rs = statement.executeQuery();
-            if(rs.next()){
 
-                if(rs.getInt(1) < 6){
+                String sql1 = SQLQueriesConstants.SEMESTER_REGISTRATION_UPDATE_QUERY;
+                statement = connection.prepareStatement(sql1);
+                statement.setString(1,userId);
+                System.out.println(statement.toString());
+
+                int row = statement.executeUpdate();
+
+                if(row == 0)
+                {
                     System.out.println("Couldn't Register Student");
                     return false;
                 }
-                else{
-                    String sql1 = SQLQueriesConstants.SEMESTER_REGISTRATION_UPDATE_QUERY;
-                    statement = connection.prepareStatement(sql1);
-                    statement.setString(1,userId);
-                    System.out.println(statement.toString());
-
-                    int row = statement.executeUpdate();
-
-                    if(row == 0)
-                    {
-                        System.out.println("Couldn't Register Student");
-                        return false;
-                    }
-                    System.out.println("Registered Successfully");
-                    return true;
-                }
-            }
+                System.out.println("Registered Successfully");
+                return true;
         }
         catch ( SQLException e)
         {
@@ -326,7 +313,95 @@ public class StudentDaoImpl implements StudentDaoInterface{
     }
 
     @Override
-    public boolean makePayment(int studentId) {
+    public boolean approvePayment(String userId) {
+        // check primary and optional courses requirements
+        // make payment and update payment table
+        statement = null;
+        try{
+            if(checkRegistrationEligibility(userId))
+            {
+                String sql1 = SQLQueriesConstants.MAKE_PAYMENT_STUDENT_QUERY;
+                statement = connection.prepareStatement(sql1);
+                statement.setString(1,userId);
+                System.out.println(statement.toString());
+
+                int row = statement.executeUpdate();
+
+                if(row == 0)
+                {
+                    System.out.println("Couldn't Make Payment");
+                    return false;
+                }
+                System.out.println("Payment Successful");
+                return true;
+            }
+            else
+            {
+                System.out.println("Student does not meet the Eligibility Criteria");
+                return false;
+            }
+        }
+        catch ( SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean checkRegistrationEligibility(String userId)
+    {
+        statement = null;
+        try {
+            String sql = SQLQueriesConstants.SEMESTER_REGISTRATION_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            System.out.println(statement.toString());
+            ResultSet rs = statement.executeQuery();
+            int primary = 0, optional = 0;
+
+            while (rs.next()) {
+                if (rs.getInt(1) == 1)
+                    primary++;
+                else
+                    optional++;
+            }
+            if(primary == 4 && optional == 2)
+            {
+                return true;
+            }
+        }
+        catch ( SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean makePayment(String userId,String transactionId, String paymentMethod, float amount)
+    {
+        Payment payment = new Payment(userId,amount,paymentMethod,transactionId);
+        String sql = SQLQueriesConstants.PAYMENT_QUERY;
+        statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            statement.setString(2, transactionId);
+            statement.setString(3, paymentMethod);
+            statement.setFloat(4, amount);
+
+            // Print query
+            System.out.println(statement.toString());
+
+            int row = statement.executeUpdate();
+            if(row == 0) {
+                System.out.println("Couldn't add Payment");
+            }
+            System.out.println("Payment Added successfully");
+
+        }
+        catch (SQLException se) {
+            se.printStackTrace();
+        }
         return false;
     }
 }

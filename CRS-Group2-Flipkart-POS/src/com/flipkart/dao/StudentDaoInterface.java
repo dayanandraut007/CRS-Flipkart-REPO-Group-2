@@ -24,5 +24,9 @@ public interface StudentDaoInterface {
     public List<String> viewAddedCourses(String userId);
 
     public List<Course> viewAllCourses();
-    public boolean makePayment(int studentId);
+    public boolean approvePayment(String userId);
+
+    public boolean makePayment(String userId,String transactionId, String modeOfPayment, float amount);
+
+
 }

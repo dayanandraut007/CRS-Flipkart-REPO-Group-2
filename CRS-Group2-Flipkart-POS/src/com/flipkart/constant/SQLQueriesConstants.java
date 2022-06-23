@@ -15,9 +15,8 @@ public class SQLQueriesConstants {
 
     public static final String IS_APPROVED_STUDENT_QUERY = "SELECT is_approved FROM CRSDatabase.student where student_id = ?;";
 
-    public static final String SEMESTER_REGISTRATION_STUDENT_QUERY = "SELECT count(*) FROM CRSDatabase.student_enrolled_course where student_id = ?;";
-
-    public static final String SEMESTER_REGISTRATION_UPDATE_QUERY = "UPDATE `CRSDatabase`.`student` SET `is_approved` = '1' WHERE (`student_id` = ?);";
+    public static final String SEMESTER_REGISTRATION_STUDENT_QUERY = "SELECT primary FROM CRSDatabase.student_enrolled_course where student_id = ?;";
+    public static final String SEMESTER_REGISTRATION_UPDATE_QUERY = "UPDATE `CRSDatabase`.`student` SET `has_registered` = '1' WHERE (`student_id` = ?);";
 
     //PROFESSOR QUERIES
     public static final String VIEW_TEACHING_COURSES_PROFESSOR_QUERY = "SELECT * FROM CRSDatabase.course where instructor_id = ?;";
@@ -27,4 +26,9 @@ public class SQLQueriesConstants {
     public static final String CHECK_VALID_COURSES_QUERY_FOR_ADD_GRADE = "SELECT * FROM CRSDatabase.student_enrolled_course where course_id = ? and student_id=?;";
 
     public static final String ADD_GRADE_QUERY="INSERT INTO `CRSDatabase`.`grade_card` (`student_id`, `course_id`,`grade`) VALUES (?,?,?);";
+
+    public static final String MAKE_PAYMENT_STUDENT_QUERY = "UPDATE `CRSDatabase`.`student` SET `done_payment` = '1' WHERE (`student_id` = ?);";
+    public static final String PAYMENT_QUERY = "INSERT INTO `CRSDatabase`.`payment` (`transaction_id`, `student_id`, `payment_method`, `amount`) VALUES (?,?,?,?);";
+
+    public static final String NOTIFICATION_QUERY = "INSERT INTO `CRSDatabase`.`notification` (`student_id`, `message`) VALUES (?,?);";
 }
