@@ -13,12 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class AdminDaoImpl implements  AdminDaoInterface{
 
 
     private static AdminDaoImpl instance = null;
     private PreparedStatement statement = null;
+    private PreparedStatement statement1 = null;
     private AdminDaoImpl(){}
 
     public static AdminDaoImpl getInstance()
@@ -97,8 +99,69 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         return null;
     }
 
+    public void addToUser(String id,String pass,String role){
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants2.ADD_USER_QUERY;
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1, id);
+            statement.setString(2, pass);
+            statement.setString(3, role);
+
+            // Print query
+            System.out.println(statement.toString());
+
+            int row = statement.executeUpdate();
+            if(row == 0) {
+                System.out.println("Couldn't add the user");
+            }
+            //System.out.println("Added successfully");
+
+        }catch(SQLException se) {
+
+            se.printStackTrace();
+        }
+    }
+
     @Override
     public void approveStudent() {
+        statement = null;
+        try{
+            String sql = SQLQueriesConstants2.PENDING_STUDENTS_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                String studentId = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                String branch = resultSet.getString(3);
+                System.out.println("The name of Student is: " + name + " and branch is " + branch);
+                System.out.println("Type A for approve and D for Disapprove: ");
+                Scanner sc = new Scanner(System.in);
+                String status = sc.next();
+                if(status.equals("A")){
+                    String sql2 = SQLQueriesConstants2.APPROVE_STUDENTS_QUERY;
+                    statement1 = connection.prepareStatement(sql2);
+                    statement1.setString(1,studentId);
+                    int row = statement1.executeUpdate();
+                    if(row == 0){
+                        System.out.println("Cannot Approve");
+                    }else{
+                        addToUser(studentId,"pass","student");
+                        System.out.println("Approved Successfully");
+                    }
+
+                }else if(status.equals("D")){
+
+                }else{
+                    System.out.println("Wrong Choice");
+                }
+            }
+
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
 
     }
 
@@ -123,8 +186,10 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             int row = statement.executeUpdate();
             if(row == 0) {
                 System.out.println("Couldn't add the professor");
+            }else {
+                System.out.println("Added successfully");
+                addToUser(professor.getUserID(),"pass","professor");
             }
-            System.out.println("Added successfully");
 
         }catch(SQLException se) {
 

@@ -24,7 +24,8 @@ public class CRSApplication {
         User usr = userInterface.login(userid,password);
         if(usr!=null){
             System.out.println("LOGIN SUCCESSFUL!");
-            System.out.println(usr.getRole().name());
+            System.out.println(usr.getUserID());
+            System.out.println(usr.getRole());
             //call menu for role based
             if(usr.getRole().name() == "STUDENT"){
                 StudentCRSMenu studentCRSMenu = new StudentCRSMenu();

@@ -42,27 +42,7 @@ public class AdminImpl implements AdminInterface {
 
     @Override
     public void approveStudent() {
-        Iterator<Student> itr = data.students.iterator();
-        while(itr.hasNext()){
-            Student std = itr.next();
-            if(!std.isApproved()){
-                System.out.println("The name is " + std.getName() + " and branch is " + std.getBranch() );
-                Scanner sc = new Scanner(System.in);
-                System.out.print("Type A for approve and D for disapprove");
-                String status = sc.next();
-                if(status.equals("A")){
-                    std.setApproved(true);
-                    data.users.add(std);
-                }
-                else if(status.equals("D")){
-                    itr.remove();
-                }
-                else{
-                    System.out.println("Invalid");
-                }
-
-            }
-        }
+        adminDaoInterface.approveStudent();
     }
 
     @Override
