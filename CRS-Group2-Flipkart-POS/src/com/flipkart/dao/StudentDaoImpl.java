@@ -2,10 +2,14 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoImpl implements StudentDaoInterface{
@@ -31,6 +35,37 @@ public class StudentDaoImpl implements StudentDaoInterface{
 
     @Override
     public boolean semesterRegistration(String userId) {
+        statement = null;
+        try{
+            String sql = SQLQueriesConstants.SEMESTER_REGISTRATION_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,userId);
+            System.out.println(statement.toString());
+            ResultSet rs = statement.executeQuery();
+            if(rs.getInt(1) < 6){
+                return false;
+            }
+            else{
+                String sql1 = SQLQueriesConstants.SEMESTER_REGISTRATION_UPDATE_QUERY;
+                statement = connection.prepareStatement(sql1);
+                statement.setString(1,userId);
+                System.out.println(statement.toString());
+
+                int row = statement.executeUpdate();
+
+                if(row == 0)
+                {
+                    System.out.println("Couldn't Register Student");
+                    return false;
+                }
+                System.out.println("Registered Successfully");
+                return true;
+            }
+        }
+        catch ( SQLException e)
+        {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -41,27 +76,126 @@ public class StudentDaoImpl implements StudentDaoInterface{
 
     @Override
     public boolean isApproved(int studentId) {
+        statement = null;
+        try{
+            String sql = SQLQueriesConstants.IS_APPROVED_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,String.valueOf(studentId));
+            System.out.println(statement.toString());
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()) {
+                if( rs.getInt(1) == 1)
+                    return true;
+            }
+        }
+        catch ( SQLException e)
+        {
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public boolean addCourse(String userId, String courseCode) {
-        return false;
+        statement = null;
+        try{
+            String sql = SQLQueriesConstants.ADD_COURSE_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1,userId);
+            statement.setString(2,courseCode);
+
+            System.out.println(statement.toString());
+
+            int row = statement.executeUpdate();
+
+            if(row == 0)
+            {
+                System.out.println("Couldn't add course");
+                return false;
+            }
+            System.out.println("Added Successfully");
+        }
+        catch ( SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
     public boolean dropCourse(String userId, String courseCode) {
-        return false;
+        statement = null;
+        try{
+            String sql = SQLQueriesConstants.DROP_COURSE_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1,userId);
+            statement.setString(2,courseCode);
+
+            System.out.println(statement.toString());
+
+            int row = statement.executeUpdate();
+
+            if(row == 0)
+            {
+                System.out.println("Couldn't drop course");
+                return false;
+            }
+            System.out.println("Dropped Successfully");
+        }
+        catch ( SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     @Override
     public List<String> viewRegisteredCourses(String userId) {
-        return null;
+        statement = null;
+        List<String> registeredCourses =  new ArrayList<>();
+        try{
+            String sql = SQLQueriesConstants.VIEW_REGISTERED_COURSES_STUDENT_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                registeredCourses.add(resultSet.getString(1));
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return registeredCourses;
     }
 
     @Override
     public List<Course> viewAllCourses() {
-        return null;
+        statement = null;
+        List<Course> courseList = new ArrayList<>();
+        try {
+
+            String sql = SQLQueriesConstants.VIEW_COURSE_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+
+                Course course = new Course();
+                course.setCourseCode(resultSet.getString(1));
+                course.setName(resultSet.getString(2));
+                course.setInstructor(resultSet.getString(3));
+                course.setPrerequisites(resultSet.getString(4));
+                course.setSeats(resultSet.getInt(5));
+                courseList.add(course);
+
+            }
+
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }
+
+        return courseList;
     }
 
     @Override
