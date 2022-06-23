@@ -32,6 +32,10 @@ public class Professor extends User{
 
     private String address;
 
+    public Professor(){
+
+    }
+
     public Professor(String userID, String name, String password, Role role,int professorId,String department,Gender gender,String designation,Date dateOfJoining,String address) {
         super(userID, name, password, role);
         this.professorId = professorId;

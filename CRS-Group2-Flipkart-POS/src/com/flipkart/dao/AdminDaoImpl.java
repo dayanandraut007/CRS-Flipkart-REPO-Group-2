@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.SQLQueriesConstants;
+import com.flipkart.constant.SQLQueriesConstants2;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
@@ -34,7 +35,29 @@ public class AdminDaoImpl implements  AdminDaoInterface{
 
     @Override
     public boolean deleteCourse(String courseCode) {
-        return false;
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants2.DELETE_COURSE_QUERY;
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1, courseCode);
+
+            // Print query
+            System.out.println(statement.toString());
+
+            int row = statement.executeUpdate();
+            if(row == 0) {
+                System.out.println("Couldn't delete the course");
+                return false;
+            }
+            System.out.println("Deleted successfully");
+
+        }catch(SQLException se) {
+
+            se.printStackTrace();
+        }
+        return true;
     }
 
     @Override
@@ -42,14 +65,15 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         statement = null;
         try {
 
-            String sql = SQLQueriesConstants.ADD_COURSE_QUERY;
+            String sql = SQLQueriesConstants2.ADD_COURSE_QUERY;
             statement = connection.prepareStatement(sql);
 
             statement.setString(1, course.getCourseCode());
             statement.setString(2, course.getName());
             statement.setString(3, course.getPrerequisites());
+            statement.setString(4,course.getInstructor());
 
-            statement.setInt(4, course.getSeats());
+            statement.setInt(5, course.getSeats());
 
             // Print query
             System.out.println(statement.toString());
@@ -80,6 +104,32 @@ public class AdminDaoImpl implements  AdminDaoInterface{
 
     @Override
     public void addProfessor(Professor professor) {
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants2.ADD_PROFESSOR_QUERY;
+            statement = connection.prepareStatement(sql);
+
+            statement.setString(1, professor.getUserID());
+            statement.setString(2, professor.getName());
+            statement.setString(3, professor.getDepartment());
+            statement.setString(4, professor.getDesignation());
+            statement.setString(5, professor.getGender().toString());
+            statement.setString(6, professor.getAddress());
+
+            // Print query
+            System.out.println(statement.toString());
+
+            int row = statement.executeUpdate();
+            if(row == 0) {
+                System.out.println("Couldn't add the professor");
+            }
+            System.out.println("Added successfully");
+
+        }catch(SQLException se) {
+
+            se.printStackTrace();
+        }
 
     }
 
@@ -119,7 +169,31 @@ public class AdminDaoImpl implements  AdminDaoInterface{
 
     @Override
     public List<Professor> viewProfessors() {
-        return null;
+        statement = null;
+        List<Professor> professorList = new ArrayList<>();
+        try {
+
+            String sql = SQLQueriesConstants2.VIEW_PROFESSORS_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+
+                Professor professor = new Professor();
+                professor.setUserID(resultSet.getString(1));
+                professor.setName(resultSet.getString(2));
+//                course.setCourseName(resultSet.getString(2));
+//                course.setInstructorId(resultSet.getString(3));
+                professor.setDepartment(resultSet.getString(3));
+                professorList.add(professor);
+
+            }
+
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }
+
+        return professorList;
     }
 
     @Override
