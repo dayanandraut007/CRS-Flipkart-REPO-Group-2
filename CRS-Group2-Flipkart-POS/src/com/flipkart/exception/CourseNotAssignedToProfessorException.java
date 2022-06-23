@@ -3,11 +3,7 @@
  */
 package com.flipkart.exception;
 
-/**
- * Exception course is  not assigned to professor
- * @author JEDI-03
- *
- */
+
 public class CourseNotAssignedToProfessorException extends Exception{
     private String courseCode;
     private String professorId;

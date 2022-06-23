@@ -3,11 +3,7 @@
  */
 package com.flipkart.exception;
 
-/**
- * Exception to check if course is already present in catalog
- * @author JEDI-03
- *
- */
+
 public class CourseAlreadyPresentException extends Exception {
     private String courseCode;
 
