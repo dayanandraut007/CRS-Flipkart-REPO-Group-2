@@ -1,6 +1,7 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.MockData;
@@ -16,7 +17,6 @@ public class ProfessorCRSMenu {
     ProfessorInterface professorInterface = new ProfessorImpl();
 
     public void addGrade(){
-        System.out.println("BATCH DETAILS:");
         System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
         Scanner sc = new Scanner(System.in);
         String course = sc.next();
@@ -29,7 +29,11 @@ public class ProfessorCRSMenu {
     }
 
     public void viewAssignedStudent(String userId){
-        professorInterface.viewAssignedStudents(userId);
+
+        List<EnrolledStudent> student = professorInterface.viewAssignedStudents(userId);
+        for(EnrolledStudent std: student){
+            System.out.println(std.getStudentId());
+        }
     }
 
     public void viewTeachingCourses(String userId) {

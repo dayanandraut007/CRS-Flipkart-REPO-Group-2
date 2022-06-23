@@ -21,9 +21,9 @@ public class ProfessorImpl implements ProfessorInterface {
 
     ProfessorDaoInterface professorDaoInterface = ProfessorDaoImpl.getInstance();
     @Override
-    public void viewAssignedStudents(String professorId) {
+    public List<EnrolledStudent> viewAssignedStudents(String professorId) {
 
-       professorDaoInterface.viewAssignedStudents(professorId);
+       return professorDaoInterface.viewAssignedStudents(professorId);
     }
 
     @Override

@@ -81,11 +81,12 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
                 statement = connection.prepareStatement(sql2);
 
                 statement.setString(1, studentId);
-                statement.setString(2, studentId);
+                statement.setString(2, courseId);
                 statement.setString(3, grade);
-
+                System.out.println(statement.toString());
 
                 int row = statement.executeUpdate();
+
                 if (row == 0) {
                     System.out.println("Couldn't add the grade");
                     return false;

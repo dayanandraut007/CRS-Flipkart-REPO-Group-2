@@ -1,6 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Grade;
@@ -8,7 +9,7 @@ import com.flipkart.constant.Grade;
 import java.util.List;
 
 public interface ProfessorInterface {
-    public void viewAssignedStudents(String professorId);
+    public List<EnrolledStudent> viewAssignedStudents(String professorId);
     public boolean addGrade(String courseId, String studentId, String grade);
     public List<Course> viewTeachingCourses(String professorId);
 
