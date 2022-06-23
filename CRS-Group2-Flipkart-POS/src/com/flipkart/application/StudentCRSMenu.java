@@ -5,6 +5,8 @@ import com.flipkart.bean.Student;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,13 +14,12 @@ public class StudentCRSMenu {
 
     CRSApplication crsApplication = new CRSApplication();
     StudentInterface studentInterface=new StudentImpl();
+    Scanner sc = new Scanner(System.in);
 
     public void courseRegistration(String userId){
         boolean status = studentInterface.semesterRegistration(userId);
-        if(!status){
-            System.out.println("Please add 6 courses to register");
-        }else{
-            System.out.println("Registration Successful. Kindly proceed to payment to complete enrollment");
+        if(status){
+            System.out.println("Final Registration done");
         }
     }
 
@@ -28,6 +29,16 @@ public class StudentCRSMenu {
             System.out.println(course);
         }
     }
+
+    public void makePayment(String userId){
+        System.out.print("ENTER paymentMethod: ");
+        String paymentMethod = sc.next();
+        SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
+        String transactionId = date.toString();
+        studentInterface.makePayment(userId,paymentMethod,transactionId,5000);
+    }
+
+
 
     public void createMenu(String userId){
 
@@ -84,7 +95,7 @@ public class StudentCRSMenu {
                     break;
 
                 case 5:
-                    System.out.println("Write logic for making payment");
+                    makePayment(userId);
                     break;
 
                 case 6:

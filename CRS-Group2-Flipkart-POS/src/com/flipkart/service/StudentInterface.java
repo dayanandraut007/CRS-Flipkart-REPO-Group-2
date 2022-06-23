@@ -23,7 +23,7 @@ public interface StudentInterface {
     List<String> viewAddedCourses(String userId);
 
     public List<Course> viewAllCourses();
-    public boolean makePayment(int studentId);
+    public boolean makePayment(String studentId,String transactionId,String modeOfPayment,float amount);
 
 
 }

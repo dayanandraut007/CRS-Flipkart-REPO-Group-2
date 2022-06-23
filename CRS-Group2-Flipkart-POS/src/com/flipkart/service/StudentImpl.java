@@ -3,9 +3,7 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
-import com.flipkart.dao.MockData;
-import com.flipkart.dao.StudentDaoImpl;
-import com.flipkart.dao.StudentDaoInterface;
+import com.flipkart.dao.*;
 
 import java.util.List;
 
@@ -14,9 +12,9 @@ public class StudentImpl implements StudentInterface {
 
     CourseInterface courseInterface;
     AdminInterface adminInterface;
-    //-------------------HARD CODED------------------------------------
-    MockData data = MockData.getInstance();
+
     StudentDaoInterface studentDaoInterface = StudentDaoImpl.getInstance();
+    NotificationDaoInterface notificationDaoInterface = NotificationDaoImpl.getInstance();
 
     //-----------------------------------------------------------------
     public StudentImpl(){
@@ -34,18 +32,19 @@ public class StudentImpl implements StudentInterface {
 
     @Override
     public boolean semesterRegistration(String userId) {
-        for(Student std: data.students){
-            if(std.getUserID().equals(userId)){
-                if(std.getCourses().size() < 6){
-                    return false;
-                }
-                else{
-                    std.setHasRegistered(true);
-                    return true;
-                }
-            }
+        Student std = studentDaoInterface.getStudentById(userId);
+        if(!std.isDonePayment()){
+            System.out.println("Kindly perform payment of fess to proceed to registration");
+            return false;
         }
-        return false;
+        boolean status = studentDaoInterface.semesterRegistration(userId);
+        if(!status){
+            System.out.println("Server Error. Problem Encountered");
+            return false;
+        }
+        System.out.println("Successfully Registered");
+        return true;
+
     }
 
     @Override
@@ -60,13 +59,22 @@ public class StudentImpl implements StudentInterface {
 
     @Override
     public boolean addCourse(String userId ,String courseCode,String primary) {
+        Student std = studentDaoInterface.getStudentById(userId);
+        if(std.isHasRegistered()){
+            System.out.println("Already Registered");
+            return false;
+        }
         return studentDaoInterface.addCourse(userId,courseCode,primary);
 
     }
 
     @Override
     public boolean dropCourse(String userId, String courseCode) {
-
+        Student std = studentDaoInterface.getStudentById(userId);
+        if(std.isHasRegistered()){
+            System.out.println("Already Registered");
+            return false;
+        }
         return studentDaoInterface.dropCourse(userId,courseCode);
     }
 
@@ -85,8 +93,28 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public boolean makePayment(int studentId) {
-        //
+    public boolean makePayment(String studentId,String transactionId,String modeOfPayment,float amount) {
+        boolean st = studentDaoInterface.checkRegistrationEligibility(studentId);
+        if(!st){
+            System.out.println("Courses not eligible.");
+            return false;
+        }
+        boolean status = studentDaoInterface.makePayment(studentId,transactionId,modeOfPayment,amount);
+        if(status){
+            String message = transactionId + ": Payment of amount " + amount + " done successfully by " + studentId;
+            System.out.println(message);
+            notificationDaoInterface.sendNotification(studentId,message);
+            boolean st1 = studentDaoInterface.approvePayment(studentId);
+            if(!st1){
+                System.out.println("Payment not Approved");
+                return false;
+            }
+            System.out.println("Payment Approved");
+            return true;
+
+        }else{
+            System.out.println("Error Encountered. Payment Failed");
+        }
         return false;
     }
 }
