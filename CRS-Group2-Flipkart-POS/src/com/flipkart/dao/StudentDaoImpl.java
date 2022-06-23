@@ -42,24 +42,28 @@ public class StudentDaoImpl implements StudentDaoInterface{
             statement.setString(1,userId);
             System.out.println(statement.toString());
             ResultSet rs = statement.executeQuery();
-            if(rs.getInt(1) < 6){
-                return false;
-            }
-            else{
-                String sql1 = SQLQueriesConstants.SEMESTER_REGISTRATION_UPDATE_QUERY;
-                statement = connection.prepareStatement(sql1);
-                statement.setString(1,userId);
-                System.out.println(statement.toString());
+            if(rs.next()){
 
-                int row = statement.executeUpdate();
-
-                if(row == 0)
-                {
+                if(rs.getInt(1) < 6){
                     System.out.println("Couldn't Register Student");
                     return false;
                 }
-                System.out.println("Registered Successfully");
-                return true;
+                else{
+                    String sql1 = SQLQueriesConstants.SEMESTER_REGISTRATION_UPDATE_QUERY;
+                    statement = connection.prepareStatement(sql1);
+                    statement.setString(1,userId);
+                    System.out.println(statement.toString());
+
+                    int row = statement.executeUpdate();
+
+                    if(row == 0)
+                    {
+                        System.out.println("Couldn't Register Student");
+                        return false;
+                    }
+                    System.out.println("Registered Successfully");
+                    return true;
+                }
             }
         }
         catch ( SQLException e)
@@ -114,7 +118,7 @@ public class StudentDaoImpl implements StudentDaoInterface{
                 System.out.println("Couldn't add course");
                 return false;
             }
-            System.out.println("Added Successfully");
+            System.out.println("Course Added Successfully");
         }
         catch ( SQLException e)
         {
@@ -136,7 +140,7 @@ public class StudentDaoImpl implements StudentDaoInterface{
             System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
-
+            System.out.println(row);
             if(row == 0)
             {
                 System.out.println("Couldn't drop course");
@@ -158,9 +162,12 @@ public class StudentDaoImpl implements StudentDaoInterface{
         try{
             String sql = SQLQueriesConstants.VIEW_REGISTERED_COURSES_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
+            statement.setString(1,userId);
+            System.out.println(statement.toString());
             ResultSet resultSet = statement.executeQuery();
+
             while(resultSet.next()) {
-                registeredCourses.add(resultSet.getString(1));
+                registeredCourses.add(resultSet.getString(2));
             }
         }
         catch(SQLException e){
