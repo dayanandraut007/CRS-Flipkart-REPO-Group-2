@@ -1,32 +1,15 @@
 package com.flipkart.exception;
 
 
-public class CourseAlreadyRegisteredException extends Exception{
+public class CourseAlreadyRegisteredException extends Exception {
 
-    private String courseCode;
-
-    /**
-     * Constructor
-     * @param courseCode
-     */
-    public CourseAlreadyRegisteredException(String courseCode) {
-        this.courseCode = courseCode;
+    public CourseAlreadyRegisteredException() {
+        super("This student has already registered");
     }
 
-    /**
-     * Getter method
-     * @return course code
-     */
-    public String getCourseCode() {
-        return courseCode;
+    public CourseAlreadyRegisteredException(String msg) {
+        super(msg);
     }
 
-    /**
-     * Message returned when exception is thrown
-     */
-    @Override
-    public String getMessage() {
-        return "You have already registered for " + courseCode;
-    }
 
 }
