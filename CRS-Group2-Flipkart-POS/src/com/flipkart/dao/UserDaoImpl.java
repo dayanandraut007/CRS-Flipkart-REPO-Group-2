@@ -44,7 +44,23 @@ public class UserDaoImpl implements UserDaoInterface{
 
     @Override
     public boolean changePassword(String userID, String newPassword) {
-        return false;
+        statement = null;
+        try{
+            User usr = null;
+            String sql = SQLQueriesConstants2.CHANGE_PASSWORD;
+            statement = connection.prepareStatement(sql);
+            statement.setString(2,userID);
+            statement.setString(1,newPassword);
+
+            int row = statement.executeUpdate();
+            if(row==0){
+                return false;
+            }
+            return true;
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
+        return true;
     }
 
     /**

@@ -18,8 +18,6 @@ import java.util.List;
  */
 public class UserImpl implements UserInterface{
 
-    //-------------------HARD CODED------------------------------------
-    MockData data = MockData.getInstance();
     UserDaoInterface userDaoInterface = UserDaoImpl.getInstance();
 
     //-----------------------------------------------------------------
@@ -32,7 +30,8 @@ public class UserImpl implements UserInterface{
      */
     @Override
     public boolean changePassword(String userID, String newPassword) {
-        return false;
+        return userDaoInterface.changePassword(userID,newPassword);
+
     }
 
     /**
