@@ -41,7 +41,7 @@ public class NotificationDaoImpl implements NotificationDaoInterface{
      * sendNotification method is used to send the notification to user
      * @param studentId
      * @param notificationMessage
-     * @return {@Link boolean}
+     * return boolean
      */
     @Override
     public boolean sendNotification(String studentId, String notificationMessage) {
@@ -73,7 +73,7 @@ public class NotificationDaoImpl implements NotificationDaoInterface{
     /**
      * getReferenceId used to get the reference ID of the notification
      * @param notificationId
-     * @return {@Link UUID}
+     * return UUID
      */
     @Override
     public UUID getReferenceId(int notificationId) {

@@ -22,14 +22,14 @@ public interface NotificationInterface {
      * @param modeOfPayment
      * @param amount
      * @param referenceId
-     * @return {@Link int}
+     * return int
      */
     public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount,String referenceId);
 
     /**
      * getReferenceId used to get the reference ID of the payment
      * @param notificationId
-     * @return {@Link UUID}
+     * return UUID
      */
 
     public UUID getReferenceId(int notificationId);
