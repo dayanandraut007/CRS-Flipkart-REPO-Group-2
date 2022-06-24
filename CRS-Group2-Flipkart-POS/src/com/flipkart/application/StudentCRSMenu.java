@@ -62,7 +62,7 @@ public class StudentCRSMenu {
                 System.out.println("Can't Register");
             }
         }
-        catch(CourseAlreadyRegisteredException e){
+        catch(CourseAlreadyRegisteredException | CourseNotFoundException | CourseAlreadyPresentException e){
             System.out.println(e.getMessage());
         }
     }
@@ -75,7 +75,7 @@ public class StudentCRSMenu {
                 System.out.println("Already Registered. Can't add or drop now");
             }
         }
-        catch(CourseAlreadyRegisteredException e){
+        catch(CourseAlreadyRegisteredException | CourseNotAddedException e){
             System.out.println(e.getMessage());
         }
     }

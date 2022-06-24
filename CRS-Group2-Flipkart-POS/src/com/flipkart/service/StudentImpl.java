@@ -6,6 +6,7 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.*;
 import com.flipkart.exception.*;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 
@@ -17,6 +18,7 @@ public class StudentImpl implements StudentInterface {
     AdminInterface adminInterface;
 
     StudentDaoInterface studentDaoInterface = StudentDaoImpl.getInstance();
+    AdminDaoInterface adminDaoInterface = AdminDaoImpl.getInstance();
     NotificationDaoInterface notificationDaoInterface = NotificationDaoImpl.getInstance();
 
     //-----------------------------------------------------------------
@@ -51,8 +53,12 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public Student getStudentById(String studentId) {
-        return studentDaoInterface.getStudentById(studentId);
+    public Student getStudentById(String studentId) throws UserNotFoundException {
+        Student std = studentDaoInterface.getStudentById(studentId);
+        if(std == null){
+            throw new UserNotFoundException(studentId,"student");
+        }
+        return std;
     }
 
     @Override
@@ -61,23 +67,31 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public boolean addCourse(String userId, String courseCode, String primary) throws CourseAlreadyRegisteredException {
+    public boolean addCourse(String userId, String courseCode, String primary) throws CourseAlreadyRegisteredException,CourseNotFoundException,CourseAlreadyPresentException {
         Student std = studentDaoInterface.getStudentById(userId);
         if (std.isHasRegistered()) {
-            System.out.println("This course is already added.");
             throw new CourseAlreadyRegisteredException();
+        }
+        boolean status = adminDaoInterface.findCourse(courseCode);
+        if(!status){
+            throw new CourseNotFoundException(courseCode);
+        }
+        if(studentDaoInterface.courseNotAdded(userId,courseCode)){
+            throw new CourseAlreadyPresentException();
         }
         return studentDaoInterface.addCourse(userId, courseCode, primary);
 
     }
 
     @Override
-    public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException {
+    public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException,CourseNotAddedException {
         Student std = studentDaoInterface.getStudentById(userId);
         if (std.isHasRegistered()) {
-            System.out.println("Already Registered");
             throw new CourseAlreadyRegisteredException();
 
+        }
+        if(!studentDaoInterface.courseNotAdded(userId,courseCode)){
+            throw new CourseNotAddedException();
         }
         return studentDaoInterface.dropCourse(userId, courseCode);
     }

@@ -13,12 +13,12 @@ public interface StudentInterface {
 
     public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException;
 
-    public Student getStudentById(String studentId);
+    public Student getStudentById(String studentId) throws UserNotFoundException;
 
     public boolean isApproved(String studentId);
 
-    public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyRegisteredException;
-    public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException;
+    public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyRegisteredException, CourseNotFoundException,CourseAlreadyPresentException;
+    public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException,CourseNotAddedException;
 
 
     List<String> viewRegisteredCourses(String userId);

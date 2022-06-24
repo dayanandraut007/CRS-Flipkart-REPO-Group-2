@@ -30,6 +30,7 @@ public interface StudentDaoInterface {
     public List<StudentGrade> viewGradeCard(String userId);
 
     public boolean makePayment(String userId,String transactionId, String modeOfPayment, float amount);
+    public boolean courseNotAdded(String userId,String courseId);
 
 
 }

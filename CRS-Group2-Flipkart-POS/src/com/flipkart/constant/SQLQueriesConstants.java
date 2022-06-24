@@ -35,5 +35,6 @@ public class SQLQueriesConstants {
     public static final String FIND_COURSE_QUERY = "SELECT * FROM CRSDatabase.course where course_code = ?;";
 
     public static final String FIND_USER_QUERY = "SELECT * FROM CRSDatabase.user where user_id = ?;";
+    public static final String COURSE_ADD_CHECK_QUERY = "SELECT * FROM CRSDatabase.student_enrolled_course where student_id = ? and course_id = ?;";
 
 }
