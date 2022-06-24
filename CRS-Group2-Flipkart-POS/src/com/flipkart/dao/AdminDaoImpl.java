@@ -312,7 +312,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     }
 
     /**
-     * Method to generate score card
+     * Method to generate grade card
      * @param studentId
      * @return list of course with grades
      */
