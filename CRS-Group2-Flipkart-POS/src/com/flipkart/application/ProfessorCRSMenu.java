@@ -5,27 +5,41 @@ import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.MockData;
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.service.ProfessorImpl;
 import com.flipkart.service.ProfessorInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.flipkart.exception.*;
 
 public class ProfessorCRSMenu {
 
     ProfessorInterface professorInterface = new ProfessorImpl();
 
-    public void addGrade(){
-        System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
-        Scanner sc = new Scanner(System.in);
-        String course = sc.next();
+    public void addGrade()  {
+        try
+        {
+            System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
+            Scanner sc = new Scanner(System.in);
+            String course = sc.next();
+            System.out.println("ENTER THE STUDENT ID: ");
+            String sid = sc.next();
+            System.out.println("ENTER GRADE: ");
+            String gr = sc.next();
+            boolean temp =  professorInterface.addGrade(course, sid, gr);
+//            if(!temp)
+//            {
+//                System.out.println("Grade not added.Please try again!0");
+//
+//            }
+        }
+        catch (GradeNotAddedException e)
+        {
+            System.out.println(e.getMessage());
+        }
 
-        System.out.println("ENTER THE STUDENT ID: ");
-        String sid = sc.next();
-        System.out.println("ENTER GRADE: ");
-        String gr = sc.next();
-        professorInterface.addGrade(course, sid, gr);
     }
 
     public void viewAssignedStudent(String userId){

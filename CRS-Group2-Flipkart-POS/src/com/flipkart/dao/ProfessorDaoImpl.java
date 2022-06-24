@@ -66,15 +66,23 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
     @Override
     public boolean addGrade(String courseId, String studentId, String grade) {
         statement = null;
-        //statement2 = null;
+
         try {
 
             String sql1 = SQLQueriesConstants.CHECK_VALID_COURSES_QUERY_FOR_ADD_GRADE;
             statement = connection.prepareStatement(sql1);
             statement.setString(1, courseId);
             statement.setString(2, studentId);
-            ResultSet resultSet = statement.executeQuery();
 
+            ResultSet rs2 = statement.executeQuery();
+
+            if( !rs2.next() )
+            {
+                return false;
+            }
+
+
+            ResultSet resultSet = statement.executeQuery();
             while(resultSet.next()) {
 
                 String sql2 = SQLQueriesConstants.ADD_GRADE_QUERY;
@@ -92,12 +100,14 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
                     return false;
                 }
 
+
                 System.out.println("GRADE ADDED SUCCESSFULLY!");
             }
 
+
         }catch(SQLException se) {
 
-            se.printStackTrace();
+            //se.printStackTrace();
         }
         return true;
     }

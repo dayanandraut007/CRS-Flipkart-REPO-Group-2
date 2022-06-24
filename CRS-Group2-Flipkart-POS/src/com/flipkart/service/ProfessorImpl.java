@@ -5,6 +5,7 @@ import com.flipkart.constant.Grade;
 import com.flipkart.dao.MockData;
 import com.flipkart.dao.ProfessorDaoImpl;
 import com.flipkart.dao.ProfessorDaoInterface;
+import com.flipkart.exception.GradeNotAddedException;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -27,25 +28,16 @@ public class ProfessorImpl implements ProfessorInterface {
     }
 
     @Override
-    public boolean addGrade(String courseId, String studentId, String grade){
-//        System.out.println("BATCH DETAILS:");
-//        viewAssignedStudents("007");
-//        System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
-//        Scanner sc=new Scanner(System.in);
-//        String course = sc.next();
-//
-//        System.out.println("ENTER THE STUDENT ID: ");
-//        int sid = sc.nextInt();
-//        System.out.println("ENTER GRADE: ");
-//        String gr = sc.next();
-//        StudentGrade studentGrades = new StudentGrade(course,Grade.valueOf(gr.toUpperCase()),sid);
-//        data.grade.add(studentGrades);
-//        System.out.println("GRADE ADDED SUCCESSFULLY!");
-//        for(StudentGrade sg: data.grade){
-//            System.out.println(sg.getCourseCode()+"\t"+sg.getStudentID()+"\t"+sg.getGrade()+"\n");
-//        }
+    public boolean addGrade(String courseId, String studentId, String grade) throws GradeNotAddedException  {
 
-        return professorDaoInterface.addGrade(courseId, studentId, grade);
+        boolean temp = professorDaoInterface.addGrade(courseId, studentId, grade);
+        if(!temp)
+        {
+            throw new GradeNotAddedException(studentId);
+        }
+
+        return temp;
+
 
     }
 
