@@ -8,6 +8,7 @@ import com.flipkart.constant.Grade;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.constant.SQLQueriesConstants2;
+import com.flipkart.exception.UserAlreadyExistException;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
@@ -29,6 +30,8 @@ import java.util.List;
 public class StudentDaoImpl implements StudentDaoInterface {
     private static StudentDaoImpl instance = null;
     private PreparedStatement statement = null;
+
+
 
     private StudentDaoImpl() {
     }

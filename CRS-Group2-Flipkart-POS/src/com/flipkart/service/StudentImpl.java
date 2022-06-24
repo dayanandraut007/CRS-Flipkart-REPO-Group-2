@@ -45,7 +45,11 @@ public class StudentImpl implements StudentInterface {
      * @return {@link Student}
      */
     @Override
-    public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
+    public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) throws UserAlreadyExistException {
+        boolean status = adminDaoInterface.findUser(userID);
+        if (status) {
+            throw new UserAlreadyExistException(userID, "Student");
+        }
         Student stud1 = studentDaoInterface.register(name, userID, password, null, batch, branch, address);
         return stud1;
     }

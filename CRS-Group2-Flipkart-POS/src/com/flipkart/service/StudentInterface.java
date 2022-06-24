@@ -27,7 +27,7 @@ public interface StudentInterface {
      * @return {@link Student}
      */
     public Student register(String name,String userID,String password,String gender,int batch,
-                        String branch,String address);
+                        String branch,String address) throws UserAlreadyExistException;
     /**
      * Method for Semester Registration
      * @param userId

@@ -4,6 +4,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
+import com.flipkart.exception.UserAlreadyExistException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.*;
 
@@ -67,22 +68,23 @@ public class CRSApplication {
      * Method for student registration
      */
     public void studentRegistration(){
+        try {
+            System.out.print("USER ID: ");
+            String userId = sc.next();
 
-        System.out.print("USER ID: ");
-        String userId = sc.next();
-
-        System.out.print("NAME: ");
-        String name = sc.next();
-
-        System.out.println("PASSWORD: ");
-        String password = sc.next();
-        System.out.print("BRANCH: ");
-        String branch = sc.next();
-        System.out.println("BATCH: ");
-        int batch= sc.nextInt();
-        System.out.print("ADDRESS: ");
-        String address = sc.next();
-        studentInterface.register(name,userId,password,null,batch,branch,address);
+            System.out.print("NAME: ");
+            String name = sc.next();
+            System.out.print("BRANCH: ");
+            String branch = sc.next();
+            System.out.println("BATCH: ");
+            int batch = sc.nextInt();
+            System.out.print("ADDRESS: ");
+            String address = sc.next();
+            studentInterface.register(name, userId, null, null, batch, branch, address);
+        }
+        catch(UserAlreadyExistException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
