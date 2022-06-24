@@ -16,6 +16,10 @@ import java.util.Scanner;
 
 /**
  * ProfessorDaoImpl class implements the Professor database operations
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
  */
 public class ProfessorDaoImpl implements ProfessorDaoInterface{
 

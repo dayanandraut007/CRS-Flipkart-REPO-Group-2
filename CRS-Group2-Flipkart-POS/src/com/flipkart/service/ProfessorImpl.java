@@ -12,7 +12,12 @@ import java.util.List;
 
 /**
  * ProfessorImpl class implements the Professor service operations
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
  */
+
 
 public class ProfessorImpl implements ProfessorInterface {
 
