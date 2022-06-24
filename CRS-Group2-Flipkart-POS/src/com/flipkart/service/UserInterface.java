@@ -34,7 +34,7 @@ public interface UserInterface {
      * User Login method uses SQL commands and verifies the user
      * @param userID
      * @param password
-     * @eturn User
+     * @return User
      */
 
     public User login(String userID, String password);

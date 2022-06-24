@@ -17,14 +17,14 @@ public interface CourseInterface {
     /**
      * getCourseById method returns the course details
      * @param courseCode
-     * @return {@Link Course}
+     * @return course object
      */
 
     public Course getCourseById(String courseCode);
 
     /**
      * viewAllCourses method return all the courses
-     * @return {@Link List<Course>}
+     * @return list of all courses
      */
     public List<Course> viewAllCourses();
 

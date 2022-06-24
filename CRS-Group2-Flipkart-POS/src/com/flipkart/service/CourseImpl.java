@@ -26,7 +26,7 @@ public class CourseImpl implements  CourseInterface{
     /**
      * getCourseById method returns the course details
      * @param courseCode
-     * @return {@Link Course}
+     * @return course object
      */
 
     @Override
@@ -41,7 +41,7 @@ public class CourseImpl implements  CourseInterface{
 
     /**
      * viewAllCourses method return all the courses
-     * @return {@Link List<Course>}
+     * @return list of courses
      */
 
     @Override
