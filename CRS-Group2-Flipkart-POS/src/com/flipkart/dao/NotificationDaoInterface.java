@@ -19,7 +19,7 @@ public interface NotificationDaoInterface {
      * sendNotification method is used to send the notification to user
      * @param studentId
      * @param notificationMessage
-     * @return {@Link boolean}
+     * return boolean
      */
     public boolean sendNotification(String studentId, String notificationMessage);
 
@@ -27,7 +27,7 @@ public interface NotificationDaoInterface {
     /**
      * getReferenceId used to get the reference ID of the notification
      * @param notificationId
-     * @return {@Link UUID}
+     * return UUID
      */
     public UUID getReferenceId(int notificationId);
 }
