@@ -1,5 +1,12 @@
 package com.flipkart.exception;
 
+/**
+ * Exception class for student course not matched
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 
 public class StudentCourseNotMatchedException extends Exception{
 
