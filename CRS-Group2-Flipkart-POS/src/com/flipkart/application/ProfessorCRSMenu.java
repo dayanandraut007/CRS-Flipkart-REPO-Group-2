@@ -10,7 +10,10 @@ import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 /**
  * Menu class for Professor
  * This class implements the Professor Course Registration System Menu
@@ -58,10 +61,19 @@ public class ProfessorCRSMenu {
 
     public void viewAssignedStudent(String userId){
 
-        List<EnrolledStudent> student = professorInterface.viewAssignedStudents(userId);
-        student.forEach(s->{
-            System.out.println(s.getStudentId());
-        });
+        List<EnrolledStudent> students = professorInterface.viewAssignedStudents(userId);
+//        students.forEach(s->{
+//            System.out.println(s.getStudentId());
+//        });
+
+        Map<String, List<String>> result = students.stream().collect(Collectors.groupingBy(EnrolledStudent::getCourseCode, Collectors.mapping(EnrolledStudent::getStudentId, Collectors.toList())));
+        for(String course: result.keySet()){
+            System.out.println("Student enrolled in course: "+course);
+            for(String name: result.get(course)){
+                System.out.println(name);
+            }
+        }
+        //System.out.println(result);
     }
 
     /**
