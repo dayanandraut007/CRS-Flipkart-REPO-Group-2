@@ -33,7 +33,7 @@ public class ProfessorImpl implements ProfessorInterface {
     /**
      * viewAssignedStudents method is used by the professor to view all the students in respective courses
      * @param professorId
-     * @return {@link List<EnrolledStudent>}
+     * @return list of enrolled students
      */
 
     @Override
@@ -48,7 +48,7 @@ public class ProfessorImpl implements ProfessorInterface {
      * @param courseId
      * @param studentId
      * @param grade
-     * @return {@link boolean}
+     * @return boolean
      * @throws CourseNotAssignedToProfessorException
      * @throws StudentCourseNotMatchedException
      *
@@ -77,7 +77,7 @@ public class ProfessorImpl implements ProfessorInterface {
     /**
      * viewTeachingCourses method is used by the professor to view all the courses assigned to him
      * @param professorId
-     * @return {@link List<Course>}
+     * @return list of view teaching courses
      */
 
     @Override
@@ -90,7 +90,7 @@ public class ProfessorImpl implements ProfessorInterface {
      * @param professorId
      * @return
      * @throws UserNotFoundException
-     * @return {@link Professor}
+     * @return professor object
      */
 
     @Override

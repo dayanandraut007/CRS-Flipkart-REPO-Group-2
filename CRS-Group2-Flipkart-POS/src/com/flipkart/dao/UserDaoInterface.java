@@ -23,7 +23,7 @@ public interface UserDaoInterface {
     /**
      * UpdateDetails method will update the details of user
      * @param user
-     * @return {@link Boolean}
+     * @return boolean
      */
     public boolean updateDetails(User user);
 
@@ -31,7 +31,7 @@ public interface UserDaoInterface {
      * User Login method uses SQL commands and verifies the user
      * @param userID
      * @param password
-     * @return {@link User}
+     * @return user object
      */
     public User login(String userID, String password);
 }

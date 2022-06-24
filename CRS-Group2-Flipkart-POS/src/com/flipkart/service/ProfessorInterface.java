@@ -22,7 +22,7 @@ public interface ProfessorInterface {
     /**
      * viewAssignedStudents method is used by the professor to view all the students in respective courses
      * @param professorId
-     * @return {@link List<EnrolledStudent>}
+     * @return list of enrolled students
      */
     public List<EnrolledStudent> viewAssignedStudents(String professorId);
 
@@ -32,7 +32,7 @@ public interface ProfessorInterface {
      * @param courseId
      * @param studentId
      * @param grade
-     * @return {@link boolean}
+     * @return boolean
      * @throws CourseNotAssignedToProfessorException
      * @throws StudentCourseNotMatchedException
      *
@@ -43,7 +43,7 @@ public interface ProfessorInterface {
     /**
      * viewTeachingCourses method is used by the professor to view all the courses assigned to him
      * @param professorId
-     * @return {@link List<Course>}
+     * @return list of available courses
      */
 
     public List<Course> viewTeachingCourses(String professorId);
@@ -53,7 +53,7 @@ public interface ProfessorInterface {
      * @param professorId
      * @return
      * @throws UserNotFoundException
-     * @return {@link Professor}
+     * @return professor object
      */
 
     public Professor getProfessorById(String professorId) throws UserNotFoundException;

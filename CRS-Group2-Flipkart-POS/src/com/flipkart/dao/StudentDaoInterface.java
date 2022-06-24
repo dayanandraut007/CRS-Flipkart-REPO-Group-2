@@ -23,8 +23,7 @@ public interface StudentDaoInterface {
      * @param batch: batch of student
      * @param branch: branch of student
      * @param address: address of student
-     * @return
-     * {@link Student}
+     * @return student
      */
     public Student register(String name, String userID, String password, String gender, int batch,
                             String branch, String address);
@@ -32,25 +31,22 @@ public interface StudentDaoInterface {
     /**
      * Method to do semester registration of the student
      * @param userId
-     * {@link Boolean}
-     * @return
+      * return  Boolean
      */
     public boolean semesterRegistration(String userId);
 
     /**
      * Method to fetch the details of the student by its ID
      * @param userId
-     * {@link Student}
-     * @return
+     *
+     * @return true or false
      */
     public Student getStudentById(String userId);
 
     /**
      * Method to check whether admin has approved the student
      * @param studentId
-     * {@link Boolean}
-     * @return
-     * {link Boolean}
+     * @return Boolean
      */
     public boolean isApproved(String studentId);
 
@@ -59,7 +55,7 @@ public interface StudentDaoInterface {
      * @param userId
      * @param courseCode
      * @param primary
-     * {@link Boolean}
+
      * @return
      */
     public boolean addCourse(String userId, String courseCode,String primary);
@@ -67,30 +63,26 @@ public interface StudentDaoInterface {
      * Method to drop course of the Student
      * @param userId
      * @param courseCode
-     * @return
-     * {@link Boolean}
+     * @return boolean
      */
     public boolean dropCourse(String userId, String courseCode);
 
     /**
      * Method to see the list of the courses registered by the student
      * @param userId
-     * @return
-     * {@link List}
+     * @return true or false
      */
     public List<String> viewRegisteredCourses(String userId);
     /**
      * Method to see list of added courses
      * @param userId
-     * @return
-     * {@link List}
+     * @return list of registered courses
      */
     public List<String> viewAddedCourses(String userId);
 
     /**
      * Method to see list of all the courses
-     * @return
-     * {@link List}
+     * @return list of all courses
      */
     public List<Course> viewAllCourses();
     /**
@@ -103,15 +95,13 @@ public interface StudentDaoInterface {
     /**
      * Method to approve payment of Student
      * @param userId
-     * @return
-     * {@link Boolean}
+     * @return boolean
      */
     public boolean approvePayment(String userId);
     /**
      * Method to see the grade card of the student
      * @param userId
-     * @return
-     * {@link List}
+     * @return list of grades
      */
     public List<StudentGrade> viewGradeCard(String userId);
 
@@ -121,16 +111,14 @@ public interface StudentDaoInterface {
      * @param transactionId
      * @param modeOfPayment
      * @param amount
-     * @return
-     * {@link Boolean}
+     * @return boolean payment status
      */
     public boolean makePayment(String userId,String transactionId, String modeOfPayment, float amount);
     /**
      * method to check whether a course has been added or not
      * @param userId
      * @param courseId
-     * @return
-     * {@link Boolean}
+     * @return boolean
      */
     public boolean courseNotAdded(String userId,String courseId);
 

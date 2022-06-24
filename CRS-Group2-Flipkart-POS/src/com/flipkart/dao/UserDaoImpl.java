@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDaoInterface{
     /**
      * UpdateDetails method will update the details of user
      * @param user
-     * @return {@link Boolean}
+     * @return boolean
      */
 
     @Override
@@ -78,7 +78,7 @@ public class UserDaoImpl implements UserDaoInterface{
      * User Login method uses SQL commands and verifies the user
      * @param userID
      * @param password
-     * @return {@link User}
+     * @return user object
      */
 
     @Override

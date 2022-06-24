@@ -22,7 +22,7 @@ import java.util.List;
  * The StudentDaoImpl class implements the StudentDaoInterface
  * To provide the functionality to interact with the database
  *
- * @suthor
+ * @author
  * JEDI-June-Program-Group-2-2022
  * @version 1.0
  * @since June 2022
@@ -55,8 +55,8 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @param batch: batch of student
      * @param branch: branch of student
      * @param address: address of student
-     * @return
-     * {@link Student}
+     * @return student object
+     *
      */
 
     @Override
@@ -94,8 +94,8 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to do semester registration of the student
      * @param userId
-     * {@link Boolean}
-     * @return
+     *
+     * @return student
      */
     @Override
     public boolean semesterRegistration(String userId) {
@@ -134,8 +134,8 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to fetch the details of the student by its ID
      * @param userId
-     * {@link Student}
-     * @return
+     *
+     * @return student
      */
     @Override
     public Student getStudentById(String userId) {
@@ -167,9 +167,8 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to check whether admin has approved the student
      * @param studentId
-     * {@link Boolean}
-     * @return
-     * {link Boolean}
+     *
+     * @return boolean
      */
     @Override
     public boolean isApproved(String studentId) {
@@ -195,8 +194,8 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @param userId
      * @param courseCode
      * @param primary
-     * {@link Boolean}
-     * @return
+     *
+     * @return boolean
      */
     @Override
     public boolean addCourse(String userId, String courseCode, String primary) {
@@ -254,8 +253,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * Method to drop course of the Student
      * @param userId
      * @param courseCode
-     * @return
-     * {@link Boolean}
+     * @return boolean
      */
     @Override
     public boolean dropCourse(String userId, String courseCode) {
@@ -293,8 +291,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to see the list of the courses registered by the student
      * @param userId
-     * @return
-     * {@link List}
+     * @return list of registered courses
      */
     @Override
     public List<String> viewRegisteredCourses(String userId) {
@@ -319,8 +316,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to see list of added courses
      * @param userId
-     * @return
-     * {@link List}
+     * @return list of added courses
      */
     @Override
     public List<String> viewAddedCourses(String userId) {
@@ -344,8 +340,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
 
     /**
      * Method to see list of all the courses
-     * @return
-     * {@link List}
+     * @return list of courses
      */
     @Override
     public List<Course> viewAllCourses() {
@@ -411,8 +406,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to see the grade card of the student
      * @param userId
-     * @return
-     * {@link List}
+     * @return list of student grade
      */
     @Override
     public List<StudentGrade> viewGradeCard(String userId) {
@@ -450,8 +444,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
     /**
      * Method to Check registration eligibility of the student
      * @param userId
-     * @return
-     * {@link Boolean}
+     * @return  Boolean
      */
     @Override
     public boolean checkRegistrationEligibility(String userId) {
@@ -486,8 +479,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @param transactionId
      * @param paymentMethod
      * @param amount
-     * @return
-     * {@link Boolean}
+     * @return Boolean
      */
     public boolean makePayment(String userId, String transactionId, String paymentMethod, float amount) {
         Payment payment = new Payment(userId, amount, paymentMethod, transactionId);
@@ -519,8 +511,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * method to check whether a course has been added or not
      * @param userId
      * @param courseId
-     * @return
-     * {@link Boolean}
+     * @return Boolean
      */
     @Override
     public boolean courseNotAdded(String userId,String courseId){

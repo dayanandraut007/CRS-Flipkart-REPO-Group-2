@@ -42,7 +42,7 @@ public class StudentImpl implements StudentInterface {
      * @param batch
      * @param branch
      * @param address
-     * @return {@link Student}
+     * @return student object
      */
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) throws UserAlreadyExistException {
@@ -82,7 +82,7 @@ public class StudentImpl implements StudentInterface {
     /**
      * Method to fetch student by Student ID
      * @param studentId : Student Id
-     * @return {@link Student}
+     * @return student object
      * @throws UserNotFoundException
      */
     @Override
@@ -155,7 +155,7 @@ public class StudentImpl implements StudentInterface {
     /**
      * Method to view all Registered Courses
      * @param userId
-     * @return {@link List<String>}
+     * @return list of registered courses
      */
     @Override
     public List<String> viewRegisteredCourses(String userId) {
@@ -165,7 +165,7 @@ public class StudentImpl implements StudentInterface {
     /**
      * Method to view Report Card
      * @param userId
-     * @return {@link List}
+     * @return list of grades
      */
     @Override
     public List<StudentGrade> viewGradeCard(String userId) {
@@ -175,7 +175,7 @@ public class StudentImpl implements StudentInterface {
     /**
      * Method to view all added Courses
      * @param userId
-     * @return {@link List}
+     * @return list of added courses
      */
     @Override
     public List<String> viewAddedCourses(String userId) {
@@ -184,7 +184,7 @@ public class StudentImpl implements StudentInterface {
 
     /**
      * Method to view all Courses present
-     * @return {@link List}
+     * @return list of all courses
      */
     @Override
     public List<Course> viewAllCourses() {
