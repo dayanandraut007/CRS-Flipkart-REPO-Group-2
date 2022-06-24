@@ -90,9 +90,10 @@ public class AdminCRSMenu {
             String id = sc.next();
             List<StudentGrade> gradeList = adminInterface.generateGradeCard(id);
             System.out.println("Course ---------- Grade" );
-            for(StudentGrade st: gradeList){
-                System.out.println(st.getCourseCode() + "----------"  + st.getGrade().toString() );
-            }
+            gradeList.forEach(gc->{
+                System.out.println(gc.getCourseCode() + "----------"  + gc.getGrade().toString() );
+            });
+
         }
         catch (UserNotFoundException e)
         {
