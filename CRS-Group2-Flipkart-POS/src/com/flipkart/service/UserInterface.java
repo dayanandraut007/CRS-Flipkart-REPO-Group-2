@@ -17,7 +17,7 @@ public interface UserInterface {
      * changePassword method is used to change the password
      * @param userID
      * @param newPassword
-     * @return {@Link Boolean}
+     * return boolean
      */
 
     public boolean changePassword(String userID, String newPassword);
@@ -25,7 +25,7 @@ public interface UserInterface {
     /**
      * UpdateDetails method will update the details of user
      * @param user
-     * @return {@Link boolean}
+     * return boolean
      */
 
     public boolean updateDetails(User user);
@@ -34,7 +34,7 @@ public interface UserInterface {
      * User Login method uses SQL commands and verifies the user
      * @param userID
      * @param password
-     * @return {@link User}
+     * @eturn User
      */
 
     public User login(String userID, String password);

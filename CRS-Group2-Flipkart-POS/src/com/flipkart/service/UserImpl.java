@@ -26,7 +26,7 @@ public class UserImpl implements UserInterface{
      * changePassword method is used to change the password
      * @param userID
      * @param newPassword
-     * @return {@Link Boolean}
+     * return boolean
      */
     @Override
     public boolean changePassword(String userID, String newPassword) {
@@ -37,7 +37,7 @@ public class UserImpl implements UserInterface{
     /**
      * UpdateDetails method will update the details of user
      * @param user
-     * @return {@Link boolean}
+     * return boolean
      */
     @Override
     public boolean updateDetails(User user) {
@@ -48,7 +48,7 @@ public class UserImpl implements UserInterface{
      * User Login method uses SQL commands and verifies the user
      * @param userID
      * @param password
-     * @return {@link User}
+     * return User
      */
 
     @Override
