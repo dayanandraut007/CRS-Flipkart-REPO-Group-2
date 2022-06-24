@@ -33,6 +33,8 @@ public class StudentDaoImpl implements StudentDaoInterface {
 
     Connection connection = DBUtils.getConnection();
 
+
+
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
         Student stud1 = new Student(userID, name, password, Role.STUDENT, Integer.parseInt(userID), branch, batch, false, address, false, false);
