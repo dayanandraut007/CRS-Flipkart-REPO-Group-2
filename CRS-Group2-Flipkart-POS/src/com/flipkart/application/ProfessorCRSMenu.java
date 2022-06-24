@@ -2,23 +2,19 @@ package com.flipkart.application;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.dao.MockData;
-import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.CourseNotAssignedToProfessorException;
+import com.flipkart.exception.StudentCourseNotMatchedException;
 import com.flipkart.service.ProfessorImpl;
 import com.flipkart.service.ProfessorInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import com.flipkart.exception.*;
 
 public class ProfessorCRSMenu {
 
     ProfessorInterface professorInterface = new ProfessorImpl();
 
-    public void addGrade()  {
+    public void addGrade(String userId)  {
         try
         {
             System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
@@ -28,14 +24,14 @@ public class ProfessorCRSMenu {
             String sid = sc.next();
             System.out.println("ENTER GRADE: ");
             String gr = sc.next();
-            boolean temp =  professorInterface.addGrade(course, sid, gr);
+            boolean temp =  professorInterface.addGrade(userId,course, sid, gr);
 //            if(!temp)
 //            {
 //                System.out.println("Grade not added.Please try again!0");
 //
 //            }
         }
-        catch (GradeNotAddedException e)
+        catch (StudentCourseNotMatchedException | CourseNotAssignedToProfessorException e)
         {
             System.out.println(e.getMessage());
         }
@@ -83,7 +79,7 @@ public class ProfessorCRSMenu {
                     viewAssignedStudent(userId);
                     break;
                 case 3:
-                    addGrade();
+                    addGrade(userId);
                     break;
                 case 4:
                     crsApplication.createMenu();

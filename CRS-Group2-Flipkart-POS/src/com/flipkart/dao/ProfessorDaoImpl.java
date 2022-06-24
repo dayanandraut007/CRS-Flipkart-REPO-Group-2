@@ -1,9 +1,7 @@
 package com.flipkart.dao;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledStudent;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.*;
+import com.flipkart.constant.Gender;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.utils.DBUtils;
@@ -64,7 +62,7 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
     }
 
     @Override
-    public boolean addGrade(String courseId, String studentId, String grade) {
+    public boolean addGrade(String userId, String courseId, String studentId, String grade) {
         statement = null;
 
         try {
@@ -142,7 +140,46 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
     @Override
     public Professor getProfessorById(String professorId) {
         //return ProfessorDaoInterface.getProfessorById(professorId);
+        String sql = SQLQueriesConstants.GET_PROFESSOR_BY_ID_QUERY;
+        statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, professorId);
+            ResultSet rs = statement.executeQuery();
+            Professor pf = new Professor();
+//            System.out.println(rs);
+            if (rs.next()) {
+                pf.setUserID(rs.getString(1));
+                pf.setName(rs.getString(2));
+                pf.setDepartment(rs.getString(3));
+                pf.setDesignation(rs.getString(4));
+                pf.setGender(Gender.valueOf(rs.getString(5)));
+                pf.setDateOfJoining(rs.getDate(6));
+                pf.setAddress(rs.getString(7));
+            }
+            return pf;
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
         return null;
 
+    }
+    @Override
+    public boolean courseAssignedToProfessor(String userId, String courseId){
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants.CHECK_PROFESSOR_COURSE_ASSIGNED;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            statement.setString(2, courseId);
+
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }
+        return true;
     }
 }

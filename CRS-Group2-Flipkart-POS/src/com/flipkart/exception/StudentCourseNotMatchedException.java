@@ -1,7 +1,7 @@
 package com.flipkart.exception;
 
 
-public class GradeNotAddedException extends Exception{
+public class StudentCourseNotMatchedException extends Exception{
 
     private String studentId;
 
@@ -9,9 +9,9 @@ public class GradeNotAddedException extends Exception{
      * Constructor
      * @param studentId
      */
-    public GradeNotAddedException(String studentId)
+    public StudentCourseNotMatchedException(String studentId)
     {
-        System.out.println("Grade not added! Please try again.");
+        System.out.println("Student is not enrolled in this course. Grade not added.");
         this.studentId = studentId;
     }
 

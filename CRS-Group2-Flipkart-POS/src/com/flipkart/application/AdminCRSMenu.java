@@ -92,10 +92,6 @@ public class AdminCRSMenu {
         System.out.print("NAME: ");
         String name = sc.next();
 
-        System.out.println("PASSWORD: ");
-        String password = sc.next();
-        System.out.print("PROFESSOR ID: ");
-        int professorId = sc.nextInt();
         System.out.print("DEPARTMENT: ");
         String department = sc.next();
         System.out.println("DESIGNATION: ");
@@ -105,7 +101,7 @@ public class AdminCRSMenu {
         System.out.print("GENDER: ");
         String gender = sc.next();
 
-        Professor newProfessor = new Professor(userId,name,password,Role.PROFESSOR,professorId,department,Gender.valueOf(gender.toUpperCase()),designation,new Date(),address);
+        Professor newProfessor = new Professor(userId,name,"pass",Role.PROFESSOR,0,department,Gender.valueOf(gender.toUpperCase()),designation,new Date(),address);
         try{
             adminInterface.addProfessor(newProfessor);
         }

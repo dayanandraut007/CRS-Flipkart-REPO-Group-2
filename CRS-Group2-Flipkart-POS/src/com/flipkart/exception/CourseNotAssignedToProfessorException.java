@@ -50,6 +50,6 @@ public class CourseNotAssignedToProfessorException extends Exception{
      */
     @Override
     public String getMessage() {
-        return "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!";
+        return "courseCode: " + courseCode + "is not assigned to professorId: " + professorId;
     }
 }
