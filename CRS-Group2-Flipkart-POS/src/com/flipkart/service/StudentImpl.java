@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.*;
 import com.flipkart.exception.*;
+import javafx.util.Pair;
 
 import java.util.List;
 
@@ -178,7 +179,7 @@ public class StudentImpl implements StudentInterface {
      * @return list of added courses
      */
     @Override
-    public List<String> viewAddedCourses(String userId) {
+    public List<Pair<String,Boolean>>  viewAddedCourses(String userId) {
         return studentDaoInterface.viewAddedCourses(userId);
     }
 

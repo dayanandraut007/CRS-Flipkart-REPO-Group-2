@@ -8,6 +8,7 @@ import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
+import javafx.util.Pair;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -35,12 +36,17 @@ public class StudentCRSMenu {
      */
     public void courseRegistration(String userId){
         try {
+            Student std = studentInterface.getStudentById(userId);
+            if(std.isHasRegistered()){
+                System.out.println("Already Registered");
+                return;
+            }
             boolean status = studentInterface.semesterRegistration(userId);
             if (status) {
                 System.out.println("Final Registration done");
             }
         }
-        catch(PaymentFailedException | SemesterRegistrationException e){
+        catch(PaymentFailedException | SemesterRegistrationException | UserNotFoundException e){
             System.out.println(e.getMessage());
         }
     }
@@ -50,9 +56,14 @@ public class StudentCRSMenu {
      * @param userId
      */
     public void viewAddedCourses(String userId){
-        List<String> regCourses = studentInterface.viewAddedCourses(userId);
-        for (String course : regCourses){
-            System.out.println(course);
+        List<Pair<String,Boolean>>  regCourses = studentInterface.viewAddedCourses(userId);
+        System.out.println("Course Code ------------ Primary/Optional");
+        for (Pair<String,Boolean>  course : regCourses){
+            String st="optional";
+            if(course.getValue()){
+                st="Primary";
+            }
+            System.out.println(course.getKey() + " -------- " + st);
         }
     }
 
@@ -62,13 +73,22 @@ public class StudentCRSMenu {
      */
     public void makePayment(String userId){
         try {
+            Student std = studentInterface.getStudentById(userId);
+            if(std.isDonePayment() && std.isHasRegistered()){
+                System.out.println("Payment Already Done and Registered");
+                return;
+            }
+            if(std.isDonePayment()){
+                System.out.println("Payment Done. Proceed to register");
+                return;
+            }
             System.out.print("ENTER paymentMethod: ");
             String paymentMethod = sc.next();
             SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
             String transactionId = date.format(new Date());
             studentInterface.makePayment(userId, paymentMethod, transactionId, 5000);
         }
-        catch(CourseLimitException | PaymentFailedException e){
+        catch(CourseLimitException | PaymentFailedException | UserNotFoundException e){
             System.out.println(e.getMessage());
         }
     }
@@ -79,6 +99,16 @@ public class StudentCRSMenu {
      */
     public void addCourse(String userId){
         try {
+            Student std = studentInterface.getStudentById(userId);
+            if(std.isHasRegistered()){
+                System.out.println("Already Registered. Add/Drop not allowed now.");
+                return;
+            }
+            List<Pair<String,Boolean>>  regCourses = studentInterface.viewAddedCourses(userId);
+            if(regCourses.size() >=6){
+                System.out.println("6 courses already registered. Can't add more. Drop a course to add new");
+                return;
+            }
             System.out.print("ENTER COURSE ID: ");
             String course_code = sc.next();
             System.out.print("Primary(Y/N): ");
@@ -88,7 +118,7 @@ public class StudentCRSMenu {
                 System.out.println("Can't Register");
             }
         }
-        catch(CourseAlreadyRegisteredException | CourseNotFoundException | CourseAlreadyPresentException e){
+        catch(CourseAlreadyRegisteredException | CourseNotFoundException | CourseAlreadyPresentException | UserNotFoundException e){
             System.out.println(e.getMessage());
         }
     }
@@ -99,6 +129,11 @@ public class StudentCRSMenu {
      */
     public void dropCourse(String userId){
         try{
+            Student std = studentInterface.getStudentById(userId);
+            if(std.isHasRegistered()){
+                System.out.println("Already Registered. Add/Drop not allowed now.");
+                return;
+            }
             System.out.print("ENTER COURSE ID: ");
             String course_code = sc.next();
             boolean status2 = studentInterface.dropCourse(userId, course_code);
@@ -106,7 +141,7 @@ public class StudentCRSMenu {
                 System.out.println("Already Registered. Can't add or drop now");
             }
         }
-        catch(CourseAlreadyRegisteredException | CourseNotAddedException e){
+        catch(CourseAlreadyRegisteredException | CourseNotAddedException | UserNotFoundException e){
             System.out.println(e.getMessage());
         }
     }
@@ -137,6 +172,16 @@ public class StudentCRSMenu {
             System.out.println("Password Changed Successfully");
         }else{
             System.out.println("Not changed");
+        }
+    }
+
+    public void viewRegisteredCourses(String userId){
+        List<String> regCourses = studentInterface.viewRegisteredCourses(userId);
+        if(regCourses.size() == 0){
+            System.out.println("Registration not completed. You can view your added courses in View Added Courses section");
+        }
+        for (String course : regCourses){
+            System.out.println(course);
         }
     }
 
@@ -178,10 +223,7 @@ public class StudentCRSMenu {
 
                 case 4:
 //                    System.out.println("Write logic for view registered courses");
-                    List<String> regCourses = studentInterface.viewRegisteredCourses(userId);
-                    for (String course : regCourses){
-                        System.out.println(course);
-                    }
+                    viewRegisteredCourses(userId);
                     break;
 
                 case 5:
