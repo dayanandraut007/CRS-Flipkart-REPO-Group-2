@@ -300,4 +300,40 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     public void notifyCourseChange() {
 
     }
+
+    public boolean findCourse(String courseCode)
+    {
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants.FIND_COURSE_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, courseCode);
+
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }
+        return true;
+    }
+    public boolean findUser(String userId)
+    {
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants.FIND_USER_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+
+            ResultSet row = statement.executeQuery();
+
+            return row.next();
+
+        }catch(SQLException se) {
+            se.printStackTrace();
+        }
+        return true;
+    }
 }
