@@ -17,6 +17,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The StudentDaoImpl class implements the StudentDaoInterface
+ * To provide the functionality to interact with the database
+ *
+ * @suthor
+ * JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since June 2022
+ */
 public class StudentDaoImpl implements StudentDaoInterface {
     private static StudentDaoImpl instance = null;
     private PreparedStatement statement = null;
@@ -33,6 +42,18 @@ public class StudentDaoImpl implements StudentDaoInterface {
 
     Connection connection = DBUtils.getConnection();
 
+    /**
+     * Method to register student in database
+     * @param name: name of student
+     * @param userID: user Id of student
+     * @param password: password of student
+     * @param gender: gender of student
+     * @param batch: batch of student
+     * @param branch: branch of student
+     * @param address: address of student
+     * @return
+     * {@link Student}
+     */
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
         Student stud1 = new Student(userID, name, password, Role.STUDENT, Integer.parseInt(userID), branch, batch, false, address, false, false);
@@ -65,6 +86,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return null;
     }
 
+    /**
+     * Method to do semester registration of the student
+     * @param userId
+     * {@link Boolean}
+     * @return
+     */
     @Override
     public boolean semesterRegistration(String userId) {
 
@@ -99,6 +126,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return false;
     }
 
+    /**
+     * Method to fetch the details of the student by its ID
+     * @param userId
+     * {@link Student}
+     * @return
+     */
     @Override
     public Student getStudentById(String userId) {
         String sql = SQLQueriesConstants.GET_STUDENT_BY_ID_QUERY;
@@ -126,6 +159,13 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return null;
     }
 
+    /**
+     * Method to check whether admin has approved the student
+     * @param studentId
+     * {@link Boolean}
+     * @return
+     * {link Boolean}
+     */
     @Override
     public boolean isApproved(String studentId) {
         statement = null;
@@ -145,6 +185,14 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return false;
     }
 
+    /**
+     * Method to add course for the student
+     * @param userId
+     * @param courseCode
+     * @param primary
+     * {@link Boolean}
+     * @return
+     */
     @Override
     public boolean addCourse(String userId, String courseCode, String primary) {
 
@@ -197,6 +245,13 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * Method to drop course of the Student
+     * @param userId
+     * @param courseCode
+     * @return
+     * {@link Boolean}
+     */
     @Override
     public boolean dropCourse(String userId, String courseCode) {
         statement = null;
@@ -230,6 +285,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * Method to see the list of the courses registered by the student
+     * @param userId
+     * @return
+     * {@link List}
+     */
     @Override
     public List<String> viewRegisteredCourses(String userId) {
         statement = null;
@@ -250,6 +311,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return registeredCourses;
     }
 
+    /**
+     * Method to see list of added courses
+     * @param userId
+     * @return
+     * {@link List}
+     */
     @Override
     public List<String> viewAddedCourses(String userId) {
         statement = null;
@@ -270,6 +337,11 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return registeredCourses;
     }
 
+    /**
+     * Method to see list of all the courses
+     * @return
+     * {@link List}
+     */
     @Override
     public List<Course> viewAllCourses() {
         statement = null;
@@ -299,6 +371,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return courseList;
     }
 
+    /**
+     * Method to approve payment of Student
+     * @param userId
+     * @return
+     * {@link Boolean}
+     */
     @Override
     public boolean approvePayment(String userId) {
         // check primary and optional courses requirements
@@ -325,6 +403,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * Method to see the grade card of the student
+     * @param userId
+     * @return
+     * {@link List}
+     */
     @Override
     public List<StudentGrade> viewGradeCard(String userId) {
         statement = null;
@@ -358,6 +442,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return gradeList;
     }
 
+    /**
+     * Method to Check registration eligibility of the student
+     * @param userId
+     * @return
+     * {@link Boolean}
+     */
     @Override
     public boolean checkRegistrationEligibility(String userId) {
         statement = null;
@@ -385,6 +475,15 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return false;
     }
 
+    /**
+     * method to make payment for the semester
+     * @param userId
+     * @param transactionId
+     * @param paymentMethod
+     * @param amount
+     * @return
+     * {@link Boolean}
+     */
     public boolean makePayment(String userId, String transactionId, String paymentMethod, float amount) {
         Payment payment = new Payment(userId, amount, paymentMethod, transactionId);
         String sql = SQLQueriesConstants.PAYMENT_QUERY;
@@ -411,8 +510,14 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * method to check whether a course has been added or not
+     * @param userId
+     * @param courseId
+     * @return
+     * {@link Boolean}
+     */
     @Override
-
     public boolean courseNotAdded(String userId,String courseId){
         statement = null;
         try {
