@@ -6,46 +6,36 @@ import com.flipkart.exception.CourseNotAssignedToProfessorException;
 import com.flipkart.exception.StudentCourseNotMatchedException;
 import com.flipkart.service.ProfessorImpl;
 import com.flipkart.service.ProfessorInterface;
+import com.flipkart.service.UserImpl;
+import com.flipkart.service.UserInterface;
 
 import java.util.List;
 import java.util.Scanner;
-<<<<<<< HEAD
 /**
  * Menu class for Professor
-=======
-
-/**
  * This class implements the Professor Course Registration System Menu
->>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
  *
  * @author  JEDI-June-Program-Group-2-2022
  * @version 1.0
  * @since   June 2022
  */
-<<<<<<< HEAD
-=======
 
->>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
 public class ProfessorCRSMenu {
 
     ProfessorInterface professorInterface = new ProfessorImpl();
+    UserInterface userInterface=new UserImpl();
+    Scanner sc = new Scanner(System.in);
+
 
     /**
-<<<<<<< HEAD
-     * Methdod to add grade
-     * @param userId
-     */
-=======
      * Method to add the grade of the student of the particular course the professor is teaching
      * @param userId
      */
 
->>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
     public void addGrade(String userId)  {
         try
         {
             System.out.println("ENTER THE COURSE ID FOR WHICH YOU WANT TO ADD GRADE: ");
-            Scanner sc = new Scanner(System.in);
             String course = sc.next();
             System.out.println("ENTER THE STUDENT ID: ");
             String sid = sc.next();
@@ -66,16 +56,10 @@ public class ProfessorCRSMenu {
     }
 
     /**
-<<<<<<< HEAD
-     * Method to view assigned student
-     * @param userId
-     */
-=======
      * Method to view the students who have enrolled for the course professor is teaching
      * @param userId
      */
 
->>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
     public void viewAssignedStudent(String userId){
 
         List<EnrolledStudent> student = professorInterface.viewAssignedStudents(userId);
@@ -85,16 +69,10 @@ public class ProfessorCRSMenu {
     }
 
     /**
-<<<<<<< HEAD
-     * Method to view teaching courses
-     * @param userId
-     */
-=======
      * Method to get list of all courses Professor has to teach
      * @param userId
      */
 
->>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
     public void viewTeachingCourses(String userId) {
 
         List<Course> course = professorInterface.viewTeachingCourses(userId);
@@ -102,6 +80,21 @@ public class ProfessorCRSMenu {
             System.out.println("COURSE CODE: " + cs.getCourseCode() + "\tCOURSE NAME: " + cs.getName());
         }
     }
+    /**
+     * Method to change Password for the student
+     * @param userId
+     */
+
+    public void changePassword(String userId){
+        System.out.print("Enter new Password: ");
+        String newPassword = sc.next();
+        if(userInterface.changePassword(userId,newPassword)){
+            System.out.println("Password Changed Successfully");
+        }else{
+            System.out.println("Not changed");
+        }
+    }
+
 
     /**
      * Method to create professor menu
@@ -120,7 +113,8 @@ public class ProfessorCRSMenu {
         System.out.println("1. View Assigned Courses");
         System.out.println("2. View Enrolled Students");
         System.out.println("3. Add Grade");
-        System.out.println("4. Logout");
+        System.out.println("4. Change Password");
+        System.out.println("5. Logout");
         while (true) {
             System.out.print("\nPlease enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -136,7 +130,11 @@ public class ProfessorCRSMenu {
                 case 3:
                     addGrade(userId);
                     break;
+
                 case 4:
+                    changePassword(userId);
+                    break;
+                case 5:
                     crsApplication.createMenu();
                     break;
 

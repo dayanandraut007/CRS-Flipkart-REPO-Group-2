@@ -6,6 +6,8 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.*;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
+import com.flipkart.service.UserImpl;
+import com.flipkart.service.UserInterface;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -24,6 +26,7 @@ public class StudentCRSMenu {
 
     CRSApplication crsApplication = new CRSApplication();
     StudentInterface studentInterface=new StudentImpl();
+    UserInterface userInterface=new UserImpl();
     Scanner sc = new Scanner(System.in);
 
     /**
@@ -121,6 +124,21 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to change Password for the student
+     * @param userId
+     */
+
+    public void changePassword(String userId){
+        System.out.print("Enter new Password: ");
+        String newPassword = sc.next();
+        if(userInterface.changePassword(userId,newPassword)){
+            System.out.println("Password Changed Successfully");
+        }else{
+            System.out.println("Not changed");
+        }
+    }
+
 
     public void createMenu(String userId){
 
@@ -135,7 +153,8 @@ public class StudentCRSMenu {
         System.out.println("6. View Grade Card");
         System.out.println("7. View All Courses");
         System.out.println("8. View Added Courses");
-        System.out.println("9. Logout");
+        System.out.println("9. Change Password");
+        System.out.println("10. Logout");
         while (true) {
             System.out.print("Please enter your choice: ");
             Scanner sc = new Scanner(System.in);
@@ -186,6 +205,10 @@ public class StudentCRSMenu {
                     break;
 
                 case 9:
+                    changePassword(userId);
+                    break;
+
+                case 10:
                     crsApplication.createMenu();
                     break;
 
