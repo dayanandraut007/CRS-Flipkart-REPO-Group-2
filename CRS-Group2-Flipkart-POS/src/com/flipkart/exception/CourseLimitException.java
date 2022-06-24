@@ -13,7 +13,7 @@ package com.flipkart.exception;
 public class CourseLimitException extends Exception{
 
     public CourseLimitException(){
-        super("4 primary courses and 2 optional courses must be added in order to register for the semester");
+        super("4 primary courses and 2 optional courses must be added in order to register for the semester. Kindly see View Added courses to see your Primary and Optional Courses.");
     }
 
     public CourseLimitException(String msg){

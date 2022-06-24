@@ -1,15 +1,13 @@
 package com.flipkart.dao;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Payment;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentGrade;
+import com.flipkart.bean.*;
 import com.flipkart.constant.Grade;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.constant.SQLQueriesConstants2;
 import com.flipkart.exception.UserAlreadyExistException;
 import com.flipkart.utils.DBUtils;
+import javafx.util.Pair;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -319,9 +317,9 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @return list of added courses
      */
     @Override
-    public List<String> viewAddedCourses(String userId) {
+    public List<Pair<String,Boolean>> viewAddedCourses(String userId) {
         statement = null;
-        List<String> registeredCourses = new ArrayList<>();
+        List<Pair<String,Boolean>> registeredCourses = new ArrayList<>();
         try {
             String sql = SQLQueriesConstants2.VIEW_ADDED_COURSES_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
@@ -330,7 +328,9 @@ public class StudentDaoImpl implements StudentDaoInterface {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                registeredCourses.add(resultSet.getString(2));
+                Pair<String,Boolean> pr= new Pair(resultSet.getString(2),resultSet.getBoolean(3));
+                registeredCourses.add(pr);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -9,6 +9,7 @@ import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.*;
 
 import java.time.LocalDateTime;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  * Menu class for Application (Application entry point)
@@ -88,44 +89,48 @@ public class CRSApplication {
 
     }
 
-    public void createMenu(){
-        System.out.println("============================================");
-        System.out.println("---------------CRS APPLICATION-------------");
-        System.out.println("============================================");
-        System.out.println("1. Login");
-        System.out.println("2. Student Registration");
-        System.out.println("3. Update Password");
-        System.out.println("4. Exit");
-        while (true) {
-            System.out.print("Please enter your choice: ");
-            Scanner sc = new Scanner(System.in);
-            int choice = sc.nextInt();
+    public void createMenu() {
+        try {
+            System.out.println("============================================");
+            System.out.println("---------------CRS APPLICATION-------------");
+            System.out.println("============================================");
+            System.out.println("1. Login");
+            System.out.println("2. Student Registration");
+            System.out.println("3. Update Password");
+            System.out.println("4. Exit");
+            while (true) {
+                System.out.print("Please enter your choice: ");
+                Scanner sc = new Scanner(System.in);
+                int choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    try {
-                        userLogin();
-                    }
-                    catch(UserNotFoundException e){
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-                case 2:
-                    studentRegistration();
-                    break;
-                case 3:
-                    System.out.println("Write logic for update password");
-                    break;
-                case 4:
-                    System.exit(0);
+                switch (choice) {
+                    case 1:
+                        try {
+                            userLogin();
+                        } catch (UserNotFoundException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    case 2:
+                        studentRegistration();
+                        break;
+                    case 3:
+                        System.out.println("Write logic for update password");
+                        break;
+                    case 4:
+                        System.exit(0);
 
-                default:
-                    System.out.println("Wrong Selection! Please enter your choice again.");
+                    default:
+                        System.out.println("Wrong Selection! Please enter your choice again.");
 
+
+                }
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Input format mismatched");
+            createMenu();
         }
     }
-
 
 
     public static void main(String[] args) {

@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
+import javafx.util.Pair;
 
 import java.util.List;
 
@@ -78,7 +79,7 @@ public interface StudentDaoInterface {
      * @param userId
      * @return list of registered courses
      */
-    public List<String> viewAddedCourses(String userId);
+    public List<Pair<String,Boolean>>  viewAddedCourses(String userId);
 
     /**
      * Method to see list of all the courses
