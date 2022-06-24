@@ -20,4 +20,6 @@ public interface AdminDaoInterface {
 
     public List<StudentGrade> generateScoreCard(String studentId);
     public void notifyCourseChange();
+    public boolean findCourse(String courseCode);
+    public boolean findUser(String courseCode);
 }

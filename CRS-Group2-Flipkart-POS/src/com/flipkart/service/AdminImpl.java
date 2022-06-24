@@ -7,6 +7,8 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.AdminDaoImpl;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.MockData;
+import com.flipkart.dao.StudentDaoImpl;
+import com.flipkart.exception.*;
 
 import java.util.Iterator;
 import java.util.List;
@@ -25,13 +27,28 @@ public class AdminImpl implements AdminInterface {
     }
     MockData data = MockData.getInstance();
     @Override
-    public boolean deleteCourse(String courseCode) {
+    public boolean deleteCourse(String courseCode) throws CourseNotFoundException {
+        boolean status = adminDaoInterface.findCourse(courseCode);
+        if(!status)
+        {
+            throw new CourseNotFoundException(courseCode);
+        }
         adminDaoInterface.deleteCourse(courseCode);
         return true;
     }
 
     @Override
-    public boolean addCourse(Course course) {
+    public boolean addCourse(Course course) throws CourseAlreadyPresentException, UserNotFoundException {
+        boolean status = adminDaoInterface.findCourse(course.getCourseCode());
+        boolean status1 = adminDaoInterface.findUser(course.getInstructor());
+        if(status)
+        {
+            throw new CourseAlreadyPresentException();
+        }
+        if(!status1)
+        {
+            throw new UserNotFoundException(course.getInstructor(),"Professor");
+        }
         adminDaoInterface.addCourse(course);
         return true;
     }
@@ -47,9 +64,13 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public void addProfessor(Professor professor) {
+    public void addProfessor(Professor professor) throws UserAlreadyExistException {
+        boolean status = adminDaoInterface.findUser(professor.getUserID());
+        if(status)
+        {
+            throw new UserAlreadyExistException(professor.getUserID(),"Professor");
+        }
         adminDaoInterface.addProfessor(professor);
-
     }
 
     @Override
@@ -68,7 +89,12 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
-    public List<StudentGrade> generateGradeCard(String userId) {
+    public List<StudentGrade> generateGradeCard(String userId) throws UserNotFoundException {
+        boolean status = adminDaoInterface.findUser(userId);
+        if(status)
+        {
+            throw new UserNotFoundException(userId,"Student");
+        }
         return adminDaoInterface.generateScoreCard(userId);
     }
 
