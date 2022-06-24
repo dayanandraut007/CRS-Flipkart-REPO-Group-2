@@ -8,12 +8,26 @@ import com.flipkart.dao.MockData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CourseImpl class implements the Course service operations
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
+
 public class CourseImpl implements  CourseInterface{
 
     //------------Hardcoded-------------------
 
     MockData data = MockData.getInstance();
     //----------------------------------------
+
+    /**
+     * getCourseById method returns the course details
+     * @param courseCode
+     * @return {@Link Course}
+     */
 
     @Override
     public Course getCourseById(String courseCode) {
@@ -24,6 +38,11 @@ public class CourseImpl implements  CourseInterface{
 
         return null;
     }
+
+    /**
+     * viewAllCourses method return all the courses
+     * @return {@Link List<Course>}
+     */
 
     @Override
     public List<Course> viewAllCourses() {
