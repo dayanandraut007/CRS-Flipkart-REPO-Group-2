@@ -9,12 +9,23 @@ import com.flipkart.service.*;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-
+/**
+ * Menu class for Application (Application entry point)
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class CRSApplication {
 
     Scanner sc = new Scanner(System.in);
     StudentInterface studentInterface = new StudentImpl();
     ProfessorInterface professorInterface = new ProfessorImpl();
+
+    /**
+     * Method for user login
+     * @throws UserNotFoundException
+     */
     public void userLogin() throws UserNotFoundException {
         System.out.print("USER ID: ");
         String userid = sc.next();
@@ -52,6 +63,9 @@ public class CRSApplication {
 
     }
 
+    /**
+     * Method for student registration
+     */
     public void studentRegistration(){
 
         System.out.print("USER ID: ");

@@ -13,12 +13,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Menu class for Student
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class StudentCRSMenu {
 
     CRSApplication crsApplication = new CRSApplication();
     StudentInterface studentInterface=new StudentImpl();
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Method for course registration
+     * @param userId
+     */
     public void courseRegistration(String userId){
         try {
             boolean status = studentInterface.semesterRegistration(userId);
@@ -31,6 +42,10 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to view added course
+     * @param userId
+     */
     public void viewAddedCourses(String userId){
         List<String> regCourses = studentInterface.viewAddedCourses(userId);
         for (String course : regCourses){
@@ -38,6 +53,10 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to make payment
+     * @param userId
+     */
     public void makePayment(String userId){
         try {
             System.out.print("ENTER paymentMethod: ");
@@ -51,6 +70,10 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to add course
+     * @param userId
+     */
     public void addCourse(String userId){
         try {
             System.out.print("ENTER COURSE ID: ");
@@ -66,6 +89,11 @@ public class StudentCRSMenu {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Method to drop course
+     * @param userId
+     */
     public void dropCourse(String userId){
         try{
             System.out.print("ENTER COURSE ID: ");
@@ -80,6 +108,11 @@ public class StudentCRSMenu {
         }
     }
 
+    /**
+     * Method to view grade card
+     * @param userId
+     */
+
     public void viewGradeCard(String userId){
         List<StudentGrade> gradeList= studentInterface.viewGradeCard(userId);
         System.out.println("Course ---------- Grade" );
@@ -87,7 +120,6 @@ public class StudentCRSMenu {
             System.out.println(st.getCourseCode() + "----------"  + st.getGrade().toString() );
         }
     }
-
 
 
     public void createMenu(String userId){

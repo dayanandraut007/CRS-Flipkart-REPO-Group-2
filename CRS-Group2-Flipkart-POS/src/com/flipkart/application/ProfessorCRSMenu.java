@@ -9,11 +9,38 @@ import com.flipkart.service.ProfessorInterface;
 
 import java.util.List;
 import java.util.Scanner;
+<<<<<<< HEAD
+/**
+ * Menu class for Professor
+=======
 
+/**
+ * This class implements the Professor Course Registration System Menu
+>>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
 public class ProfessorCRSMenu {
 
     ProfessorInterface professorInterface = new ProfessorImpl();
 
+    /**
+<<<<<<< HEAD
+     * Methdod to add grade
+     * @param userId
+     */
+=======
+     * Method to add the grade of the student of the particular course the professor is teaching
+     * @param userId
+     */
+
+>>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
     public void addGrade(String userId)  {
         try
         {
@@ -38,6 +65,17 @@ public class ProfessorCRSMenu {
 
     }
 
+    /**
+<<<<<<< HEAD
+     * Method to view assigned student
+     * @param userId
+     */
+=======
+     * Method to view the students who have enrolled for the course professor is teaching
+     * @param userId
+     */
+
+>>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
     public void viewAssignedStudent(String userId){
 
         List<EnrolledStudent> student = professorInterface.viewAssignedStudents(userId);
@@ -46,6 +84,17 @@ public class ProfessorCRSMenu {
         }
     }
 
+    /**
+<<<<<<< HEAD
+     * Method to view teaching courses
+     * @param userId
+     */
+=======
+     * Method to get list of all courses Professor has to teach
+     * @param userId
+     */
+
+>>>>>>> 677d93c6a03e3fec69c2408025a95a02f8abf0e9
     public void viewTeachingCourses(String userId) {
 
         List<Course> course = professorInterface.viewTeachingCourses(userId);
@@ -53,6 +102,12 @@ public class ProfessorCRSMenu {
             System.out.println("COURSE CODE: " + cs.getCourseCode() + "\tCOURSE NAME: " + cs.getName());
         }
     }
+
+    /**
+     * Method to create professor menu
+     * @param userId
+     * returns displays all the operations for the professor, and provides navigation
+     */
 
     public void createMenu(String userId) {
 
