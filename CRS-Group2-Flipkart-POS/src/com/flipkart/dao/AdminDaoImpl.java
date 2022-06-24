@@ -17,6 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class implements the AdminDaoInterface interface
+ * to provide all the Admin  functionality implementations.
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class AdminDaoImpl implements  AdminDaoInterface{
 
 
@@ -37,6 +45,11 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     Connection connection = DBUtils.getConnection();
 
 
+    /**
+     * Method to delete course from the catalog
+     * @param courseCode
+     * @return
+     */
     @Override
     public boolean deleteCourse(String courseCode) {
         statement = null;
@@ -48,7 +61,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             statement.setString(1, courseCode);
 
             // Print query
-            System.out.println(statement.toString());
+            //System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
             if(row == 0) {
@@ -64,6 +77,11 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         return true;
     }
 
+    /**
+     * Method to add course to the catalog
+     * @param course
+     * @return
+     */
     @Override
     public boolean addCourse(Course course) {
         statement = null;
@@ -96,11 +114,21 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         return true;
     }
 
+    /**
+     * Method to view pending admission of the students
+     * @return
+     */
     @Override
     public List<Student> viewPendingAdmissions() {
         return null;
     }
 
+    /**
+     * Method to add user to the CRS system
+     * @param id
+     * @param pass
+     * @param role
+     */
     public void addToUser(String id,String pass,String role){
         statement = null;
         try {
@@ -127,6 +155,9 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         }
     }
 
+    /**
+     * Method to approve new students for login
+     */
     @Override
     public void approveStudent() {
         statement = null;
@@ -167,6 +198,10 @@ public class AdminDaoImpl implements  AdminDaoInterface{
 
     }
 
+    /**
+     * Method to add new professor
+     * @param professor
+     */
     @Override
     public void addProfessor(Professor professor) {
         statement = null;
@@ -200,11 +235,20 @@ public class AdminDaoImpl implements  AdminDaoInterface{
 
     }
 
+    /**
+     * Method to assign course to professor
+     * @param courseCode
+     * @param professorId
+     */
     @Override
     public void assignCourse(String courseCode, String professorId) {
 
     }
 
+    /**
+     * Method to view courses in the catalogue
+     * @return list of courses
+     */
     @Override
     public List<Course> viewCourses() {
         statement = null;
@@ -234,6 +278,10 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         return courseList;
     }
 
+    /**
+     * Method to view all professors
+     * @return list of professors
+     */
     @Override
     public List<Professor> viewProfessors() {
         statement = null;
@@ -263,6 +311,11 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         return professorList;
     }
 
+    /**
+     * Method to generate score card
+     * @param studentId
+     * @return list of course with grades
+     */
     @Override
     public List<StudentGrade> generateScoreCard(String studentId) {
         statement = null;
@@ -296,11 +349,19 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         return gradeList;
     }
 
+    /**
+     * Method to notify changes
+     */
     @Override
     public void notifyCourseChange() {
 
     }
 
+    /**
+     * Method to find if course exist
+     * @param courseCode
+     * @return true if exist, false otherwise
+     */
     public boolean findCourse(String courseCode)
     {
         statement = null;
@@ -318,6 +379,12 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         }
         return true;
     }
+
+    /**
+     * Method to check if user exists or not
+     * @param userId
+     * @return true if exist, false otherwise
+     */
     public boolean findUser(String userId)
     {
         statement = null;
