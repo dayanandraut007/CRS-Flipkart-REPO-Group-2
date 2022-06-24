@@ -119,9 +119,10 @@ public class StudentCRSMenu {
     public void viewGradeCard(String userId){
         List<StudentGrade> gradeList= studentInterface.viewGradeCard(userId);
         System.out.println("Course ---------- Grade" );
-        for(StudentGrade st: gradeList){
-            System.out.println(st.getCourseCode() + "----------"  + st.getGrade().toString() );
-        }
+        gradeList.forEach(gc->{
+            System.out.println(gc.getCourseCode() + "----------"  + gc.getGrade().toString() );
+        });
+
     }
 
     /**

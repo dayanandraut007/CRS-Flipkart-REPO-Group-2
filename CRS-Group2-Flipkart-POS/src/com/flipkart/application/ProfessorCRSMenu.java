@@ -42,11 +42,7 @@ public class ProfessorCRSMenu {
             System.out.println("ENTER GRADE: ");
             String gr = sc.next();
             boolean temp =  professorInterface.addGrade(userId,course, sid, gr);
-//            if(!temp)
-//            {
-//                System.out.println("Grade not added.Please try again!0");
-//
-//            }
+
         }
         catch (StudentCourseNotMatchedException | CourseNotAssignedToProfessorException e)
         {
@@ -63,9 +59,9 @@ public class ProfessorCRSMenu {
     public void viewAssignedStudent(String userId){
 
         List<EnrolledStudent> student = professorInterface.viewAssignedStudents(userId);
-        for(EnrolledStudent std: student){
-            System.out.println(std.getStudentId());
-        }
+        student.forEach(s->{
+            System.out.println(s.getStudentId());
+        });
     }
 
     /**
@@ -75,10 +71,10 @@ public class ProfessorCRSMenu {
 
     public void viewTeachingCourses(String userId) {
 
-        List<Course> course = professorInterface.viewTeachingCourses(userId);
-        for (Course cs : course) {
-            System.out.println("COURSE CODE: " + cs.getCourseCode() + "\tCOURSE NAME: " + cs.getName());
-        }
+        List<Course> courses = professorInterface.viewTeachingCourses(userId);
+        courses.forEach(c->{
+            System.out.println("COURSE CODE: " + c.getCourseCode() + "\tCOURSE NAME: " + c.getName());
+        });
     }
     /**
      * Method to change Password for the student
