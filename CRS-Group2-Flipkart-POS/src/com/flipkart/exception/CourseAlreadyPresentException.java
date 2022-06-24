@@ -3,33 +3,24 @@
  */
 package com.flipkart.exception;
 
-
+/**
+ * Exception to check if course is already registered by student
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class CourseAlreadyPresentException extends Exception {
-    private String courseCode;
-
-    /***
-     * Constructor
-     * @param courseCode
-     */
-    public CourseAlreadyPresentException(String courseCode) {
-        this.courseCode = courseCode;
-    }
-
-
-    /**
-     * Getter method
-     *
-     * @return course code
-     */
-    public String getCourseCode() {
-        return courseCode;
-    }
 
     /**
      * Message returned when exception is thrown
      */
-    @Override
-    public String getMessage() {
-        return "Course with courseCode: " + courseCode + " already present in catalog.";
+    public CourseAlreadyPresentException(){
+        super("This course is already added.");
+    }
+
+
+    public CourseAlreadyPresentException(String msg){
+        super();
     }
 }

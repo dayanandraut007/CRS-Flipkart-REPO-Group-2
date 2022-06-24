@@ -7,6 +7,10 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.MockData;
+import com.flipkart.exception.CourseAlreadyPresentException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.UserAlreadyExistException;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 
@@ -15,6 +19,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Menu class for Admin
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class AdminCRSMenu {
 
     AdminInterface adminInterface = new AdminImpl();
@@ -23,6 +34,9 @@ public class AdminCRSMenu {
 
     MockData data = MockData.getInstance();
 
+    /**
+     * Method to add course
+     */
     public void addCourse(){
         List<Student> st = new ArrayList<>();
 
@@ -37,51 +51,59 @@ public class AdminCRSMenu {
         System.out.print("NUMBER OF SEATS: ");
         int seats = sc.nextInt();
         Course newCourse= new Course(courseCode,name,true,instructor,prerequisites,seats,st);
-        adminInterface.addCourse(newCourse);
+        try
+        {
+            adminInterface.addCourse(newCourse);
+        }
+        catch(CourseAlreadyPresentException | UserNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
 
     }
 
+    /**
+     * Method to delete course
+     */
     public void deleteCourse(){
         System.out.print("Please enter the course code to be deleted: ");
         String courseCodeDelete = sc.next();
-        adminInterface.deleteCourse(courseCodeDelete);
+        try
+        {
+            adminInterface.deleteCourse(courseCodeDelete);
+        }
+        catch(CourseNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+
+        }
 
     }
 
-    public void GenerateScoreCard()
-    {
-        Scanner scan = new Scanner(System.in);
-        int sid;
-        System.out.println("ENTER STUDENT ID: ");
-        sid=scan.nextInt();
-        String sname="";
-        for(Student st : data.students)
+    /**
+     * Method to generate scorecard
+     */
+    public void generateScoreCard(){
+        try
         {
-            if(st.getStudentID()==sid)
-            {
-                sname = st.getName();
-                break;
+            System.out.print("Enter student id to generate score card: ");
+            String id = sc.next();
+            List<StudentGrade> gradeList = adminInterface.generateGradeCard(id);
+            System.out.println("Course ---------- Grade" );
+            for(StudentGrade st: gradeList){
+                System.out.println(st.getCourseCode() + "----------"  + st.getGrade().toString() );
             }
         }
-        System.out.println("STUDENT NAME: "+sname);
-        for(StudentGrade sg: data.grade)
+        catch (UserNotFoundException e)
         {
-            if(sg.getStudentID()==sid)
-            {
-                String code = sg.getCourseCode();
-                String name = "";
-                for(Course csr : data.courses)
-                {
-                    if(csr.getCourseCode().equals(code))
-                    {
-                        name = csr.getName();
-                    }
-                }
-                System.out.println("COURSE NAME: " + name + "\tGRADE: " + sg.getGrade());
-            }
+            System.out.println(e.getMessage());
         }
+
     }
 
+    /**
+     * Method to add professor
+     */
     public void addProfessor(){
         System.out.print("USER ID: ");
         String userId = sc.next();
@@ -89,10 +111,6 @@ public class AdminCRSMenu {
         System.out.print("NAME: ");
         String name = sc.next();
 
-        System.out.println("PASSWORD: ");
-        String password = sc.next();
-        System.out.print("PROFESSOR ID: ");
-        int professorId = sc.nextInt();
         System.out.print("DEPARTMENT: ");
         String department = sc.next();
         System.out.println("DESIGNATION: ");
@@ -102,12 +120,21 @@ public class AdminCRSMenu {
         System.out.print("GENDER: ");
         String gender = sc.next();
 
-        Professor newProfessor = new Professor(userId,name,password,Role.PROFESSOR,professorId,department,Gender.valueOf(gender.toUpperCase()),designation,new Date(),address);
-        adminInterface.addProfessor(newProfessor);
+        Professor newProfessor = new Professor(userId,name,"pass",Role.PROFESSOR,0,department,Gender.valueOf(gender.toUpperCase()),designation,new Date(),address);
+        try{
+            adminInterface.addProfessor(newProfessor);
+        }
+        catch(UserAlreadyExistException e)
+        {
+            System.out.println(e.getMessage());
+        }
 
 
     }
 
+    /**
+     * Method to approve student
+     */
     public void approveStudents(){
         adminInterface.approveStudent();
     }
@@ -162,7 +189,7 @@ public class AdminCRSMenu {
                     break;
 
                 case 7:
-                    GenerateScoreCard();
+                    generateScoreCard();
                     break;
                 case 8:
                     crsApplication.createMenu();

@@ -3,7 +3,13 @@
  */
 package com.flipkart.exception;
 
-
+/**
+ * Exception class for course not assigned to professor
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class CourseNotAssignedToProfessorException extends Exception{
     private String courseCode;
     private String professorId;
@@ -50,6 +56,6 @@ public class CourseNotAssignedToProfessorException extends Exception{
      */
     @Override
     public String getMessage() {
-        return "courseCode: " + courseCode + " OR professorId: " + professorId + " does not exist!";
+        return "courseCode: " + courseCode + "is not assigned to professorId: " + professorId;
     }
 }

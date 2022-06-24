@@ -22,5 +22,8 @@ public class SQLQueriesConstants2 {
     public static final String CHECK_AVAILABLE_SEATS = "SELECT seats from CRSDatabase.course where course_code = ?";
     public static final String DROP_COURSE_STUDENT_QUERY = "DELETE FROM `CRSDatabase`.`student_enrolled_course` WHERE (`student_id` = ?) and (`course_id` = ?);";
     public static final String UPDATE_DROP_COURSE_STUDENT_QUERY = "update course set seats=seats+1 where course_code=? ";
+    public static final String INSERT_IN_GRADE_CARD = "insert into grade_card (student_id,course_id,grade) values (?,?,null)";
+    public static final String VIEW_GRADE_CARD = "select * from grade_card where student_id=?";
+    public static final String CHANGE_PASSWORD = "update user set password=? where user_id=?" ;
 
 }

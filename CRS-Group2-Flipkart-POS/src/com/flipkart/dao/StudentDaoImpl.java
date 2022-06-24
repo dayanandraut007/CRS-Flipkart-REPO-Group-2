@@ -3,9 +3,12 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.Grade;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.constant.SQLQueriesConstants2;
+import com.flipkart.exception.UserAlreadyExistException;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
@@ -15,9 +18,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The StudentDaoImpl class implements the StudentDaoInterface
+ * To provide the functionality to interact with the database
+ *
+ * @author
+ * JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since June 2022
+ */
 public class StudentDaoImpl implements StudentDaoInterface {
     private static StudentDaoImpl instance = null;
     private PreparedStatement statement = null;
+
+
 
     private StudentDaoImpl() {
     }
@@ -30,6 +44,20 @@ public class StudentDaoImpl implements StudentDaoInterface {
     }
 
     Connection connection = DBUtils.getConnection();
+
+
+    /**
+     * Method to register student in database
+     * @param name: name of student
+     * @param userID: user Id of student
+     * @param password: password of student
+     * @param gender: gender of student
+     * @param batch: batch of student
+     * @param branch: branch of student
+     * @param address: address of student
+     * @return student object
+     *
+     */
 
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
@@ -49,7 +77,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
 
 
             // Print query
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
             if (row == 0) {
@@ -63,6 +91,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return null;
     }
 
+    /**
+     * Method to do semester registration of the student
+     * @param userId
+     *
+     * @return student
+     */
     @Override
     public boolean semesterRegistration(String userId) {
 
@@ -72,7 +106,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             String sql1 = SQLQueriesConstants.SEMESTER_REGISTRATION_UPDATE_QUERY;
             statement = connection.prepareStatement(sql1);
             statement.setString(1, userId);
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
 
@@ -81,6 +115,15 @@ public class StudentDaoImpl implements StudentDaoInterface {
                 return false;
             }
             System.out.println("Registered Successfully");
+            List<String> registeredCourses = viewRegisteredCourses(userId);
+            for(String st: registeredCourses){
+                String sql = SQLQueriesConstants2.INSERT_IN_GRADE_CARD;
+                statement = connection.prepareStatement(sql);
+                statement.setString(1,userId);
+                statement.setString(2,st);
+                statement.executeUpdate();
+            }
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,6 +131,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return false;
     }
 
+    /**
+     * Method to fetch the details of the student by its ID
+     * @param userId
+     *
+     * @return student
+     */
     @Override
     public Student getStudentById(String userId) {
         String sql = SQLQueriesConstants.GET_STUDENT_BY_ID_QUERY;
@@ -97,7 +146,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             statement.setString(1, userId);
             ResultSet rs = statement.executeQuery();
             Student st = new Student();
-            System.out.println(rs);
+//            System.out.println(rs);
             if (rs.next()) {
                 st.setStudentID(Integer.parseInt(rs.getString(1)));
                 st.setName(rs.getString(2));
@@ -115,6 +164,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return null;
     }
 
+    /**
+     * Method to check whether admin has approved the student
+     * @param studentId
+     *
+     * @return boolean
+     */
     @Override
     public boolean isApproved(String studentId) {
         statement = null;
@@ -122,7 +177,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             String sql = SQLQueriesConstants.IS_APPROVED_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
             statement.setString(1, String.valueOf(studentId));
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 if (rs.getInt(1) == 1)
@@ -134,6 +189,14 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return false;
     }
 
+    /**
+     * Method to add course for the student
+     * @param userId
+     * @param courseCode
+     * @param primary
+     *
+     * @return boolean
+     */
     @Override
     public boolean addCourse(String userId, String courseCode, String primary) {
 
@@ -164,12 +227,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
             statement.setBoolean(3, primary.equals("Y"));
 
 
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
 
             if (row == 0) {
-                System.out.println("Couldn't add course");
+               System.out.println("Couldn't add course");
                 return false;
             }
             System.out.println("Course Added Successfully");
@@ -177,7 +240,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             statement = connection.prepareStatement(sql2);
             statement.setString(1, courseCode);
 
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -186,6 +249,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * Method to drop course of the Student
+     * @param userId
+     * @param courseCode
+     * @return boolean
+     */
     @Override
     public boolean dropCourse(String userId, String courseCode) {
         statement = null;
@@ -196,10 +265,10 @@ public class StudentDaoImpl implements StudentDaoInterface {
             statement.setString(1, userId);
             statement.setString(2, courseCode);
 
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
-            System.out.println(row);
+//            System.out.println(row);
             if (row == 0) {
                 System.out.println("Couldn't drop course");
                 return false;
@@ -209,7 +278,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             statement = connection.prepareStatement(sql2);
             statement.setString(1, courseCode);
 
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             statement.executeUpdate();
 
@@ -219,6 +288,11 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * Method to see the list of the courses registered by the student
+     * @param userId
+     * @return list of registered courses
+     */
     @Override
     public List<String> viewRegisteredCourses(String userId) {
         statement = null;
@@ -227,7 +301,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             String sql = SQLQueriesConstants2.VIEW_REGISTERED_COURSES_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
             statement.setString(1, userId);
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -239,6 +313,11 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return registeredCourses;
     }
 
+    /**
+     * Method to see list of added courses
+     * @param userId
+     * @return list of added courses
+     */
     @Override
     public List<String> viewAddedCourses(String userId) {
         statement = null;
@@ -247,7 +326,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             String sql = SQLQueriesConstants2.VIEW_ADDED_COURSES_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
             statement.setString(1, userId);
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -259,6 +338,10 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return registeredCourses;
     }
 
+    /**
+     * Method to see list of all the courses
+     * @return list of courses
+     */
     @Override
     public List<Course> viewAllCourses() {
         statement = null;
@@ -288,6 +371,12 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return courseList;
     }
 
+    /**
+     * Method to approve payment of Student
+     * @param userId
+     * @return
+     * {@link Boolean}
+     */
     @Override
     public boolean approvePayment(String userId) {
         // check primary and optional courses requirements
@@ -297,7 +386,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             String sql1 = SQLQueriesConstants.MAKE_PAYMENT_STUDENT_QUERY;
             statement = connection.prepareStatement(sql1);
             statement.setString(1, userId);
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
 
@@ -314,6 +403,49 @@ public class StudentDaoImpl implements StudentDaoInterface {
         return true;
     }
 
+    /**
+     * Method to see the grade card of the student
+     * @param userId
+     * @return list of student grade
+     */
+    @Override
+    public List<StudentGrade> viewGradeCard(String userId) {
+        statement = null;
+        List<StudentGrade> gradeList = new ArrayList<>();
+        try {
+
+            String sql = SQLQueriesConstants2.VIEW_GRADE_CARD;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                StudentGrade grade = new StudentGrade();
+                if(resultSet.getString(3) == null){
+                    grade.setGrade(Grade.NA);
+                }
+                else{
+                    grade.setGrade(Grade.valueOf(resultSet.getString(3)));
+                }
+                grade.setStudentID(resultSet.getString(1));
+                grade.setCourseCode(resultSet.getString(2));
+                gradeList.add(grade);
+
+            }
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+
+        return gradeList;
+    }
+
+    /**
+     * Method to Check registration eligibility of the student
+     * @param userId
+     * @return  Boolean
+     */
     @Override
     public boolean checkRegistrationEligibility(String userId) {
         statement = null;
@@ -321,7 +453,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
             String sql = SQLQueriesConstants.SEMESTER_REGISTRATION_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
             statement.setString(1, userId);
-            System.out.println(statement.toString());
+//            System.out.println(statement.toString());
             ResultSet rs = statement.executeQuery();
             int primary = 0, optional = 0;
 
@@ -334,12 +466,21 @@ public class StudentDaoImpl implements StudentDaoInterface {
             if (primary == 4 && optional == 2) {
                 return true;
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
+    /**
+     * method to make payment for the semester
+     * @param userId
+     * @param transactionId
+     * @param paymentMethod
+     * @param amount
+     * @return Boolean
+     */
     public boolean makePayment(String userId, String transactionId, String paymentMethod, float amount) {
         Payment payment = new Payment(userId, amount, paymentMethod, transactionId);
         String sql = SQLQueriesConstants.PAYMENT_QUERY;
@@ -352,7 +493,6 @@ public class StudentDaoImpl implements StudentDaoInterface {
             statement.setFloat(4, amount);
 
             // Print query
-            System.out.println(statement.toString());
 
             int row = statement.executeUpdate();
             if (row == 0) {
@@ -362,6 +502,31 @@ public class StudentDaoImpl implements StudentDaoInterface {
             return true;
 
         } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return true;
+    }
+
+    /**
+     * method to check whether a course has been added or not
+     * @param userId
+     * @param courseId
+     * @return Boolean
+     */
+    @Override
+    public boolean courseNotAdded(String userId,String courseId){
+        statement = null;
+        try {
+
+            String sql = SQLQueriesConstants.COURSE_ADD_CHECK_QUERY;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, userId);
+            statement.setString(2, courseId);
+
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
+
+        }catch(SQLException se) {
             se.printStackTrace();
         }
         return true;

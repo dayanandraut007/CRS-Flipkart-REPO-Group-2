@@ -12,6 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
+
+/**
+ * NotificationDaoImpl is used to implement the Notification Dao Operations
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class NotificationDaoImpl implements NotificationDaoInterface{
 
     private static NotificationDaoImpl instance = null;
@@ -29,6 +37,12 @@ public class NotificationDaoImpl implements NotificationDaoInterface{
 
     Connection connection = DBUtils.getConnection();
 
+    /**
+     * sendNotification method is used to send the notification to user
+     * @param studentId
+     * @param notificationMessage
+     * return boolean
+     */
     @Override
     public boolean sendNotification(String studentId, String notificationMessage) {
         Notification notification = new Notification();
@@ -56,6 +70,11 @@ public class NotificationDaoImpl implements NotificationDaoInterface{
         return false;
     }
 
+    /**
+     * getReferenceId used to get the reference ID of the notification
+     * @param notificationId
+     * return UUID
+     */
     @Override
     public UUID getReferenceId(int notificationId) {
         return null;
