@@ -42,7 +42,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
 
     Connection connection = DBUtils.getConnection();
 
-<<<<<<< HEAD
+
     /**
      * Method to register student in database
      * @param name: name of student
@@ -55,10 +55,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @return
      * {@link Student}
      */
-=======
 
-
->>>>>>> 8ba76bd706632055bb70467a0c0d598eb1b18817
     @Override
     public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
         Student stud1 = new Student(userID, name, password, Role.STUDENT, Integer.parseInt(userID), branch, batch, false, address, false, false);
