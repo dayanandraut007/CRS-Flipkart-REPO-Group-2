@@ -7,25 +7,102 @@ import com.flipkart.exception.*;
 
 import java.util.List;
 
+/**
+ * The StudentInterface interface provides all the necessary Student Functionalities.
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public interface StudentInterface {
+    /**
+     * Method to register Student
+     * @param name
+     * @param userID
+     * @param password
+     * @param gender
+     * @param batch
+     * @param branch
+     * @param address
+     * @return {@link Student}
+     */
     public Student register(String name,String userID,String password,String gender,int batch,
                         String branch,String address);
-
+    /**
+     * Method for Semester Registration
+     * @param userId
+     * @return Boolean
+     * @throws PaymentFailedException
+     * @throws SemesterRegistrationException
+     */
     public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException;
-
+    /**
+     * Method to fetch student by Student ID
+     * @param studentId : Student Id
+     * @return {@link Student}
+     * @throws UserNotFoundException
+     */
     public Student getStudentById(String studentId) throws UserNotFoundException;
-
+    /**
+     * Method to check Student Approval
+     * @param studentId
+     * @return Boolean
+     */
     public boolean isApproved(String studentId);
 
+    /** Method to add Course for registration
+     * @param userId
+     * @param courseCode
+     * @param primary
+     * @return Boolean
+     * @throws CourseAlreadyRegisteredException
+     * @throws CourseNotFoundException
+     * @throws CourseAlreadyPresentException
+     */
     public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyRegisteredException, CourseNotFoundException,CourseAlreadyPresentException;
+    /**
+     * Method to drop Course from Registration
+     * @param userId
+     * @param courseCode
+     * @return Boolean
+     * @throws CourseAlreadyRegisteredException
+     * @throws CourseNotAddedException
+     */
     public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException,CourseNotAddedException;
 
-
+    /**
+     * Method to view all Registered Courses
+     * @param userId
+     * @return {@link List<String>}
+     */
     List<String> viewRegisteredCourses(String userId);
+    /**
+     * Method to view Report Card
+     * @param userId
+     * @return {@link List}
+     */
     public List<StudentGrade> viewGradeCard(String userId);
+    /**
+     * Method to view all added Courses
+     * @param userId
+     * @return {@link List}
+     */
     List<String> viewAddedCourses(String userId);
-
+    /**
+     * Method to view all Courses present
+     * @return {@link List}
+     */
     public List<Course> viewAllCourses();
+    /**
+     * Method to make payment
+     * @param studentId
+     * @param transactionId
+     * @param modeOfPayment
+     * @param amount
+     * @return Boolean
+     * @throws CourseLimitException
+     * @throws PaymentFailedException
+     */
     public boolean makePayment(String studentId,String transactionId,String modeOfPayment,float amount) throws CourseLimitException, PaymentFailedException;
 
 
