@@ -19,6 +19,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Menu class for Admin
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
 public class AdminCRSMenu {
 
     AdminInterface adminInterface = new AdminImpl();
@@ -27,6 +34,9 @@ public class AdminCRSMenu {
 
     MockData data = MockData.getInstance();
 
+    /**
+     * Method to add course
+     */
     public void addCourse(){
         List<Student> st = new ArrayList<>();
 
@@ -52,6 +62,9 @@ public class AdminCRSMenu {
 
     }
 
+    /**
+     * Method to delete course
+     */
     public void deleteCourse(){
         System.out.print("Please enter the course code to be deleted: ");
         String courseCodeDelete = sc.next();
@@ -67,6 +80,9 @@ public class AdminCRSMenu {
 
     }
 
+    /**
+     * Method to generate scorecard
+     */
     public void generateScoreCard(){
         try
         {
@@ -85,6 +101,9 @@ public class AdminCRSMenu {
 
     }
 
+    /**
+     * Method to add professor
+     */
     public void addProfessor(){
         System.out.print("USER ID: ");
         String userId = sc.next();
@@ -113,6 +132,9 @@ public class AdminCRSMenu {
 
     }
 
+    /**
+     * Method to approve student
+     */
     public void approveStudents(){
         adminInterface.approveStudent();
     }
