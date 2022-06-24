@@ -42,7 +42,7 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
     /**
      * viewAssignedStudents method is used by the professor to view all the students in respective courses
      * @param professorId
-     * @return {@link List<EnrolledStudent>}
+     * @return list of enrolled student
      */
     @Override
     public List<EnrolledStudent> viewAssignedStudents(String professorId) {
@@ -79,7 +79,7 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
      * @param courseId
      * @param studentId
      * @param grade
-     * @return {@link boolean}
+     * @return true or false
      */
     @Override
     public boolean addGrade(String userId, String courseId, String studentId, String grade) {
@@ -133,7 +133,7 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
     /**
      * viewTeachingCourses method is used by the professor to view all the courses assigned to him
      * @param professorId
-     * @return {@link List<Course>}
+     * @return list of courses
      */
     @Override
     public List<Course> viewTeachingCourses(String professorId) {
@@ -165,7 +165,7 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
     /**
      * getProfessorById method is used to fetch the details of professor by getting id from database
      * @param professorId
-     * @return {@link Professor}
+     * @return professor object
      */
     @Override
     public Professor getProfessorById(String professorId) {

@@ -21,7 +21,7 @@ public interface ProfessorDaoInterface {
     /**
      * viewAssignedStudents method is used by the professor to view all the students in respective courses
      * @param professorId
-     * @return {@link List<EnrolledStudent>}
+     * @return list of enrolled students
      */
 
     public List<EnrolledStudent> viewAssignedStudents(String professorId);
@@ -32,24 +32,21 @@ public interface ProfessorDaoInterface {
      * @param courseId
      * @param studentId
      * @param grade
-     * @return {@link boolean}
-     * @throws CourseNotAssignedToProfessorException
-     * @throws StudentCourseNotMatchedException
-     *
+     * @return boolean
      */
     public boolean addGrade(String userId,String courseId, String studentId, String grade);
 
     /**
      * viewTeachingCourses method is used by the professor to view all the courses assigned to him
      * @param professorId
-     * @return {@link List<Course>}
+     * @return list of courses
      */
     public List<Course> viewTeachingCourses(String professorId);
 
     /**
      * getProfessorById method is used to fetch the details of professor by getting id from database
      * @param professorId
-     * @return {@link Professor}
+     * @return professor object
      */
     public Professor getProfessorById(String professorId);
 

@@ -24,7 +24,7 @@ public interface StudentInterface {
      * @param batch
      * @param branch
      * @param address
-     * @return {@link Student}
+     * @return student object
      */
     public Student register(String name,String userID,String password,String gender,int batch,
                         String branch,String address) throws UserAlreadyExistException;
@@ -39,7 +39,7 @@ public interface StudentInterface {
     /**
      * Method to fetch student by Student ID
      * @param studentId : Student Id
-     * @return {@link Student}
+     * @return student object
      * @throws UserNotFoundException
      */
     public Student getStudentById(String studentId) throws UserNotFoundException;
@@ -73,24 +73,24 @@ public interface StudentInterface {
     /**
      * Method to view all Registered Courses
      * @param userId
-     * @return {@link List<String>}
+     * @return list of courses
      */
     List<String> viewRegisteredCourses(String userId);
     /**
      * Method to view Report Card
      * @param userId
-     * @return {@link List}
+     * @return list of grades
      */
     public List<StudentGrade> viewGradeCard(String userId);
     /**
      * Method to view all added Courses
      * @param userId
-     * @return {@link List}
+     * @return list of added courses
      */
     List<String> viewAddedCourses(String userId);
     /**
      * Method to view all Courses present
-     * @return {@link List}
+     * @return list of all courses
      */
     public List<Course> viewAllCourses();
     /**
