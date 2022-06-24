@@ -14,10 +14,7 @@ import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Menu class for Admin
@@ -141,65 +138,72 @@ public class AdminCRSMenu {
     }
 
     public void createMenu() {
-        System.out.println("============================================");
-        System.out.println("----------------ADMIN CRS MENU-------------");
-        System.out.println("============================================");
-        System.out.println("1. View All Courses");
-        System.out.println("2. View All Professors");
-        System.out.println("3. Add new Course to Course Catalog");
-        System.out.println("4. Delete a Course from Course Catalog");
-        System.out.println("5. Add Professor to CRS");
-        System.out.println("6. Approve Registration of Students");
-        System.out.println("7. Generate Grade Card for Students");
-        System.out.println("8. Logout");
-        while (true) {
-            System.out.print("Enter your choice: ");
-            Scanner sc = new Scanner(System.in);
-            int choice = sc.nextInt();
+        try {
+            System.out.println("============================================");
+            System.out.println("----------------ADMIN CRS MENU-------------");
+            System.out.println("============================================");
+            System.out.println("1. View All Courses");
+            System.out.println("2. View All Professors");
+            System.out.println("3. Add new Course to Course Catalog");
+            System.out.println("4. Delete a Course from Course Catalog");
+            System.out.println("5. Add Professor to CRS");
+            System.out.println("6. Approve Registration of Students");
+            System.out.println("7. Generate Grade Card for Students");
+            System.out.println("8. Logout");
+            while (true) {
+                System.out.print("Enter your choice: ");
+                Scanner sc = new Scanner(System.in);
+                int choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    List<Course> course = adminInterface.viewCourses();
-                    for(Course cs: course){
-                        System.out.println(cs.getCourseCode());
-                        for(Student std: cs.getEnrolled()){
-                            System.out.println(std.getUserID());
+                switch (choice) {
+                    case 1:
+                        List<Course> course = adminInterface.viewCourses();
+                        for (Course cs : course) {
+                            System.out.println(cs.getCourseCode());
+                            for (Student std : cs.getEnrolled()) {
+                                System.out.println(std.getUserID());
+                            }
                         }
-                    }
-                    break;
-                case 2:
-                    List<Professor> professor = adminInterface.viewProfessors();
-                    for(Professor ps: professor){
-                        System.out.println("PROFESSOR ID: "+ps.getUserID()+",  PROFESSOR NAME: "+ps.getName());
-                    }
-                    break;
-                case 3:
-                    addCourse();
-                    break;
+                        break;
+                    case 2:
+                        List<Professor> professor = adminInterface.viewProfessors();
+                        for (Professor ps : professor) {
+                            System.out.println("PROFESSOR ID: " + ps.getUserID() + ",  PROFESSOR NAME: " + ps.getName());
+                        }
+                        break;
+                    case 3:
+                        addCourse();
+                        break;
 
-                case 4:
-                    deleteCourse();
-                    break;
+                    case 4:
+                        deleteCourse();
+                        break;
 
-                case 5:
-                    addProfessor();
-                    break;
+                    case 5:
+                        addProfessor();
+                        break;
 
-                case 6:
-                    approveStudents();
-                    break;
+                    case 6:
+                        approveStudents();
+                        break;
 
-                case 7:
-                    generateScoreCard();
-                    break;
-                case 8:
-                    crsApplication.createMenu();
-                    break;
+                    case 7:
+                        generateScoreCard();
+                        break;
+                    case 8:
+                        crsApplication.createMenu();
+                        break;
 
-                default:
-                    System.out.println("Wrong Selection! Please enter your choice again.");
+                    default:
+                        System.out.println("Wrong Selection! Please enter your choice again.");
+
+                }
 
             }
+        }
+        catch(InputMismatchException e){
+            System.out.println("Input format misMatched");
+            createMenu();
         }
     }
 }

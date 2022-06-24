@@ -8,11 +8,13 @@ import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
+import com.sun.corba.se.spi.orbutil.fsm.Input;
 import javafx.util.Pair;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -187,78 +189,84 @@ public class StudentCRSMenu {
 
 
     public void createMenu(String userId){
+        try {
+            System.out.println("============================================");
+            System.out.println("--------------STUDENT CRS MENU------------");
+            System.out.println("============================================");
+            System.out.println("1. Course Registration");
+            System.out.println("2. Add Course");
+            System.out.println("3. Drop Course");
+            System.out.println("4. View Registered Courses");
+            System.out.println("5. Make Payment");
+            System.out.println("6. View Grade Card");
+            System.out.println("7. View All Courses");
+            System.out.println("8. View Added Courses");
+            System.out.println("9. Change Password");
+            System.out.println("10. Logout");
+            while (true) {
+                System.out.print("Please enter your choice: ");
+                Scanner sc = new Scanner(System.in);
+                int choice = sc.nextInt();
+                sc.nextLine();
+                switch (choice) {
+                    case 1:
+                        courseRegistration(userId);
+                        break;
+                    case 2:
+                        addCourse(userId);
 
-        System.out.println("============================================");
-        System.out.println("--------------STUDENT CRS MENU------------");
-        System.out.println("============================================");
-        System.out.println("1. Course Registration");
-        System.out.println("2. Add Course");
-        System.out.println("3. Drop Course");
-        System.out.println("4. View Registered Courses");
-        System.out.println("5. Make Payment");
-        System.out.println("6. View Grade Card");
-        System.out.println("7. View All Courses");
-        System.out.println("8. View Added Courses");
-        System.out.println("9. Change Password");
-        System.out.println("10. Logout");
-        while (true) {
-            System.out.print("Please enter your choice: ");
-            Scanner sc = new Scanner(System.in);
-            int choice = sc.nextInt();
-            sc.nextLine();
-            switch (choice) {
-                case 1:
-                    courseRegistration(userId);
-                    break;
-                case 2:
-                    addCourse(userId);
+                        break;
 
-                    break;
-
-                case 3:
-                    dropCourse(userId);
+                    case 3:
+                        dropCourse(userId);
 
 
-                    break;
+                        break;
 
-                case 4:
-//                    System.out.println("Write logic for view registered courses");
-                    viewRegisteredCourses(userId);
-                    break;
+                    case 4:
+                        //                    System.out.println("Write logic for view registered courses");
+                        viewRegisteredCourses(userId);
+                        break;
 
-                case 5:
-                    makePayment(userId);
-                    break;
+                    case 5:
+                        makePayment(userId);
+                        break;
 
-                case 6:
-                    viewGradeCard(userId);
-                    break;
+                    case 6:
+                        viewGradeCard(userId);
+                        break;
 
-                case 7:
+                    case 7:
 
-                    List<Course> course = studentInterface.viewAllCourses();
-                    for(Course cs: course){
-                        System.out.println(cs.getCourseCode());
+                        List<Course> course = studentInterface.viewAllCourses();
+                        for (Course cs : course) {
+                            System.out.println(cs.getCourseCode());
 
-                    }
-                    break;
+                        }
+                        break;
 
-                case 8:
-                    viewAddedCourses(userId);
-                    break;
+                    case 8:
+                        viewAddedCourses(userId);
+                        break;
 
-                case 9:
-                    changePassword(userId);
-                    break;
+                    case 9:
+                        changePassword(userId);
+                        break;
 
-                case 10:
-                    crsApplication.createMenu();
-                    break;
+                    case 10:
+                        crsApplication.createMenu();
+                        break;
 
-                default:
-                    System.out.println("Wrong Selection! Please enter your choice again.");
+                    default:
+                        System.out.println("Wrong Selection! Please enter your choice again.");
 
+                }
             }
+        }
+        catch(InputMismatchException e) {
+
+            System.out.println("Wrong input format");
+            createMenu(userId);
         }
     }
 }

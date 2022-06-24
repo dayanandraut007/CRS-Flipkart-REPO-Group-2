@@ -9,6 +9,7 @@ import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -111,48 +112,52 @@ public class ProfessorCRSMenu {
      */
 
     public void createMenu(String userId) {
+        try {
 
-        CRSApplication crsApplication = new CRSApplication();
+            CRSApplication crsApplication = new CRSApplication();
 
-        ProfessorImpl professor = new ProfessorImpl();
-        System.out.println("============================================");
-        System.out.println("--------------PROFESSOR CRS MENU------------");
-        System.out.println("============================================");
-        System.out.println("1. View Assigned Courses");
-        System.out.println("2. View Enrolled Students");
-        System.out.println("3. Add Grade");
-        System.out.println("4. Change Password");
-        System.out.println("5. Logout");
-        while (true) {
-            System.out.print("\nPlease enter your choice: ");
-            Scanner sc = new Scanner(System.in);
-            int choice = sc.nextInt();
+            ProfessorImpl professor = new ProfessorImpl();
+            System.out.println("============================================");
+            System.out.println("--------------PROFESSOR CRS MENU------------");
+            System.out.println("============================================");
+            System.out.println("1. View Assigned Courses");
+            System.out.println("2. View Enrolled Students");
+            System.out.println("3. Add Grade");
+            System.out.println("4. Change Password");
+            System.out.println("5. Logout");
+            while (true) {
+                System.out.print("\nPlease enter your choice: ");
+                Scanner sc = new Scanner(System.in);
+                int choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    viewTeachingCourses(userId);
-                    break;
-                case 2:
-                    viewAssignedStudent(userId);
-                    break;
-                case 3:
-                    addGrade(userId);
-                    break;
+                switch (choice) {
+                    case 1:
+                        viewTeachingCourses(userId);
+                        break;
+                    case 2:
+                        viewAssignedStudent(userId);
+                        break;
+                    case 3:
+                        addGrade(userId);
+                        break;
 
-                case 4:
-                    changePassword(userId);
-                    break;
-                case 5:
-                    crsApplication.createMenu();
-                    break;
+                    case 4:
+                        changePassword(userId);
+                        break;
+                    case 5:
+                        crsApplication.createMenu();
+                        break;
 
-                default:
-                    System.out.println("Wrong Selection! Please enter your choice again.");
+                    default:
+                        System.out.println("Wrong Selection! Please enter your choice again.");
 
+                }
             }
+        } catch (InputMismatchException e) {
+            System.out.println("Input format mismatched");
+            createMenu(userId);
         }
+
+
     }
-
-
-
 }
