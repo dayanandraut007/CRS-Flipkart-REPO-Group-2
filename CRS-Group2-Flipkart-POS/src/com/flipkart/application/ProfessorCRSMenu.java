@@ -10,9 +10,22 @@ import com.flipkart.service.ProfessorInterface;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class implements the Professor Course Registration System Menu
+ *
+ * @author  JEDI-June-Program-Group-2-2022
+ * @version 1.0
+ * @since   June 2022
+ */
+
 public class ProfessorCRSMenu {
 
     ProfessorInterface professorInterface = new ProfessorImpl();
+
+    /**
+     * Method to add the grade of the student of the particular course the professor is teaching
+     * @param userId
+     */
 
     public void addGrade(String userId)  {
         try
@@ -38,6 +51,11 @@ public class ProfessorCRSMenu {
 
     }
 
+    /**
+     * Method to view the students who have enrolled for the course professor is teaching
+     * @param userId
+     */
+
     public void viewAssignedStudent(String userId){
 
         List<EnrolledStudent> student = professorInterface.viewAssignedStudents(userId);
@@ -46,6 +64,11 @@ public class ProfessorCRSMenu {
         }
     }
 
+    /**
+     * Method to get list of all courses Professor has to teach
+     * @param userId
+     */
+
     public void viewTeachingCourses(String userId) {
 
         List<Course> course = professorInterface.viewTeachingCourses(userId);
@@ -53,6 +76,12 @@ public class ProfessorCRSMenu {
             System.out.println("COURSE CODE: " + cs.getCourseCode() + "\tCOURSE NAME: " + cs.getName());
         }
     }
+
+    /**
+     * Method to create professor menu
+     * @param userId
+     * returns displays all the operations for the professor, and provides navigation
+     */
 
     public void createMenu(String userId) {
 
