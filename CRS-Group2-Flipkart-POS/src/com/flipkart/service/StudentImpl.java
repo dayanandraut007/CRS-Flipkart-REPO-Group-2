@@ -6,7 +6,6 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.*;
 import com.flipkart.exception.*;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 
@@ -34,6 +33,12 @@ public class StudentImpl implements StudentInterface {
         return stud1;
     }
 
+    /**
+     * @param userId
+     * @return
+     * @throws PaymentFailedException
+     * @throws SemesterRegistrationException
+     */
     @Override
     public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException {
         Student std = studentDaoInterface.getStudentById(userId);
