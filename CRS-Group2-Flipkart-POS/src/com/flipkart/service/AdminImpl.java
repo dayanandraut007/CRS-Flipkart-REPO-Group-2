@@ -40,11 +40,11 @@ public class AdminImpl implements AdminInterface {
     @Override
     public boolean addCourse(Course course) throws CourseAlreadyPresentException, UserNotFoundException {
         boolean status = adminDaoInterface.findCourse(course.getCourseCode());
-        boolean status1 = adminDaoInterface.findUser(course.getInstructor());
         if(status)
         {
             throw new CourseAlreadyPresentException();
         }
+        boolean status1 = adminDaoInterface.findUser(course.getInstructor());
         if(!status1)
         {
             throw new UserNotFoundException(course.getInstructor(),"Professor");
@@ -91,7 +91,7 @@ public class AdminImpl implements AdminInterface {
     @Override
     public List<StudentGrade> generateGradeCard(String userId) throws UserNotFoundException {
         boolean status = adminDaoInterface.findUser(userId);
-        if(status)
+        if(!status)
         {
             throw new UserNotFoundException(userId,"Student");
         }

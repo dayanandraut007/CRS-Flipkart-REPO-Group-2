@@ -310,10 +310,8 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             statement = connection.prepareStatement(sql);
             statement.setString(1, courseCode);
 
-            int row = statement.executeUpdate();
-
-            if(row == 0)
-                return false;
+            ResultSet rs = statement.executeQuery();
+            return rs.next();
 
         }catch(SQLException se) {
             se.printStackTrace();
@@ -329,10 +327,9 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             statement = connection.prepareStatement(sql);
             statement.setString(1, userId);
 
-            int row = statement.executeUpdate();
+            ResultSet row = statement.executeQuery();
 
-            if(row == 0)
-                return false;
+            return row.next();
 
         }catch(SQLException se) {
             se.printStackTrace();

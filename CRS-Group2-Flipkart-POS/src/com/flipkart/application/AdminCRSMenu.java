@@ -47,7 +47,7 @@ public class AdminCRSMenu {
         }
         catch(CourseAlreadyPresentException | UserNotFoundException e)
         {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
     }
@@ -61,7 +61,8 @@ public class AdminCRSMenu {
         }
         catch(CourseNotFoundException e)
         {
-            e.getMessage();
+            System.out.println(e.getMessage());
+
         }
 
     }
@@ -79,7 +80,7 @@ public class AdminCRSMenu {
         }
         catch (UserNotFoundException e)
         {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
     }
@@ -110,7 +111,7 @@ public class AdminCRSMenu {
         }
         catch(UserAlreadyExistException e)
         {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
 
