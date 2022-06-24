@@ -2,12 +2,14 @@
 package com.flipkart.exception;
 
 
-public class UserIdAlreadyInUseException extends Exception{
+public class UserAlreadyExistException extends Exception{
     private String userId;
+    private String userName;
 
 
-    public UserIdAlreadyInUseException(String userId) {
+    public UserAlreadyExistException(String userId, String userName) {
         this.userId = userId;
+        this.userName = userName;
     }
 
     public String getUserId() {
@@ -20,7 +22,7 @@ public class UserIdAlreadyInUseException extends Exception{
 
     @Override
     public String getMessage() {
-        return "userId: " + userId + " is already in use.";
+        return userName+"with userId: " + userId + " is already in use.";
     }
 
 }

@@ -32,4 +32,8 @@ public class SQLQueriesConstants {
 
     public static final String NOTIFICATION_QUERY = "INSERT INTO `CRSDatabase`.`notification` (`student_id`, `message`) VALUES (?,?);";
 
+    public static final String FIND_COURSE_QUERY = "SELECT * FROM CRSDatabase.course where course_code = ?;";
+
+    public static final String FIND_USER_QUERY = "SELECT * FROM CRSDatabase.user where user_id = ?;";
+
 }
