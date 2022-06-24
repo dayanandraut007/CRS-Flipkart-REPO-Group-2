@@ -3,22 +3,23 @@ package com.flipkart.exception;
 
 public class GradeNotAddedException extends Exception{
 
-    private int studentId;
+    private String studentId;
 
     /**
      * Constructor
      * @param studentId
      */
-    public GradeNotAddedException(int studentId)
+    public GradeNotAddedException(String studentId)
     {
-        this.studentId=studentId;
+        System.out.println("Grade not added! Please try again.");
+        this.studentId = studentId;
     }
 
     /**
      * Getter function for studentId
      * @return
      */
-    public int getStudentId()
+    public String getStudentId()
     {
         return studentId;
     }
