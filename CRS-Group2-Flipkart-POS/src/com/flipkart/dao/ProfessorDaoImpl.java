@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * ProfessorDaoImpl class implements the Professor database operations
+ */
 public class ProfessorDaoImpl implements ProfessorDaoInterface{
 
 
@@ -32,6 +35,11 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
 
     Connection connection = DBUtils.getConnection();
 
+    /**
+     * viewAssignedStudents method is used by the professor to view all the students in respective courses
+     * @param professorId
+     * @return {@link List<EnrolledStudent>}
+     */
     @Override
     public List<EnrolledStudent> viewAssignedStudents(String professorId) {
         statement = null;
@@ -61,6 +69,14 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
 
     }
 
+    /**
+     * addGrade method is used by the professor to add the grade to the student for particular course
+     * @param userId
+     * @param courseId
+     * @param studentId
+     * @param grade
+     * @return {@link boolean}
+     */
     @Override
     public boolean addGrade(String userId, String courseId, String studentId, String grade) {
         statement = null;
@@ -110,6 +126,11 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
         return true;
     }
 
+    /**
+     * viewTeachingCourses method is used by the professor to view all the courses assigned to him
+     * @param professorId
+     * @return {@link List<Course>}
+     */
     @Override
     public List<Course> viewTeachingCourses(String professorId) {
         statement = null;
@@ -137,6 +158,11 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
 
     }
 
+    /**
+     * getProfessorById method is used to fetch the details of professor by getting id from database
+     * @param professorId
+     * @return {@link Professor}
+     */
     @Override
     public Professor getProfessorById(String professorId) {
         //return ProfessorDaoInterface.getProfessorById(professorId);
@@ -164,6 +190,13 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
         return null;
 
     }
+
+    /**
+     * courseAssignedToProfessor method is used to check whether professor is assigned to respective course or not.
+     * @param userId
+     * @param courseId
+     * @return boolean
+     */
     @Override
     public boolean courseAssignedToProfessor(String userId, String courseId){
         statement = null;

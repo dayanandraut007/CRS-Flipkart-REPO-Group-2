@@ -11,27 +11,55 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+/**
+ * Implementation for User Dao operations
+ */
 public class UserDaoImpl implements UserDaoInterface{
+
 
     private static UserDaoImpl instance = null;
     private PreparedStatement statement = null;
     private UserDaoImpl(){}
+
     public static UserDaoImpl getInstance(){
         if(instance == null){
             instance = new UserDaoImpl();
         }
         return instance;
     }
+
     Connection connection = DBUtils.getConnection();
+
+    /**
+     * changePassword method is used to change the password
+     * @param userID
+     * @param newPassword
+     * @return type boolean
+     */
+
     @Override
     public boolean changePassword(String userID, String newPassword) {
         return false;
     }
 
+    /**
+     * UpdateDetails method will update the details of user
+     * @param user
+     * @return {@link Boolean}
+     */
+
     @Override
     public boolean updateDetails(User user) {
         return false;
     }
+
+    /**
+     * User Login method uses SQL commands and verifies the user
+     * @param userID
+     * @param password
+     * @return {@link User}
+     */
 
     @Override
     public User login(String userID, String password) {
