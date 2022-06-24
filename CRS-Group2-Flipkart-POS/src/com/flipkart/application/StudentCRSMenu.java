@@ -43,7 +43,7 @@ public class StudentCRSMenu {
             System.out.print("ENTER paymentMethod: ");
             String paymentMethod = sc.next();
             SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
-            String transactionId = date.toString();
+            String transactionId = date.format(new Date());
             studentInterface.makePayment(userId, paymentMethod, transactionId, 5000);
         }
         catch(CourseLimitException | PaymentFailedException e){
