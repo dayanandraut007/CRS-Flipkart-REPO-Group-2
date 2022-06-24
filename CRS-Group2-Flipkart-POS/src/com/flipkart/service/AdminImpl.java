@@ -3,6 +3,7 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.AdminDaoImpl;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.MockData;
@@ -67,7 +68,13 @@ public class AdminImpl implements AdminInterface {
     }
 
     @Override
+    public List<StudentGrade> generateGradeCard(String userId) {
+        return adminDaoInterface.generateScoreCard(userId);
+    }
+
+    @Override
     public void notifyCourseChange() {
 
     }
+
 }

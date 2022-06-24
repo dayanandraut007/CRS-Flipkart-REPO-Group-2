@@ -6,13 +6,17 @@ public class StudentGrade {
     private String courseCode;
     //private String courseName;
     private Grade grade;
-    private int studentID;
+    private String studentID;
 
-    public StudentGrade(String courseCode, Grade grade, int studentID) {
+    public StudentGrade(String courseCode, Grade grade, String studentID) {
         this.courseCode = courseCode;
         //this.courseName = courseName;
         this.setGrade(grade);
         this.studentID = studentID;
+    }
+
+    public StudentGrade(){
+
     }
 
     public String getCourseCode() {
@@ -39,11 +43,11 @@ public class StudentGrade {
         this.grade = grade;
     }
 
-    public int getStudentID() {
+    public String getStudentID() {
         return studentID;
     }
 
-    public void setStudentID(int studentID) {
+    public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
 }

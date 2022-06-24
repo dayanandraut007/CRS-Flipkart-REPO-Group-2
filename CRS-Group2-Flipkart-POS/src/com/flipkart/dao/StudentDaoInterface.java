@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public interface StudentDaoInterface {
     public List<Course> viewAllCourses();
     public boolean checkRegistrationEligibility(String userId);
     public boolean approvePayment(String userId);
+    public List<StudentGrade> viewGradeCard(String userId);
 
     public boolean makePayment(String userId,String transactionId, String modeOfPayment, float amount);
 

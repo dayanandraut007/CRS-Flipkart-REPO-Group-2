@@ -5,6 +5,7 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 
 public interface AdminInterface {
     public boolean deleteCourse(String courseCode);
@@ -16,5 +17,6 @@ public interface AdminInterface {
     public void assignCourse(String courseCode, String professorId);
     public List<Course> viewCourses();
     public List<Professor> viewProfessors();
+    public List<StudentGrade> generateGradeCard(String userId);
     public void notifyCourseChange();
 }

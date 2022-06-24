@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.*;
 
 import java.util.List;
@@ -16,11 +17,12 @@ public interface StudentInterface {
 
     public boolean isApproved(String studentId);
 
-    public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyPresentException;
+    public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyRegisteredException;
     public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException;
 
 
     List<String> viewRegisteredCourses(String userId);
+    public List<StudentGrade> viewGradeCard(String userId);
     List<String> viewAddedCourses(String userId);
 
     public List<Course> viewAllCourses();

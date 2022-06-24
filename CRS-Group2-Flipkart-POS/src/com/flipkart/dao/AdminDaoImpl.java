@@ -3,6 +3,8 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.Grade;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.constant.SQLQueriesConstants2;
 import com.flipkart.utils.DBUtils;
@@ -259,6 +261,39 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         }
 
         return professorList;
+    }
+
+    @Override
+    public List<StudentGrade> generateScoreCard(String studentId) {
+        statement = null;
+        List<StudentGrade> gradeList = new ArrayList<>();
+        try {
+
+            String sql = SQLQueriesConstants2.VIEW_GRADE_CARD;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,studentId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                StudentGrade grade = new StudentGrade();
+                if(resultSet.getString(3) == null){
+                    grade.setGrade(Grade.NA);
+                }
+                else{
+                    grade.setGrade(Grade.valueOf(resultSet.getString(3)));
+                }
+                grade.setStudentID(resultSet.getString(1));
+                grade.setCourseCode(resultSet.getString(2));
+                gradeList.add(grade);
+
+            }
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+
+        return gradeList;
     }
 
     @Override

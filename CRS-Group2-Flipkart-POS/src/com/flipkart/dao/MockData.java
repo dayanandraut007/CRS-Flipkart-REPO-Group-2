@@ -51,10 +51,10 @@ public class MockData {
         Student student3 = new Student("011", "kashish", "pass", Role.STUDENT, 11, "CSE", 10, false, "india",false,false);
         students.add(student3);
 
-        StudentGrade studentGrade = new StudentGrade("C001",Grade.A,9);
-        StudentGrade studentGrade2 = new StudentGrade("C002",Grade.B,10);
-        grade.add(studentGrade);
-        grade.add(studentGrade2);
+//        StudentGrade studentGrade = new StudentGrade("C001",Grade.A,9);
+//        StudentGrade studentGrade2 = new StudentGrade("C002",Grade.B,10);
+//        grade.add(studentGrade);
+//        grade.add(studentGrade2);
 
 
         Professor professor1 = new Professor("007","daya", "pass", Role.PROFESSOR, 7, "CSE", Gender.MALE, "Professor", new Date(),"Nepal");

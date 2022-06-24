@@ -25,10 +25,11 @@ public class SQLQueriesConstants {
 
     public static final String CHECK_VALID_COURSES_QUERY_FOR_ADD_GRADE = "SELECT * FROM CRSDatabase.student_enrolled_course where course_id = ? and student_id=?;";
 
-    public static final String ADD_GRADE_QUERY="INSERT INTO `CRSDatabase`.`grade_card` (`student_id`, `course_id`,`grade`) VALUES (?,?,?);";
+    public static final String ADD_GRADE_QUERY="update grade_card set grade=? where student_id =? and course_id=?";
 
     public static final String MAKE_PAYMENT_STUDENT_QUERY = "UPDATE `CRSDatabase`.`student` SET `done_payment` = '1' WHERE (`student_id` = ?);";
     public static final String PAYMENT_QUERY = "INSERT INTO `CRSDatabase`.`payment` (`student_id`, `payment_method`,transaction_id, `amount`) VALUES (?,?,?,?);";
 
     public static final String NOTIFICATION_QUERY = "INSERT INTO `CRSDatabase`.`notification` (`student_id`, `message`) VALUES (?,?);";
+
 }

@@ -48,38 +48,15 @@ public class AdminCRSMenu {
 
     }
 
-    public void GenerateScoreCard()
-    {
-        Scanner scan = new Scanner(System.in);
-        int sid;
-        System.out.println("ENTER STUDENT ID: ");
-        sid=scan.nextInt();
-        String sname="";
-        for(Student st : data.students)
-        {
-            if(st.getStudentID()==sid)
-            {
-                sname = st.getName();
-                break;
-            }
+    public void generateScoreCard(){
+        System.out.print("Enter student id to generate score card: ");
+        String id = sc.next();
+        List<StudentGrade> gradeList = adminInterface.generateGradeCard(id);
+        System.out.println("Course ---------- Grade" );
+        for(StudentGrade st: gradeList){
+            System.out.println(st.getCourseCode() + "----------"  + st.getGrade().toString() );
         }
-        System.out.println("STUDENT NAME: "+sname);
-        for(StudentGrade sg: data.grade)
-        {
-            if(sg.getStudentID()==sid)
-            {
-                String code = sg.getCourseCode();
-                String name = "";
-                for(Course csr : data.courses)
-                {
-                    if(csr.getCourseCode().equals(code))
-                    {
-                        name = csr.getName();
-                    }
-                }
-                System.out.println("COURSE NAME: " + name + "\tGRADE: " + sg.getGrade());
-            }
-        }
+
     }
 
     public void addProfessor(){
@@ -162,7 +139,7 @@ public class AdminCRSMenu {
                     break;
 
                 case 7:
-                    GenerateScoreCard();
+                    generateScoreCard();
                     break;
                 case 8:
                     crsApplication.createMenu();

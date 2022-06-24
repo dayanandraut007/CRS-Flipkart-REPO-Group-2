@@ -3,6 +3,8 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.Grade;
 import com.flipkart.constant.Role;
 import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.constant.SQLQueriesConstants2;
@@ -81,6 +83,15 @@ public class StudentDaoImpl implements StudentDaoInterface {
                 return false;
             }
             System.out.println("Registered Successfully");
+            List<String> registeredCourses = viewRegisteredCourses(userId);
+            for(String st: registeredCourses){
+                String sql = SQLQueriesConstants2.INSERT_IN_GRADE_CARD;
+                statement = connection.prepareStatement(sql);
+                statement.setString(1,userId);
+                statement.setString(2,st);
+                statement.executeUpdate();
+            }
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -312,6 +323,39 @@ public class StudentDaoImpl implements StudentDaoInterface {
             e.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public List<StudentGrade> viewGradeCard(String userId) {
+        statement = null;
+        List<StudentGrade> gradeList = new ArrayList<>();
+        try {
+
+            String sql = SQLQueriesConstants2.VIEW_GRADE_CARD;
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+
+                StudentGrade grade = new StudentGrade();
+                if(resultSet.getString(3) == null){
+                    grade.setGrade(Grade.NA);
+                }
+                else{
+                    grade.setGrade(Grade.valueOf(resultSet.getString(3)));
+                }
+                grade.setStudentID(resultSet.getString(1));
+                grade.setCourseCode(resultSet.getString(2));
+                gradeList.add(grade);
+
+            }
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+
+        return gradeList;
     }
 
     @Override

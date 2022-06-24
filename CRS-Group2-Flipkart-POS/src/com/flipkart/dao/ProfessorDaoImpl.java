@@ -80,9 +80,9 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
                 String sql2 = SQLQueriesConstants.ADD_GRADE_QUERY;
                 statement = connection.prepareStatement(sql2);
 
-                statement.setString(1, studentId);
-                statement.setString(2, courseId);
-                statement.setString(3, grade);
+                statement.setString(2, studentId);
+                statement.setString(3, courseId);
+                statement.setString(1, grade);
                 System.out.println(statement.toString());
 
                 int row = statement.executeUpdate();

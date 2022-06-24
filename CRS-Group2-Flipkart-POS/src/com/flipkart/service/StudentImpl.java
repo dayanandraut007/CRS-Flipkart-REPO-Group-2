@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.*;
 import com.flipkart.exception.*;
 
@@ -58,11 +59,11 @@ public class StudentImpl implements StudentInterface {
     }
 
     @Override
-    public boolean addCourse(String userId, String courseCode, String primary) throws CourseAlreadyPresentException {
+    public boolean addCourse(String userId, String courseCode, String primary) throws CourseAlreadyRegisteredException {
         Student std = studentDaoInterface.getStudentById(userId);
         if (std.isHasRegistered()) {
             System.out.println("This course is already added.");
-            throw new CourseAlreadyPresentException();
+            throw new CourseAlreadyRegisteredException();
         }
         return studentDaoInterface.addCourse(userId, courseCode, primary);
 
@@ -82,6 +83,11 @@ public class StudentImpl implements StudentInterface {
     @Override
     public List<String> viewRegisteredCourses(String userId) {
         return studentDaoInterface.viewRegisteredCourses(userId);
+    }
+
+    @Override
+    public List<StudentGrade> viewGradeCard(String userId) {
+        return studentDaoInterface.viewGradeCard(userId);
     }
 
     @Override

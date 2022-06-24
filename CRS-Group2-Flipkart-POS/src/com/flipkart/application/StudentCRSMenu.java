@@ -2,9 +2,12 @@ package com.flipkart.application;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
+import com.flipkart.exception.*;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,9 +20,14 @@ public class StudentCRSMenu {
     Scanner sc = new Scanner(System.in);
 
     public void courseRegistration(String userId){
-        boolean status = studentInterface.semesterRegistration(userId);
-        if(status){
-            System.out.println("Final Registration done");
+        try {
+            boolean status = studentInterface.semesterRegistration(userId);
+            if (status) {
+                System.out.println("Final Registration done");
+            }
+        }
+        catch(PaymentFailedException | SemesterRegistrationException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -31,11 +39,53 @@ public class StudentCRSMenu {
     }
 
     public void makePayment(String userId){
-        System.out.print("ENTER paymentMethod: ");
-        String paymentMethod = sc.next();
-        SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
-        String transactionId = date.toString();
-        studentInterface.makePayment(userId,paymentMethod,transactionId,5000);
+        try {
+            System.out.print("ENTER paymentMethod: ");
+            String paymentMethod = sc.next();
+            SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
+            String transactionId = date.toString();
+            studentInterface.makePayment(userId, paymentMethod, transactionId, 5000);
+        }
+        catch(CourseLimitException | PaymentFailedException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addCourse(String userId){
+        try {
+            System.out.print("ENTER COURSE ID: ");
+            String course_code = sc.next();
+            System.out.print("Primary(Y/N): ");
+            String primary = sc.next();
+            boolean status = studentInterface.addCourse(userId, course_code, primary);
+            if (!status) {
+                System.out.println("Can't Register");
+            }
+        }
+        catch(CourseAlreadyRegisteredException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public void dropCourse(String userId){
+        try{
+            System.out.print("ENTER COURSE ID: ");
+            String course_code = sc.next();
+            boolean status2 = studentInterface.dropCourse(userId, course_code);
+            if(!status2){
+                System.out.println("Already Registered. Can't add or drop now");
+            }
+        }
+        catch(CourseAlreadyRegisteredException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void viewGradeCard(String userId){
+        List<StudentGrade> gradeList= studentInterface.viewGradeCard(userId);
+        System.out.println("Course ---------- Grade" );
+        for(StudentGrade st: gradeList){
+            System.out.println(st.getCourseCode() + "----------"  + st.getGrade().toString() );
+        }
     }
 
 
@@ -64,24 +114,12 @@ public class StudentCRSMenu {
                     courseRegistration(userId);
                     break;
                 case 2:
-                    System.out.print("ENTER COURSE ID: ");
-                    String course_code = sc.next();
-                    System.out.print("Primary(Y/N): ");
-                    String primary = sc.next();
-                    boolean status = studentInterface.addCourse(userId, course_code,primary);
-                    if(!status){
-                        System.out.println("Can't Register");
-                    }
+                    addCourse(userId);
 
                     break;
 
                 case 3:
-                    System.out.print("ENTER COURSE ID: ");
-                    course_code = sc.nextLine();
-                    boolean status2 = studentInterface.dropCourse(userId, course_code);
-                    if(!status2){
-                        System.out.println("Already Registered. Can't add or drop now");
-                    }
+                    dropCourse(userId);
 
 
                     break;
@@ -99,7 +137,7 @@ public class StudentCRSMenu {
                     break;
 
                 case 6:
-                    System.out.println("Write logic for view grade card");
+                    viewGradeCard(userId);
                     break;
 
                 case 7:
