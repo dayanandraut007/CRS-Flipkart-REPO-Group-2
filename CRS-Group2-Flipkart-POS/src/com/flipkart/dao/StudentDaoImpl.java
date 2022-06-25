@@ -7,7 +7,6 @@ import com.flipkart.constant.SQLQueriesConstants;
 import com.flipkart.constant.SQLQueriesConstants2;
 import com.flipkart.exception.UserAlreadyExistException;
 import com.flipkart.utils.DBUtils;
-import javafx.util.Pair;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -317,9 +316,9 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @return list of added courses
      */
     @Override
-    public List<Pair<String,Boolean>> viewAddedCourses(String userId) {
+    public List<List<String>> viewAddedCourses(String userId) {
         statement = null;
-        List<Pair<String,Boolean>> registeredCourses = new ArrayList<>();
+        List<List<String>> registeredCourses = new ArrayList<>();
         try {
             String sql = SQLQueriesConstants2.VIEW_ADDED_COURSES_STUDENT_QUERY;
             statement = connection.prepareStatement(sql);
@@ -328,9 +327,14 @@ public class StudentDaoImpl implements StudentDaoInterface {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Pair<String,Boolean> pr= new Pair(resultSet.getString(2),resultSet.getBoolean(3));
-                registeredCourses.add(pr);
-
+                List<String> ls = new ArrayList<>();
+                ls.add(resultSet.getString(2));
+                if(resultSet.getBoolean(3)) {
+                    ls.add("Primary");
+                }else{
+                    ls.add("Optional");
+                }
+                registeredCourses.add(ls);
             }
         } catch (SQLException e) {
             e.printStackTrace();

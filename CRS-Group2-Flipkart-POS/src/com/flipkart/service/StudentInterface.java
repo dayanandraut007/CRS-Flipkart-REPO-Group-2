@@ -4,7 +4,6 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.*;
-import javafx.util.Pair;
 
 import java.util.List;
 
@@ -88,7 +87,7 @@ public interface StudentInterface {
      * @param userId
      * @return list of added courses
      */
-    List<Pair<String,Boolean>>  viewAddedCourses(String userId);
+    List<List<String>>  viewAddedCourses(String userId);
     /**
      * Method to view all Courses present
      * @return list of all courses

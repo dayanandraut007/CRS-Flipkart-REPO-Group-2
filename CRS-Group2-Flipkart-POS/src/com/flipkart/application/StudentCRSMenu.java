@@ -8,8 +8,7 @@ import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.UserImpl;
 import com.flipkart.service.UserInterface;
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-import javafx.util.Pair;
+
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -58,14 +57,10 @@ public class StudentCRSMenu {
      * @param userId
      */
     public void viewAddedCourses(String userId){
-        List<Pair<String,Boolean>>  regCourses = studentInterface.viewAddedCourses(userId);
+        List<List<String>>  regCourses = studentInterface.viewAddedCourses(userId);
         System.out.println("Course Code ------------ Primary/Optional");
-        for (Pair<String,Boolean>  course : regCourses){
-            String st="optional";
-            if(course.getValue()){
-                st="Primary";
-            }
-            System.out.println(course.getKey() + " -------- " + st);
+        for (List<String>  course : regCourses){
+            System.out.println(course.get(0) + " -------- " + course.get(1));
         }
     }
 
@@ -106,7 +101,7 @@ public class StudentCRSMenu {
                 System.out.println("Already Registered. Add/Drop not allowed now.");
                 return;
             }
-            List<Pair<String,Boolean>>  regCourses = studentInterface.viewAddedCourses(userId);
+            List<List<String>>  regCourses = studentInterface.viewAddedCourses(userId);
             if(regCourses.size() >=6){
                 System.out.println("6 courses already registered. Can't add more. Drop a course to add new");
                 return;
