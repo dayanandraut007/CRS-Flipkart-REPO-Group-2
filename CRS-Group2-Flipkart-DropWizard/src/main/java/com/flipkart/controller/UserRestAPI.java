@@ -49,19 +49,19 @@ public class UserRestAPI {
                 if(usr.getRole().name() == "STUDENT"){
                     Student st = studentInterface.getStudentById(usr.getUserID());
                     String msg = "Hello, " + st.getName() + ". You have logged in as student in: " + LocalDateTime.now();
-                    return Response.status(200).entity("msg").build();
+                    return Response.status(200).entity(msg).build();
 
                 }
                 else if(usr.getRole().name() == "ADMIN"){
                     String msg = "Hello, admin. You have logged in as admin in: " + LocalDateTime.now();
-                    return Response.status(200).entity("msg").build();
+                    return Response.status(200).entity(msg).build();
 
                 }
                 else if(usr.getRole().name() == "PROFESSOR"){
                     ProfessorCRSMenu professorCRSMenu  = new ProfessorCRSMenu();
                     Professor st = professorInterface.getProfessorById(usr.getUserID());
                     String msg = "Hello, " + st.getName() + ". You have logged in as professor in: " + LocalDateTime.now();
-                    return Response.status(200).entity("msg").build();
+                    return Response.status(200).entity(msg).build();
 
 
                 }
