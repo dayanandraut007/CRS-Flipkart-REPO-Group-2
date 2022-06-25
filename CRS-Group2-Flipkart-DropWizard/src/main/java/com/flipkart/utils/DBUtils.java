@@ -14,7 +14,7 @@ public class DBUtils {
         else {
             try {
                 // hardcoded properties
-                String driver = "com.mysql.cj.jdbc.Driver";
+                String driver = "com.mysql.jdbc.Driver";
                 String url = "jdbc:mysql://localhost:3306/CRSDatabase";
                 String user = "root";
                 String password = "password";
