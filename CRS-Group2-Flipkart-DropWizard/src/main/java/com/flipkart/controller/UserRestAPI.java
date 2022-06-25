@@ -1,8 +1,5 @@
 package com.flipkart.controller;
 
-import com.flipkart.application.AdminCRSMenu;
-import com.flipkart.application.ProfessorCRSMenu;
-import com.flipkart.application.StudentCRSMenu;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
@@ -58,7 +55,6 @@ public class UserRestAPI {
 
                 }
                 else if(usr.getRole().name() == "PROFESSOR"){
-                    ProfessorCRSMenu professorCRSMenu  = new ProfessorCRSMenu();
                     Professor st = professorInterface.getProfessorById(usr.getUserID());
                     String msg = "Hello, " + st.getName() + ". You have logged in as professor in: " + LocalDateTime.now();
                     return Response.status(200).entity(msg).build();
