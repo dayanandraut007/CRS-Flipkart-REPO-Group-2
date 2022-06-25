@@ -1,7 +1,6 @@
 package com.flipkart;
 
-import com.flipkart.controller.EmployeeRestController;
-import com.flipkart.controller.HelloController;
+
 import com.flipkart.controller.UserRestAPI;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -26,9 +25,7 @@ public class App extends Application<Configuration> {
     @Override
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
-        e.jersey().register(new EmployeeRestController(e.getValidator()));
         e.jersey().register(new UserRestAPI());
-        e.jersey().register(new HelloController());
 
     }
 
