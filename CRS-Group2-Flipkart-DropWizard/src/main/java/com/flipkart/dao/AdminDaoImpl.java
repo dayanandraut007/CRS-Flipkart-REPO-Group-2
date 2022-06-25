@@ -120,7 +120,27 @@ public class AdminDaoImpl implements  AdminDaoInterface{
      */
     @Override
     public List<Student> viewPendingAdmissions() {
-        return null;
+        statement = null;
+        List<Student> pending = new ArrayList<>();
+        try{
+            String sql = SQLQueriesConstants2.PENDING_STUDENTS_QUERY;
+            statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                Student st = new Student();
+                String studentId = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                String branch = resultSet.getString(3);
+                st.setUserID(studentId);
+                st.setName(name);
+                st.setBranch(branch);
+                pending.add(st);
+            }
+
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
+        return pending;
     }
 
     /**
@@ -159,37 +179,18 @@ public class AdminDaoImpl implements  AdminDaoInterface{
      * Method to approve new students for login
      */
     @Override
-    public void approveStudent() {
+    public void approveStudent(String studentId) {
         statement = null;
         try{
-            String sql = SQLQueriesConstants2.PENDING_STUDENTS_QUERY;
-            statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                String studentId = resultSet.getString(1);
-                String name = resultSet.getString(2);
-                String branch = resultSet.getString(3);
-                System.out.println("The name of Student is: " + name + " and branch is " + branch);
-                System.out.println("Type A for approve and D for Disapprove: ");
-                Scanner sc = new Scanner(System.in);
-                String status = sc.next();
-                if(status.equals("A")){
-                    String sql2 = SQLQueriesConstants2.APPROVE_STUDENTS_QUERY;
-                    statement1 = connection.prepareStatement(sql2);
-                    statement1.setString(1,studentId);
-                    int row = statement1.executeUpdate();
-                    if(row == 0){
-                        System.out.println("Cannot Approve");
-                    }else{
-                        addToUser(studentId,"pass","student");
-                        System.out.println("Approved Successfully");
-                    }
-
-                }else if(status.equals("D")){
-
-                }else{
-                    System.out.println("Wrong Choice");
-                }
+            String sql2 = SQLQueriesConstants2.APPROVE_STUDENTS_QUERY;
+            statement1 = connection.prepareStatement(sql2);
+            statement1.setString(1,studentId);
+            int row = statement1.executeUpdate();
+            if(row == 0){
+                System.out.println("Cannot Approve");
+            }else{
+                addToUser(studentId,"pass","student");
+                System.out.println("Approved Successfully");
             }
 
         }catch(SQLException se){

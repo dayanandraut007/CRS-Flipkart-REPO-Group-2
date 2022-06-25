@@ -7,6 +7,8 @@ import com.flipkart.bean.StudentGrade;
 import com.flipkart.dao.AdminDaoImpl;
 import com.flipkart.dao.AdminDaoInterface;
 
+import com.flipkart.dao.StudentDaoImpl;
+import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.exception.*;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class AdminImpl implements AdminInterface {
 
     CourseInterface courseInterface = new CourseImpl();
     AdminDaoInterface adminDaoInterface = AdminDaoImpl.getInstance();
+    StudentDaoInterface studentDaoInterface = StudentDaoImpl.getInstance();
 
     /**
      * Method to delete course
@@ -71,15 +74,19 @@ public class AdminImpl implements AdminInterface {
      */
     @Override
     public List<Student> viewPendingAdmissions() {
-        return null;
+        return adminDaoInterface.viewPendingAdmissions();
     }
 
     /**
      * Method to approve student for login
      */
     @Override
-    public void approveStudent() {
-        adminDaoInterface.approveStudent();
+    public void approveStudent(String studentId) throws UserNotFoundException {
+        Student st = studentDaoInterface.getStudentById(studentId);
+        if (st==null) {
+            throw new UserNotFoundException(studentId,"student");
+        }
+        adminDaoInterface.approveStudent(studentId);
     }
 
     /**
