@@ -1,7 +1,11 @@
 package com.flipkart;
 
 
+<<<<<<< HEAD
 import com.flipkart.controller.AdminRestAPI;
+=======
+import com.flipkart.controller.ProfessorRestAPI;
+>>>>>>> 7a921664b068554cf059b5e8516fae930fff44dd
 import com.flipkart.controller.UserRestAPI;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -27,8 +31,7 @@ public class App extends Application<Configuration> {
     public void run(Configuration c, Environment e) throws Exception {
         LOGGER.info("Registering REST resources");
         e.jersey().register(new UserRestAPI());
-        e.jersey().register(new AdminRestAPI());
-
+        e.jersey().register(new ProfessorRestAPI());
     }
 
     public static void main(String[] args) throws Exception {
