@@ -7,6 +7,15 @@ public class EnrolledStudent {
     private String courseCode;
     private String courseName;
     private String studentId;
+    private String primary;
+
+    public String getPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(String primary) {
+        this.primary = primary;
+    }
 
     /**
      * Method to get the course code

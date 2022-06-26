@@ -1,9 +1,6 @@
 package com.flipkart.controller;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentGrade;
-import com.flipkart.bean.User;
+import com.flipkart.bean.*;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminImpl;
@@ -12,6 +9,7 @@ import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,6 +29,7 @@ public class StudentRestAPI {
         try
         {
             Student std = studentInterface.register(student.getName(),student.getUserID(),student.getPassword(), "F",student.getBatch(),student.getBranch(),student.getAddress());
+            System.out.println(std.getStudentID());
             return Response.status(200).entity(std).build();
         }
         catch (UserAlreadyExistException e)
@@ -60,9 +59,8 @@ public class StudentRestAPI {
     }
 
     @GET
-    @Path("/getStudent/{id}")
+    @Path("/getstudent/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response getStudentById(@PathParam("id") String studentId) {
         try {
             Student st = studentInterface.getStudentById(studentId);
@@ -92,20 +90,21 @@ public class StudentRestAPI {
     }
 
     @POST
-    @Path("/dropcourse/{sid}/{cid}")
-    public Response dropCourse(@PathParam("sid")String userId, @PathParam("cid") String courseCode)
+    @Path("/delete/course")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response dropCourse(@Valid EnrolledStudent enrolledStudent)
     {
         try
         {
-            if(studentInterface.dropCourse(userId,courseCode))
-                return Response.status(200).entity("Dropped course "+courseCode+" of Student with user ID "+userId+" successfully").build();
+            if(studentInterface.dropCourse(enrolledStudent.getStudentId(),enrolledStudent.getCourseCode()))
+                return Response.status(200).entity("Dropped course "+enrolledStudent.getCourseCode()+" of Student with user ID "+enrolledStudent.getStudentId()+" successfully").build();
             else
-                return Response.status(500).entity("Couldn't drop course "+courseCode).build();
+                return Response.status(500).entity("Couldn't drop course "+enrolledStudent.getCourseCode()).build();
         }
         catch (CourseAlreadyRegisteredException | CourseNotAddedException e)
         {
             e.getMessage();
-            return Response.status(500).entity("Couldn't drop course "+courseCode).build();
+            return Response.status(500).entity(e.getMessage()).build();
         }
     }
 
@@ -160,18 +159,21 @@ public class StudentRestAPI {
     }
 
     @POST
-    @Path("/addcourse/{sid}/{cid}/{isprimary}")
-    public Response addCourse(@PathParam("sid")String studentId, @PathParam("cid")String courseCode, @PathParam("isprimary")String primary) {
+    @Path("/add/course")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addCourse(@Valid EnrolledStudent enrolledStudent) {
         try {
-            if (studentInterface.addCourse(studentId, courseCode, primary)) {
-                Response.status(200).entity("Course code " + courseCode + " added").build();
-            } else {
+            if (studentInterface.addCourse(enrolledStudent.getStudentId(),enrolledStudent.getCourseCode(),enrolledStudent.getPrimary()))
+            {
+                return Response.status(200).entity("Course code " + enrolledStudent.getCourseCode() + " added").build();
+            }
+            else
+            {
                 return Response.status(500).entity("PLEASE TRY AGAIN.").build();
             }
         } catch (Exception e) {
-            return Response.status(500).entity("PLEASE TRY AGAIN.").build();
+            return Response.status(500).entity(e.getMessage()).build();
         }
-        return Response.status(500).entity("PLEASE TRY AGAIN.").build();
     }
     @GET
     @Path("/allcourses")
@@ -191,16 +193,14 @@ public class StudentRestAPI {
     }
 
     @POST
-    @Path("/makepayment")
-    public Response makePayment(@QueryParam("id")String studentId,
-                                @QueryParam("tid") String transactionId,
-                                @QueryParam("mop") String modeOfPayment,
-                                @QueryParam("amt") Float amount)
+    @Path("/add/payment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response makePayment(@Valid Payment payment)
     {
         try
         {
-            if(studentInterface.makePayment(studentId,transactionId,modeOfPayment,amount))
-                return Response.status(200).entity("Payment Successful of student "+studentId).build();
+            if(studentInterface.makePayment(payment.getStudentID(),payment.getTransactionId(),payment.getPaymentMethod(), payment.getAmount()))
+                return Response.status(200).entity("Payment Successful of student "+payment.getStudentID()).build();
             else
                 return Response.status(500).entity("Payment Failed").build();
         }

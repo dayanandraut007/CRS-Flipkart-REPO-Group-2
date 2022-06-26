@@ -23,6 +23,9 @@ public class Payment {
         this.transactionId = transactionId;
     }
 
+    public Payment() {
+    }
+
     /**
      * Method to get payment method
      * @return payment method

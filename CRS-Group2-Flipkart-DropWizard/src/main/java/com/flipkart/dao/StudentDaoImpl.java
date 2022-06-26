@@ -81,6 +81,7 @@ public class StudentDaoImpl implements StudentDaoInterface {
                 System.out.println("Couldn't add the course");
             }
             System.out.println("Added successfully");
+            return stud1;
 
         } catch (SQLException se) {
             se.printStackTrace();
