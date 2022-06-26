@@ -1,13 +1,8 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.User;
-import com.flipkart.constant.Role;
-import com.flipkart.dao.MockData;
 import com.flipkart.dao.UserDaoImpl;
 import com.flipkart.dao.UserDaoInterface;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Implementation for User Service operations

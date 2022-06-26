@@ -26,7 +26,6 @@ public class StudentImpl implements StudentInterface {
     AdminDaoInterface adminDaoInterface = AdminDaoImpl.getInstance();
     NotificationDaoInterface notificationDaoInterface = NotificationDaoImpl.getInstance();
 
-    //-----------------------------------------------------------------
     public StudentImpl() {
         courseInterface = new CourseImpl();
         adminInterface = new AdminImpl();
@@ -38,19 +37,22 @@ public class StudentImpl implements StudentInterface {
      * @param name
      * @param userID
      * @param password
-     * @param gender
      * @param batch
      * @param branch
      * @param address
      * @return student object
      */
     @Override
-    public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) throws UserAlreadyExistException {
+    public Student register(String name, String userID, String password, int batch, String branch, String address) throws UserAlreadyExistException {
+        Student std = studentDaoInterface.getStudentById(userID);
+        if(std!=null){
+            throw new UserAlreadyExistException(userID,"Student");
+        }
         boolean status = adminDaoInterface.findUser(userID);
         if (status) {
             throw new UserAlreadyExistException(userID, "Student");
         }
-        Student stud1 = studentDaoInterface.register(name, userID, password, null, batch, branch, address);
+        Student stud1 = studentDaoInterface.register(name, userID, password, batch, branch, address);
         return stud1;
     }
 

@@ -9,7 +9,6 @@ import java.util.List;
  * Student class
  */
 public class Student extends User{
-    private int studentID;
     private String branch;
     private int batch;
     private boolean isApproved;
@@ -20,7 +19,6 @@ public class Student extends User{
 
     private boolean donePayment;
 
-    private List<String> courses;
     private String address;
 
     /**
@@ -69,7 +67,6 @@ public class Student extends User{
      * @param name
      * @param password
      * @param role
-     * @param studentId
      * @param branch
      * @param batch
      * @param isApproved
@@ -77,34 +74,17 @@ public class Student extends User{
      * @param hasRegistered
      * @param donePayment
      */
-    public Student(String userID, String name, String password, Role role,int studentId,String branch,int batch,
+    public Student(String userID, String name, String password, Role role,String branch,int batch,
                    boolean isApproved,String address,boolean hasRegistered,boolean donePayment) {
         super(userID, name, password,role);
         this.branch = branch;
-        this.studentID = studentId;
         this.batch = batch;
         this.isApproved = isApproved;
         this.address = address;
-        this.courses = new ArrayList<>();
         this.hasRegistered = hasRegistered;
         this.donePayment = donePayment;
     }
 
-    /**
-     * Method to get the student id
-     * @return student id
-     */
-    public int getStudentID() {
-        return studentID;
-    }
-
-    /**
-     * Method to set the student id
-     * @param studentID
-     */
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
-    }
 
 
     /**
@@ -115,21 +95,6 @@ public class Student extends User{
         return branch;
     }
 
-    /**
-     * Method to get courses of the student
-     * @return courses of the student
-     */
-    public List<String> getCourses() {
-        return courses;
-    }
-
-    /**
-     * Method to set courses of the student
-     * @param courses
-     */
-    public void setCourses(List<String> courses) {
-        this.courses = courses;
-    }
 
     /**
      * Method to set branch of the student

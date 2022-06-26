@@ -1,11 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.User;
-import com.flipkart.constant.Role;
-import com.flipkart.dao.MockData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +14,6 @@ import java.util.List;
 
 public class CourseImpl implements  CourseInterface{
 
-    //------------Hardcoded-------------------
-
-    MockData data = MockData.getInstance();
-    //----------------------------------------
 
     /**
      * getCourseById method returns the course details
@@ -32,9 +24,6 @@ public class CourseImpl implements  CourseInterface{
     @Override
     public Course getCourseById(String courseCode) {
 
-        for(Course csr:data.courses){
-            if(csr.getCourseCode().equals(courseCode) ) return csr;
-        }
 
         return null;
     }
@@ -46,7 +35,7 @@ public class CourseImpl implements  CourseInterface{
 
     @Override
     public List<Course> viewAllCourses() {
-        return data.courses;
+        return null;
     }
 
 

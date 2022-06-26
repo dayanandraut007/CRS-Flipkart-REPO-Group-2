@@ -378,7 +378,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         }catch(SQLException se) {
             se.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     /**
@@ -402,6 +402,6 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         }catch(SQLException se) {
             se.printStackTrace();
         }
-        return true;
+        return false;
     }
 }

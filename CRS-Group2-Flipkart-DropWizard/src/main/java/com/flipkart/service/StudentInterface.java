@@ -20,13 +20,12 @@ public interface StudentInterface {
      * @param name
      * @param userID
      * @param password
-     * @param gender
      * @param batch
      * @param branch
      * @param address
      * @return student object
      */
-    public Student register(String name,String userID,String password,String gender,int batch,
+    public Student register(String name,String userID,String password,int batch,
                         String branch,String address) throws UserAlreadyExistException;
     /**
      * Method for Semester Registration

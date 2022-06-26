@@ -48,7 +48,6 @@ public class StudentDaoImpl implements StudentDaoInterface {
      * @param name: name of student
      * @param userID: user Id of student
      * @param password: password of student
-     * @param gender: gender of student
      * @param batch: batch of student
      * @param branch: branch of student
      * @param address: address of student
@@ -57,8 +56,9 @@ public class StudentDaoImpl implements StudentDaoInterface {
      */
 
     @Override
-    public Student register(String name, String userID, String password, String gender, int batch, String branch, String address) {
-        Student stud1 = new Student(userID, name, password, Role.STUDENT, Integer.parseInt(userID), branch, batch, false, address, false, false);
+    public Student register(String name, String userID, String password, int batch,
+                            String branch, String address) {
+        Student stud1 = new Student(userID, name, password, Role.STUDENT, branch, batch, false, address, false, false);
         String sql = SQLQueriesConstants.STUDENT_REGISTRATION_QUERY;
         statement = null;
         try {
@@ -139,17 +139,19 @@ public class StudentDaoImpl implements StudentDaoInterface {
     public Student getStudentById(String userId) {
         String sql = SQLQueriesConstants.GET_STUDENT_BY_ID_QUERY;
         statement = null;
+        Student st = null;
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, userId);
             ResultSet rs = statement.executeQuery();
-            Student st = new Student();
 //            System.out.println(rs);
             if (rs.next()) {
-                st.setStudentID(Integer.parseInt(rs.getString(1)));
+                st = new Student();
+                st.setUserID(rs.getString(1));
                 st.setName(rs.getString(2));
                 st.setBranch(rs.getString(3));
                 st.setBatch(rs.getInt(4));
+                st.setRole(Role.STUDENT);
                 st.setAddress(rs.getString(5));
                 st.setApproved(rs.getBoolean(6));
                 st.setHasRegistered(rs.getBoolean(7));

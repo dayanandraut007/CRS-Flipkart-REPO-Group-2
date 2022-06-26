@@ -7,7 +7,6 @@ package com.flipkart.controller;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentGrade;
 import com.flipkart.exception.CourseAlreadyPresentException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.UserAlreadyExistException;
@@ -55,16 +54,15 @@ public class AdminRestAPI {
     @GET
     @Path("/scorecard/{studentid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<StudentGrade> generateScoreCard(
+    public Response generateScoreCard(
             @NotNull
             @PathParam("studentid") String studentId
     ){
         try {
-            return adminInterface.generateGradeCard(studentId);
+            return Response.status(200).entity(adminInterface.generateGradeCard(studentId)).build();
         }
         catch(UserNotFoundException e){
-            System.out.println(e.getMessage());
-            return null;
+            return Response.status(409).entity(e.getMessage()).build();
         }
     }
 
@@ -94,7 +92,7 @@ public class AdminRestAPI {
         return adminInterface.viewProfessors();
     }
 
-    @PUT
+    @DELETE
     @Path("/delete/course/{coursecode}")
     public Response deleteCourse(
             @NotNull

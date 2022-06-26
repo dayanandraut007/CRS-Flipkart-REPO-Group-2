@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
+import com.flipkart.exception.UserAlreadyExistException;
 
 import java.util.List;
 
@@ -19,13 +20,12 @@ public interface StudentDaoInterface {
      * @param name: name of student
      * @param userID: user Id of student
      * @param password: password of student
-     * @param gender: gender of student
      * @param batch: batch of student
      * @param branch: branch of student
      * @param address: address of student
      * @return student
      */
-    public Student register(String name, String userID, String password, String gender, int batch,
+    public Student register(String name, String userID, String password, int batch,
                             String branch, String address);
 
     /**

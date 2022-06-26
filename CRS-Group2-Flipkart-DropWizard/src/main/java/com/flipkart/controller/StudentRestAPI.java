@@ -1,15 +1,13 @@
 package com.flipkart.controller;
 
 import com.flipkart.bean.*;
-import com.flipkart.constant.Role;
+
 import com.flipkart.exception.*;
-import com.flipkart.service.AdminImpl;
-import com.flipkart.service.AdminInterface;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -28,16 +26,14 @@ public class StudentRestAPI {
     {
         try
         {
-            Student std = studentInterface.register(student.getName(),student.getUserID(),student.getPassword(), "F",student.getBatch(),student.getBranch(),student.getAddress());
-            System.out.println(std.getStudentID());
+            Student std = studentInterface.register(student.getName(),student.getUserID(),student.getPassword(),student.getBatch(),student.getBranch(),student.getAddress());
             return Response.status(200).entity(std).build();
         }
         catch (UserAlreadyExistException e)
         {
-            e.getMessage();
-            Response.status(500).entity(e.getMessage()).build();
+
+            return Response.status(500).entity(e.getMessage()).build();
         }
-        return Response.status(500).entity("REGISTRATION FAILED! PLEASE TRY AGAIN.").build();
     }
 
     @POST
@@ -89,17 +85,21 @@ public class StudentRestAPI {
         }
     }
 
-    @POST
+    @DELETE
     @Path("/delete/course")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response dropCourse(@Valid EnrolledStudent enrolledStudent)
+    public Response dropCourse(
+            @NotNull
+            @QueryParam("studentid") String studentId,
+            @NotNull
+            @QueryParam("coursecode") String courseCode)
     {
         try
         {
-            if(studentInterface.dropCourse(enrolledStudent.getStudentId(),enrolledStudent.getCourseCode()))
-                return Response.status(200).entity("Dropped course "+enrolledStudent.getCourseCode()+" of Student with user ID "+enrolledStudent.getStudentId()+" successfully").build();
+            if(studentInterface.dropCourse(studentId,courseCode))
+                return Response.status(200).entity("Dropped course "+courseCode+" of Student with user ID "+studentId+" successfully").build();
             else
-                return Response.status(500).entity("Couldn't drop course "+enrolledStudent.getCourseCode()).build();
+                return Response.status(500).entity("Couldn't drop course "+courseCode).build();
         }
         catch (CourseAlreadyRegisteredException | CourseNotAddedException e)
         {

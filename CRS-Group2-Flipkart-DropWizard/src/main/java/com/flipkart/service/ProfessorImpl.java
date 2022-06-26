@@ -1,7 +1,6 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.*;
-import com.flipkart.dao.MockData;
 import com.flipkart.dao.ProfessorDaoImpl;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.exception.CourseNotAssignedToProfessorException;
@@ -21,12 +20,6 @@ import java.util.List;
 
 public class ProfessorImpl implements ProfessorInterface {
 
-    //----------HARD CODED------------------
-    MockData data = MockData.getInstance();
-
-
-
-    //-------------------------------------
 
     ProfessorDaoInterface professorDaoInterface = ProfessorDaoImpl.getInstance();
 
