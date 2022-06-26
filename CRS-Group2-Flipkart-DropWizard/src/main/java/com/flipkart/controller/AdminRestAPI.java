@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.ws.RequestWrapper;
 import java.util.List;
 
 @Path("/admin")
@@ -30,7 +29,7 @@ public class AdminRestAPI {
     AdminInterface adminInterface = new AdminImpl();
 
     @POST
-    @Path("/addCourse")
+    @Path("/add/course")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addCourse(@Valid Course course) throws ValidationException {
         try
@@ -45,7 +44,7 @@ public class AdminRestAPI {
     }
 
     @GET
-    @Path("/viewAllCourses")
+    @Path("/courses")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewAllCourses() {
 
@@ -54,11 +53,11 @@ public class AdminRestAPI {
     }
 
     @GET
-    @Path("/generateScoreCard")
+    @Path("/scorecard/{studentid}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<StudentGrade> generateScoreCard(
             @NotNull
-            @QueryParam("studentId") String studentId
+            @PathParam("studentid") String studentId
     ){
         try {
             return adminInterface.generateGradeCard(studentId);
@@ -70,7 +69,7 @@ public class AdminRestAPI {
     }
 
     @POST
-    @Path("/addProfessor")
+    @Path("/add/professor")
     @Consumes("application/json")
     public Response addProfessor(@Valid Professor professor) throws ValidationException{
 
@@ -88,7 +87,7 @@ public class AdminRestAPI {
     }
 
     @GET
-    @Path("/viewProfessors")
+    @Path("/professors")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Professor> viewProfessors() {
 
@@ -96,10 +95,10 @@ public class AdminRestAPI {
     }
 
     @PUT
-    @Path("/deleteCourse")
+    @Path("/delete/course/{coursecode}")
     public Response deleteCourse(
             @NotNull
-            @QueryParam("courseCode") String courseCode) throws ValidationException{
+            @PathParam("coursecode") String courseCode) throws ValidationException{
 
         try {
 
@@ -114,7 +113,7 @@ public class AdminRestAPI {
     }
 
     @GET
-    @Path("/viewPendingAdmissions")
+    @Path("/pendingadmissions")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Student> viewPendingAdmissions() {
         //System.out.println(ls.size());
@@ -123,10 +122,10 @@ public class AdminRestAPI {
     }
 
     @PUT
-    @Path("/approveStudent")
+    @Path("/approve/student/{studentid}")
     public Response approveStudent(
             @NotNull
-            @QueryParam("userId") String studentId) throws ValidationException{
+            @PathParam("studentid") String studentId) throws ValidationException{
 
         try {
 
