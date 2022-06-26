@@ -11,6 +11,7 @@ import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.StudentImpl;
 import com.flipkart.service.StudentInterface;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -97,4 +98,23 @@ public class StudentRestAPI {
     {
         return null;
     }
+
+    @POST
+    @Path("/addcourse/{sid}/{cid}/{isprimary}")
+    public Response addCourse(@PathParam("sid")String studentId, @PathParam("cid")String courseCode, @PathParam("isprimary")String primary)
+    {
+        try{
+            if(studentInterface.addCourse(studentId, courseCode, primary)) {
+                Response.status(200).entity("Course code "+courseCode+" added").build();
+            }
+            else {
+                return Response.status(500).entity("PLEASE TRY AGAIN.").build();
+            }
+        }
+        catch (Exception e) {
+            return Response.status(500).entity("PLEASE TRY AGAIN.").build();
+        }
+        return Response.status(500).entity("PLEASE TRY AGAIN.").build();
+    }
+
 }
