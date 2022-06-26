@@ -36,7 +36,7 @@ public class StudentRestAPI {
         try
         {
             Student std = studentInterface.register(student.getName(),student.getUserID(),student.getPassword(), "F",student.getBatch(),student.getBranch(),student.getAddress());
-            return Response.ok(std).build();
+            return Response.status(200).entity(std).build();
         }
         catch (UserAlreadyExistException e)
         {
@@ -48,15 +48,12 @@ public class StudentRestAPI {
 
     @POST
     @Path("/registration")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public Response semesterRegistration(@QueryParam("id") String userId)
     {
-        System.out.println("ID="+userId);
         try
         {
             if(studentInterface.semesterRegistration(userId)) {
-                return Response.status(200).entity(userId).build();
+                return Response.status(200).entity("Semester Registration of "+userId+" is successful").build();
             }
         }
         catch (PaymentFailedException | SemesterRegistrationException e)
@@ -67,5 +64,28 @@ public class StudentRestAPI {
         return Response.status(500).entity("SEMESTER REGISTRATION FAILED! PLEASE TRY AGAIN.").build();
     }
 
+    @GET
+    @Path("/approved/{id}")
+    public Response isApproved(@PathParam("id") String userId)
+    {
+        try
+        {
+            if(studentInterface.isApproved(userId))
+                return Response.status(200).entity("Student with user ID "+userId+" is Approved").build();
+            else
+                return Response.status(200).entity("Student with user ID "+userId+" is not Approved").build();
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+            return Response.status(500).entity("PLEASE TRY AGAIN.").build();
+        }
+    }
 
+    @POST
+    @Path("/dropcourse/{sid}/{cid}")
+    public Response dropCourse(@PathParam("sid")String studentId, @PathParam("cid") String courseCode)
+    {
+        return null;
+    }
 }
