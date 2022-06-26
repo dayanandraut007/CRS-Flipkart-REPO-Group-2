@@ -1,6 +1,7 @@
 package com.flipkart.controller;
 
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.PaymentFailedException;
 import com.flipkart.exception.SemesterRegistrationException;
@@ -66,6 +67,17 @@ public class StudentRestAPI {
         }
         return Response.status(500).entity("SEMESTER REGISTRATION FAILED! PLEASE TRY AGAIN.").build();
     }
-
-
+    @GET
+    @Path("/getStudent/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getStudentById(@PathParam("id") String studentId) {
+        try {
+            Student st = studentInterface.getStudentById(studentId);
+            return Response.status(200).entity(st).build();
+        }
+        catch (UserNotFoundException e) {
+            return Response.status(500).entity("Fetch student FAILED! PLEASE TRY AGAIN.").build();
+        }
+    }
 }
