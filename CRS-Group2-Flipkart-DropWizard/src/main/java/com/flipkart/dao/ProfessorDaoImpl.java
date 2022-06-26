@@ -149,7 +149,8 @@ public class ProfessorDaoImpl implements ProfessorDaoInterface{
                 course.setCourseCode(resultSet.getString(1));
                 course.setName(resultSet.getString(2));
 //                course.setCourseName(resultSet.getString(2));
-//               course.setInstructorId(resultSet.getString(3));
+                course.setIsOffered(true);
+               course.setInstructor(resultSet.getString(3));
 
                 teachingCourses.add(course);
             }

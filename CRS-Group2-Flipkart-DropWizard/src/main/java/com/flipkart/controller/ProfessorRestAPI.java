@@ -10,12 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,16 +32,16 @@ public class ProfessorRestAPI {
     ProfessorInterface professorInterface = new ProfessorImpl();
 
     @GET
-    @Path("/viewAssignedStudents")
+    @Path("/assignedstudents/{profid}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<EnrolledStudent> viewAssignedStudents(
             @NotNull
-            @QueryParam("profId") String profId) throws ValidationException	{
+            @PathParam("profid") String profid) throws ValidationException	{
 
         List<EnrolledStudent> students=new ArrayList<EnrolledStudent>();
         try
         {
-            students=professorInterface.viewAssignedStudents(profId);
+            students=professorInterface.viewAssignedStudents(profid);
         }
         catch(Exception ex)
         {
@@ -57,16 +52,16 @@ public class ProfessorRestAPI {
     }
 
     @GET
-    @Path("/viewTeachingCourses")
+    @Path("/assignedcourses/{profid}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewTeachingCourses(
             @NotNull
-            @QueryParam("profId") String profId) throws ValidationException	{
+            @PathParam("profid") String profid) throws ValidationException	{
 
         List<Course> courses;
         try
         {
-            courses=professorInterface.viewTeachingCourses(profId);
+            courses=professorInterface.viewTeachingCourses(profid);
         }
         catch(Exception ex)
         {
@@ -77,21 +72,21 @@ public class ProfessorRestAPI {
     }
 
     @POST
-    @Path("/addGrade")
+    @Path("/add/grade/{profid}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addGrade(
             @Valid StudentGrade grade,
             @NotNull
-            @QueryParam("profId") String profId
+            @PathParam("profid") String profid
             ) throws ValidationException  	{
 
         try
         {
 
-            boolean temp = professorInterface.addGrade(profId, grade.getCourseCode(), grade.getStudentID(),  grade.getGrade().toString());
+            boolean temp = professorInterface.addGrade(profid, grade.getCourseCode(), grade.getStudentID(),  grade.getGrade().toString());
             if(!temp)
             {
-                System.out.println("SOMETHING WENT WRONG! PLEASE TRY AGAIN.");
+                //System.out.println("SOMETHING WENT WRONG! PLEASE TRY AGAIN.");
                 return Response.status(500).entity("SOMETHING WENT WRONG! PLEASE TRY AGAIN.").build();
             }
 
