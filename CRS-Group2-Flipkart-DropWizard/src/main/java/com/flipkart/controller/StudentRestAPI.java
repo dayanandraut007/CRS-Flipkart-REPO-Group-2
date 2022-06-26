@@ -50,7 +50,7 @@ public class StudentRestAPI {
                 return Response.status(200).entity("Semester Registration of "+userId+" is successful").build();
             }
         }
-        catch (PaymentFailedException | SemesterRegistrationException e)
+        catch (PaymentFailedException | SemesterRegistrationException | StudentAlreadyRegisteredException e)
         {
             e.getMessage();
             return Response.status(500).entity("SEMESTER REGISTRATION FAILED! PLEASE TRY AGAIN.").build();
@@ -118,9 +118,8 @@ public class StudentRestAPI {
             List<String> registeredCourses = studentInterface.viewRegisteredCourses(userId);
             return Response.status(200).entity(registeredCourses).build();
         }
-        catch (Exception e)
+        catch (StudentNotRegisteredException e)
         {
-            e.getMessage();
             return Response.status(500).entity(e.getMessage()).build();
         }
     }
@@ -204,7 +203,7 @@ public class StudentRestAPI {
             else
                 return Response.status(500).entity("Payment Failed").build();
         }
-        catch(CourseLimitException | PaymentFailedException e)
+        catch(CourseLimitException | PaymentFailedException | PaymentAlreadyDoneException e)
         {
             return Response.status(500).entity(e.getMessage()).build();
         }

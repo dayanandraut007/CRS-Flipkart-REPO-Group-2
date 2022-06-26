@@ -62,12 +62,15 @@ public class StudentImpl implements StudentInterface {
      * @throws SemesterRegistrationException
      */
     @Override
-    public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException {
+    public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException,StudentAlreadyRegisteredException {
         Student std = studentDaoInterface.getStudentById(userId);
         if (!std.isDonePayment()) {
             System.out.println("Kindly perform payment of fess to proceed to registration");
             throw new PaymentFailedException("Failed to register because payment is pending");
 
+        }
+        if(std.isHasRegistered()){
+            throw new StudentAlreadyRegisteredException("Already Registered");
         }
         boolean status = studentDaoInterface.semesterRegistration(userId);
         if (!status) {
@@ -115,10 +118,14 @@ public class StudentImpl implements StudentInterface {
      * @throws CourseAlreadyPresentException
      */
     @Override
-    public boolean addCourse(String userId, String courseCode, String primary) throws CourseAlreadyRegisteredException,CourseNotFoundException,CourseAlreadyPresentException {
+    public boolean addCourse(String userId, String courseCode, String primary) throws CourseAlreadyRegisteredException,CourseNotFoundException,CourseAlreadyPresentException,CourseLimitException {
         Student std = studentDaoInterface.getStudentById(userId);
         if (std.isHasRegistered()) {
-            throw new CourseAlreadyRegisteredException();
+            throw new CourseAlreadyRegisteredException("Already Registered.Add/Drop not allowed now");
+        }
+        List<List<String>>  regCourses = studentDaoInterface.viewAddedCourses(userId);
+        if(regCourses.size() >=6){
+            throw new CourseLimitException("6 courses already registered. Can't add more. Drop a course to add new");
         }
         boolean status = adminDaoInterface.findCourse(courseCode);
         if(!status){
@@ -143,7 +150,7 @@ public class StudentImpl implements StudentInterface {
     public boolean dropCourse(String userId, String courseCode) throws CourseAlreadyRegisteredException,CourseNotAddedException {
         Student std = studentDaoInterface.getStudentById(userId);
         if (std.isHasRegistered()) {
-            throw new CourseAlreadyRegisteredException();
+            throw new CourseAlreadyRegisteredException("Already Registered.Add/Drop not allowed now");
 
         }
         if(!studentDaoInterface.courseNotAdded(userId,courseCode)){
@@ -158,7 +165,11 @@ public class StudentImpl implements StudentInterface {
      * @return list of registered courses
      */
     @Override
-    public List<String> viewRegisteredCourses(String userId) {
+    public List<String> viewRegisteredCourses(String userId) throws StudentNotRegisteredException {
+        Student std = studentDaoInterface.getStudentById(userId);
+        if (!std.isHasRegistered()) {
+            throw new StudentNotRegisteredException("Registration not completed. You can view your added courses in View Added Courses section");
+        }
         return studentDaoInterface.viewRegisteredCourses(userId);
     }
 
@@ -168,7 +179,11 @@ public class StudentImpl implements StudentInterface {
      * @return list of grades
      */
     @Override
-    public List<StudentGrade> viewGradeCard(String userId) {
+    public List<StudentGrade> viewGradeCard(String userId) throws StudentNotRegisteredException{
+        Student std = studentDaoInterface.getStudentById(userId);
+        if (!std.isHasRegistered()) {
+            throw new StudentNotRegisteredException("Registration not completed.");
+        }
         return studentDaoInterface.viewGradeCard(userId);
     }
 
@@ -202,7 +217,14 @@ public class StudentImpl implements StudentInterface {
      * @throws PaymentFailedException
      */
     @Override
-    public boolean makePayment(String studentId, String transactionId, String modeOfPayment, float amount) throws CourseLimitException, PaymentFailedException {
+    public boolean makePayment(String studentId, String transactionId, String modeOfPayment, float amount) throws CourseLimitException, PaymentFailedException,PaymentAlreadyDoneException {
+        Student std = studentDaoInterface.getStudentById(studentId);
+        if (std.isDonePayment() && std.isHasRegistered()) {
+            throw new PaymentAlreadyDoneException("Payment and Registration done");
+        }
+        if(std.isDonePayment()){
+            throw new PaymentAlreadyDoneException("Payment already done. Proceed to Register");
+        }
         boolean st = studentDaoInterface.checkRegistrationEligibility(studentId);
         if (!st) {
             System.out.println("Courses not eligible.");

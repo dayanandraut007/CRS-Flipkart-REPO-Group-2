@@ -35,7 +35,7 @@ public interface StudentInterface {
      * @throws PaymentFailedException
      * @throws SemesterRegistrationException
      */
-    public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException;
+    public boolean semesterRegistration(String userId) throws PaymentFailedException, SemesterRegistrationException,StudentAlreadyRegisteredException;
     /**
      * Method to fetch student by Student ID
      * @param studentId : Student Id
@@ -59,7 +59,7 @@ public interface StudentInterface {
      * @throws CourseNotFoundException
      * @throws CourseAlreadyPresentException
      */
-    public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyRegisteredException, CourseNotFoundException,CourseAlreadyPresentException;
+    public boolean addCourse(String userId, String courseCode,String primary) throws CourseAlreadyRegisteredException, CourseNotFoundException,CourseAlreadyPresentException,CourseLimitException;
     /**
      * Method to drop Course from Registration
      * @param userId
@@ -75,13 +75,13 @@ public interface StudentInterface {
      * @param userId
      * @return list of courses
      */
-    List<String> viewRegisteredCourses(String userId);
+    List<String> viewRegisteredCourses(String userId) throws StudentNotRegisteredException;
     /**
      * Method to view Report Card
      * @param userId
      * @return list of grades
      */
-    public List<StudentGrade> viewGradeCard(String userId);
+    public List<StudentGrade> viewGradeCard(String userId) throws  StudentNotRegisteredException;
     /**
      * Method to view all added Courses
      * @param userId
@@ -103,7 +103,7 @@ public interface StudentInterface {
      * @throws CourseLimitException
      * @throws PaymentFailedException
      */
-    public boolean makePayment(String studentId,String transactionId,String modeOfPayment,float amount) throws CourseLimitException, PaymentFailedException;
+    public boolean makePayment(String studentId,String transactionId,String modeOfPayment,float amount) throws CourseLimitException, PaymentFailedException,PaymentAlreadyDoneException;
 
 
 }
