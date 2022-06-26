@@ -21,12 +21,6 @@ import javax.ws.rs.core.Response;
 @Path("/student")
 public class StudentRestAPI {
 
-    @GET
-    @Path("/details")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getEmployees() {
-        return "my dropwizard service";
-    }
     StudentInterface studentInterface = new StudentImpl();
     @POST
     @Path("/register")
