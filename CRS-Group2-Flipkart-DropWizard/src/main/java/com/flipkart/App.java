@@ -4,6 +4,7 @@ package com.flipkart;
 
 import com.flipkart.controller.AdminRestAPI;
 import com.flipkart.controller.ProfessorRestAPI;
+import com.flipkart.controller.StudentRestAPI;
 import com.flipkart.controller.UserRestAPI;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
@@ -30,6 +31,7 @@ public class App extends Application<Configuration> {
         LOGGER.info("Registering REST resources");
         e.jersey().register(new UserRestAPI());
         e.jersey().register(new ProfessorRestAPI());
+        e.jersey().register(new StudentRestAPI());
         e.jersey().register(new AdminRestAPI());
     }
 
