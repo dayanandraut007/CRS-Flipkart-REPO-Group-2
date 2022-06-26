@@ -12,7 +12,6 @@ import java.util.Date;
 public class Professor extends User{
 
 
-    private int professorId;
     private String department;
     private String designation;
 
@@ -68,16 +67,14 @@ public class Professor extends User{
      * @param name
      * @param password
      * @param role
-     * @param professorId
      * @param department
      * @param gender
      * @param designation
      * @param dateOfJoining
      * @param address
      */
-    public Professor(String userID, String name, String password, Role role,int professorId,String department,Gender gender,String designation,Date dateOfJoining,String address) {
+    public Professor(String userID, String name, String password, Role role,String department,Gender gender,String designation,Date dateOfJoining,String address) {
         super(userID, name, password, role);
-        this.professorId = professorId;
         this.department = department;
         this.designation = designation;
         this.dateOfJoining = dateOfJoining;
@@ -132,22 +129,6 @@ public class Professor extends User{
      */
     public void setDateOfJoining(Date dateOfJoining) {
         this.dateOfJoining = dateOfJoining;
-    }
-
-    /**
-     * Method to get the professor id
-     * @return professor id
-     */
-    public int getProfessorId() {
-        return professorId;
-    }
-
-    /**
-     * Method to set the professor id
-     * @param professorId
-     */
-    public void setProfessorId(int professorId) {
-        this.professorId = professorId;
     }
 
 

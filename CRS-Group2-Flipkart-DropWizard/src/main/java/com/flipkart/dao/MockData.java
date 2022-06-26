@@ -57,31 +57,31 @@ public class MockData {
 //        grade.add(studentGrade2);
 
 
-        Professor professor1 = new Professor("007","daya", "pass", Role.PROFESSOR, 7, "CSE", Gender.MALE, "Professor", new Date(),"Nepal");
-        professors.add(professor1);
-
-        enrolledStudent = new ArrayList<>();
-
-        enrolledStudent2 = new ArrayList<>();
-
-
+//        Professor professor1 = new Professor("007","daya", "pass", Role.PROFESSOR, 7, "CSE", Gender.MALE, "Professor", new Date(),"Nepal");
+//        professors.add(professor1);
+//
+//        enrolledStudent = new ArrayList<>();
+//
+//        enrolledStudent2 = new ArrayList<>();
 
 
 
-        Course course1 = new Course("C001","Operating System",true,"daya","NA",10,new ArrayList<>());
-        Course course2 = new Course("C002","System Design",true,"daya","NA",9,new ArrayList<>());
-        Course course3 = new Course("C003","DSA",true,"XYZ","NA",8,new ArrayList<>());
-        Course course4 = new Course("C004","OOP",false,"XYZ","NA",8,new ArrayList<>());
-        Course course5 = new Course("C005","JAVA",false,"ABC","NA",7,new ArrayList<>());
-        Course course6 = new Course("C006","C++",true,"MNP","NA",8,new ArrayList<>());
-        Course course7 = new Course("C007","Python",true,"MNP","NA",10,new ArrayList<>());
-        courses.add(course1);
-        courses.add(course2);
-        courses.add(course3);
-        courses.add(course4);
-        courses.add(course5);
-        courses.add(course6);
-        courses.add(course7);
+
+
+//        Course course1 = new Course("C001","Operating System",true,"daya","NA",10,new ArrayList<>());
+//        Course course2 = new Course("C002","System Design",true,"daya","NA",9,new ArrayList<>());
+//        Course course3 = new Course("C003","DSA",true,"XYZ","NA",8,new ArrayList<>());
+//        Course course4 = new Course("C004","OOP",false,"XYZ","NA",8,new ArrayList<>());
+//        Course course5 = new Course("C005","JAVA",false,"ABC","NA",7,new ArrayList<>());
+//        Course course6 = new Course("C006","C++",true,"MNP","NA",8,new ArrayList<>());
+//        Course course7 = new Course("C007","Python",true,"MNP","NA",10,new ArrayList<>());
+//        courses.add(course1);
+//        courses.add(course2);
+//        courses.add(course3);
+//        courses.add(course4);
+//        courses.add(course5);
+//        courses.add(course6);
+//        courses.add(course7);
 
 
     }
