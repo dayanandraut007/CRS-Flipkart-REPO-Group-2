@@ -1,12 +1,11 @@
 package com.flipkart.controller;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.StudentGrade;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Role;
-import com.flipkart.exception.PaymentFailedException;
-import com.flipkart.exception.SemesterRegistrationException;
-import com.flipkart.exception.UserAlreadyExistException;
-import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.exception.*;
 import com.flipkart.service.AdminImpl;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.StudentImpl;
@@ -15,7 +14,7 @@ import com.flipkart.service.StudentInterface;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import java.util.List;
 
 
 @Path("/student")
@@ -42,8 +41,8 @@ public class StudentRestAPI {
     }
 
     @POST
-    @Path("/registration")
-    public Response semesterRegistration(@QueryParam("id") String userId)
+    @Path("/registration/{id}")
+    public Response semesterRegistration(@PathParam("id") String userId)
     {
         try
         {
@@ -93,8 +92,107 @@ public class StudentRestAPI {
 
     @POST
     @Path("/dropcourse/{sid}/{cid}")
-    public Response dropCourse(@PathParam("sid")String studentId, @PathParam("cid") String courseCode)
+    public Response dropCourse(@PathParam("sid")String userId, @PathParam("cid") String courseCode)
     {
-        return null;
+        try
+        {
+            if(studentInterface.dropCourse(userId,courseCode))
+                return Response.status(200).entity("Dropped course "+courseCode+" of Student with user ID "+userId+" successfully").build();
+            else
+                return Response.status(500).entity("Couldn't drop course "+courseCode).build();
+        }
+        catch (CourseAlreadyRegisteredException | CourseNotAddedException e)
+        {
+            e.getMessage();
+            return Response.status(500).entity("Couldn't drop course "+courseCode).build();
+        }
     }
+
+    @GET
+    @Path("/registeredcourses/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response viewRegisteredCourses(@PathParam("id") String userId)
+    {
+        try
+        {
+            List<String> registeredCourses = studentInterface.viewRegisteredCourses(userId);
+            return Response.status(200).entity(registeredCourses).build();
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/gradecard/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response viewGradeCard(@PathParam("id") String userId)
+    {
+        try
+        {
+            List<StudentGrade> registeredCourses = studentInterface.viewGradeCard(userId);
+            return Response.status(200).entity(registeredCourses).build();
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+    }
+    @GET
+    @Path("/addedcourses/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response viewAddedCourses(@PathParam("id") String userId)
+    {
+        try
+        {
+            List<List<String>> addedCourses = studentInterface.viewAddedCourses(userId);
+            return Response.status(200).entity(addedCourses).build();
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+    }
+
+    @GET
+    @Path("/allcourses")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response viewAllCourses()
+    {
+        try
+        {
+            List<Course> allCourses = studentInterface.viewAllCourses();
+            return Response.status(200).entity(allCourses).build();
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+    }
+
+    @POST
+    @Path("/makepayment")
+    public Response makePayment(@QueryParam("id")String studentId,
+                                @QueryParam("tid") String transactionId,
+                                @QueryParam("mop") String modeOfPayment,
+                                @QueryParam("amt") Float amount)
+    {
+        try
+        {
+            if(studentInterface.makePayment(studentId,transactionId,modeOfPayment,amount))
+                return Response.status(200).entity("Payment Successful of student "+studentId).build();
+            else
+                return Response.status(500).entity("Payment Failed").build();
+        }
+        catch(CourseLimitException | PaymentFailedException e)
+        {
+            return Response.status(500).entity(e.getMessage()).build();
+        }
+    }
+
 }
