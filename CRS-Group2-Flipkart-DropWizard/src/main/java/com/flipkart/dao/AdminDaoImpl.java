@@ -4,9 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentGrade;
-import com.flipkart.constant.Grade;
-import com.flipkart.constant.SQLQueriesConstants;
-import com.flipkart.constant.SQLQueriesConstants2;
+import com.flipkart.constant.*;
 import com.flipkart.utils.DBUtils;
 
 import java.sql.Connection;
@@ -265,8 +263,8 @@ public class AdminDaoImpl implements  AdminDaoInterface{
                 Course course = new Course();
                 course.setCourseCode(resultSet.getString(1));
                 course.setName(resultSet.getString(2));
-//                course.setCourseName(resultSet.getString(2));
-//                course.setInstructorId(resultSet.getString(3));
+                course.setInstructor(resultSet.getString(3));
+                course.setIsOffered(true);
                 course.setSeats(resultSet.getInt(5));
                 courseList.add(course);
 
@@ -298,9 +296,11 @@ public class AdminDaoImpl implements  AdminDaoInterface{
                 Professor professor = new Professor();
                 professor.setUserID(resultSet.getString(1));
                 professor.setName(resultSet.getString(2));
-//                course.setCourseName(resultSet.getString(2));
-//                course.setInstructorId(resultSet.getString(3));
+                professor.setRole(Role.PROFESSOR);
+                professor.setAddress(resultSet.getString(7));
                 professor.setDepartment(resultSet.getString(3));
+                professor.setDesignation(resultSet.getString(4));
+                professor.setGender(Gender.valueOf(resultSet.getString(5)));
                 professorList.add(professor);
 
             }

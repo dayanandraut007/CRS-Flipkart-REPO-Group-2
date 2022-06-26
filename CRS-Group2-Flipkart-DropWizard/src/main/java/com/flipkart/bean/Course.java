@@ -14,14 +14,13 @@ public class Course {
     private String prerequisites;
     private int seats = 10;
 
-    private List<Student> enrolled;
 
     /**
      * Default constructor
      */
     public Course()
     {
-        this.enrolled = new ArrayList<>();
+
     }
 
     /**
@@ -32,9 +31,8 @@ public class Course {
      * @param instructor: instructor of the course
      * @param prerequisites: prerequisites for the cours
      * @param seats: number of seats available
-     * @param enrolled: boolean
      */
-    public Course(String courseCode, String name, boolean isOffered, String instructor, String prerequisites, int seats, List<Student> enrolled) {
+    public Course(String courseCode, String name, boolean isOffered, String instructor, String prerequisites, int seats) {
 
         this.courseCode = courseCode;
         this.name = name;
@@ -42,7 +40,6 @@ public class Course {
         this.instructor = instructor;
         this.prerequisites = prerequisites;
         this.seats = seats;
-        this.enrolled = enrolled;
     }
 
     /**
@@ -53,21 +50,6 @@ public class Course {
         return courseCode;
     }
 
-    /**
-     * Method to get enrolled students
-     * @return boolean value whether the student is enrolled or not
-     */
-    public List<Student> getEnrolled() {
-        return enrolled;
-    }
-
-    /**
-     * Method to set enrolled
-     * @param enrolled
-     */
-    public void setEnrolled(List<Student> enrolled) {
-        this.enrolled = enrolled;
-    }
 
     /**
      * Method to set course code
