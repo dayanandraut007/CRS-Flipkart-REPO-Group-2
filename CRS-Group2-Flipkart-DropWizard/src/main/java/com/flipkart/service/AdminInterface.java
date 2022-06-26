@@ -50,7 +50,7 @@ public interface AdminInterface {
     /**
      * Method to approve student for login
      */
-    public void approveStudent();
+    public void approveStudent(String studentId) throws UserNotFoundException;
 
     /**
      * Method to add Professor

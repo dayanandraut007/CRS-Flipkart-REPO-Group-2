@@ -30,7 +30,7 @@ public class Course {
      * @param name: course name
      * @param isOffered: boolean
      * @param instructor: instructor of the course
-     * @param prerequisites: prerequisites for the course
+     * @param prerequisites: prerequisites for the cours
      * @param seats: number of seats available
      * @param enrolled: boolean
      */

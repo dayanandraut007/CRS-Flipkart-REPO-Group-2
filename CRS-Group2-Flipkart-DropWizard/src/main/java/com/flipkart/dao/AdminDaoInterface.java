@@ -40,7 +40,7 @@ public interface AdminDaoInterface {
     /**
      * Method to approve new students for login
      */
-    public void approveStudent();
+    public void approveStudent(String studentId);
 
     /**
      * Method to add new professor

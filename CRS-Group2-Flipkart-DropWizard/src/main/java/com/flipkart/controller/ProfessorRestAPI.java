@@ -4,6 +4,7 @@ package com.flipkart.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -18,6 +19,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.flipkart.bean.StudentGrade;
+import com.flipkart.constant.Grade;
 import com.flipkart.exception.CourseNotAssignedToProfessorException;
 import com.flipkart.exception.StudentCourseNotMatchedException;
 import org.hibernate.validator.constraints.Email;
@@ -60,7 +63,7 @@ public class ProfessorRestAPI {
             @NotNull
             @QueryParam("profId") String profId) throws ValidationException	{
 
-        List<Course> courses=new ArrayList<Course>();
+        List<Course> courses;
         try
         {
             courses=professorInterface.viewTeachingCourses(profId);
@@ -77,28 +80,15 @@ public class ProfessorRestAPI {
     @Path("/addGrade")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addGrade(
+            @Valid StudentGrade grade,
             @NotNull
-            @Min(value = 1, message = "Student ID should not be less than 1")
-            @Max(value = 9999, message = "Student ID should be less than 10000")
-            @QueryParam("studentId") int studentId,
-
-            @NotNull
-            @Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
-            @QueryParam("courseCode") String courseCode,
-
-            @NotNull
-            @Email(message = "Invalid Professor ID: Not in email format")
-            @QueryParam("profId") String profId,
-
-            @QueryParam("grade") String grade) throws ValidationException  	{
+            @QueryParam("profId") String profId
+            ) throws ValidationException  	{
 
         try
         {
-            List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
-            enrolledStudents=professorInterface.viewAssignedStudents(profId);
-            List<Course> coursesEnrolled=new ArrayList<Course>();
-            coursesEnrolled	=professorInterface.viewTeachingCourses(profId);
-            boolean temp = professorInterface.addGrade(profId, courseCode, String.valueOf(studentId),  grade);
+
+            boolean temp = professorInterface.addGrade(profId, grade.getCourseCode(), grade.getStudentID(),  grade.getGrade().toString());
             if(!temp)
             {
                 System.out.println("SOMETHING WENT WRONG! PLEASE TRY AGAIN.");
@@ -107,16 +97,12 @@ public class ProfessorRestAPI {
 
 
         }
-        catch(CourseNotAssignedToProfessorException ex)
+        catch(CourseNotAssignedToProfessorException | StudentCourseNotMatchedException ex)
         {
             return Response.status(500).entity(ex.getMessage()).build();
         }
-        catch(StudentCourseNotMatchedException exp)
-        {
-            return Response.status(500).entity(exp.getMessage()).build();
-        }
 
-        return Response.status(200).entity( "Grade updated for student: "+studentId).build();
+        return Response.status(200).entity( "Grade updated for student: "+grade.getStudentID()).build();
 
     }
 

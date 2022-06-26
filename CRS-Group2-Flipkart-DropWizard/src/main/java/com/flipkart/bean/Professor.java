@@ -1,5 +1,6 @@
 package com.flipkart.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.flipkart.constant.Gender;
 import com.flipkart.constant.Role;
 
@@ -14,6 +15,8 @@ public class Professor extends User{
     private int professorId;
     private String department;
     private String designation;
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date dateOfJoining;
     private Gender gender;
 
