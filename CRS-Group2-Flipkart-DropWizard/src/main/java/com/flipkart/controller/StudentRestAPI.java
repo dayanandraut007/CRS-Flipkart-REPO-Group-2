@@ -133,8 +133,8 @@ public class StudentRestAPI {
     {
         try
         {
-            List<StudentGrade> registeredCourses = studentInterface.viewGradeCard(userId);
-            return Response.status(200).entity(registeredCourses).build();
+            List<StudentGrade> gradeCards = studentInterface.viewGradeCard(userId);
+            return Response.status(200).entity(gradeCards).build();
         }
         catch (Exception e)
         {
