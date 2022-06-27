@@ -1,0 +1,17 @@
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+#files
+/src/main/java/com/flipkart/bean/Employee.java
+/src/main/java/com/flipkart/controller/EmployeeRestController.java
+/src/main/java/com/flipkart/controller/HelloController.java
+/src/main/java/com/flipkart/dao/EmployeeDB.java
+/src/main/java/com/flipkart/application/
